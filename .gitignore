@@ -1,0 +1,16 @@
+# Pomoćne datoteke LaTeX-a
+*.aux
+
+*.lof
+*.log
+
+*.lot
+
+*.out
+
+*.synctex.gz
+
+*.toc
+
+# Da se ne update-aju PDF-ovi koje generiramo iz LaTeX-a prije završne verzije za predaju
+Dokumentacija/*.pdf
