@@ -1,118 +1,88 @@
 \chapter{Opis projektnog zadatka}
 		
-		\textbf{\textit{dio 1. revizije}}\\
-			\textbf{\textit{dio 1. revizije}}\\
-			\textbf{\textit{dio 1. revizije}}\\
-			\textbf{\textit{dio 1. revizije}}\\
 		
-		\textit{Na osnovi projektnog zadatka detaljno opisati korisničke zahtjeve. Što jasnije opisati cilj projektnog zadatka, razraditi problematiku zadatka, dodati nove aspekte problema i potencijalnih rješenja. Očekuje se minimalno 3, a poželjno 4-5 stranica opisa.	Teme koje treba dodatno razraditi u ovom poglavlju su:}
+		{Cilj ovog projekta razvoj je aplikacije za evidenciju i koordinaciju smještaja i prijevoza korisnika usluga zdravstvenog turizma. U današnje vrijeme turizam te sve aktivnosti vezane uz turizam sve su više prisutne u većini država. Mnogi ljudi svojevoljno odlaze u druge države kako bi odradili određeni medicinski postupak, bilo to zbog manje cijene, bolje usluge ili nekog drugog razloga. Ogroman broj klinika pokušava pronaći više klijenta čak i preko granice. Veliki broj stomatoloških klinika u urbanim centrima kao i na Jadranskoj obali povećava obim posla oglašavanjem u inozemstvu i pružanjem usluga strancima. \\ Ovom aplikacijom pomoglo bi se ne samo turistima, kojima je potrebna usluga zdravstvenog turizma, već i domaćim klinikama kojima bi se obujam posla povećao, što bi značilo i mogućnost za veće plaće zaposlenicima i/ili zapošljavanjem većeg broja ljudi. U aplikaciji bi bila ugrađena kompletna organizacija prijevoza i smještaja, što bi znatno povećalo privlačnost produkta krajnjim korisnicima, a povećala bi se kompetitivnost u odnosu na druge pružatelje sličnih usluga.}\\
+		
+		{Danas možemo vidjeti kako je zdravstveni turizam prisutan u gotovo svakoj državi. Neki od primjera su medicinska rehabilitacija u poznatim toplicama BiH, Spa u Belgiji, razna lječilišta termalni vodama Italije, no isto tako postoje brojni primjeri i u Hrvatskoj. Samo jedan od primjera u Hrvatskoj su stomatološke ordinacije na Jadranu.}\\
+		
+		{Hrvatska privlači turiste zbog svojih ljekovitih termalnih izvora u Toplicama, slikovitih wellness odmarališta na obali Jadranskog mora te renomiranih stomatoloških klinika u Zagrebu. Izvan Hrvatske, Turska nudi putnicima ljekovite termalne kupke u Pamukkaleu, dok Tajland impresionira posjetitelje svojim spa centrima na tropskim otocima, pružajući nezaboravna iskustva u zdravstvenom turizmu.}\\
+		
+		{Korisnici koji bi mogli biti zainteresirani za ovu uslugu su npr. ljudi kojima je potrebna određena zdravstvena usluga kao što su wellness, toplice, stomatološka usluga itd., a koje bi privlačila niža cijena tretmana nego u njihovim državama ili bi jednostavno htjeli razgledati ljepote Hrvatske te usput obaviti zdravstvenu uslugu koja im je potrebna. }\\
+		
+		{Aplikacija koja na izbor daje sve moguće prijevoznike, podatke, rutu putovanja, raspoloživi smještaj i još mnogo toga uvelike bi pojednostavila sam postupak planiranja putovanja korisnicima zdravstvenog turizma. Sve što je potrebno je prijaviti se na aplikaciju, odabrati datum i vrijeme planiranog dolaska, a aplikacija bi se pobrinula za sve ostalo. U par koraka možete se riješiti problema smještaja i prijevoza koji su Vam potrebni kako bi medicinska usluga protekla na najbolji mogući način. }
+		{U aplikaciji postoje tri uloge:}
+		
 		\begin{packed_item}
-			\item \textit{potencijalna korist ovog projekta}
-			\item \textit{postojeća slična rješenja (istražiti i ukratko opisati razlike u odnosu na zadani zadatak). Dodajte slike koja predočavaju slična rješenja.}
-			\item \textit{skup korisnika koji bi mogao biti zainteresiran za ostvareno rješenje.}
-			\item \textit{mogućnost prilagodbe rješenja }
-			\item \textit{opseg projektnog zadatka}
-			\item \textit{moguće nadogradnje projektnog zadatka}
+			\item Smještajni administrator
+			\item Administrator prijevoznih usluga
+			\item Korisnički administrator
 		\end{packed_item}
 		
-		\textit{Za pomoć pogledati reference navedene u poglavlju „Popis literature“, a po potrebi konzultirati sadržaj na internetu koji nudi dobre smjernice u tom pogledu.}
-		\eject
-		
-		\section{Primjeri u \LaTeX u}
-		
-		\textit{Ovo potpoglavlje izbrisati.}\\
-
-		U nastavku se nalaze različiti primjeri kako koristiti osnovne funkcionalnosti \LaTeX a koje su potrebne za izradu dokumentacije. Za dodatnu pomoć obratiti se asistentu na projektu ili potražiti upute na sljedećim web sjedištima:
-		\begin{itemize}
-			\item Upute za izradu diplomskog rada u \LaTeX u - \url{https://www.fer.unizg.hr/_download/repository/LaTeX-upute.pdf}
-			\item \LaTeX\ projekt - \url{https://www.latex-project.org/help/}
-			\item StackExchange za Tex - \url{https://tex.stackexchange.com/}\\
-		
-		\end{itemize} 	
-
-
-		
-		\noindent \underbar{podcrtani tekst}, \textbf{podebljani tekst}, 	\textit{nagnuti tekst}\\
-		\noindent \normalsize primjer \large primjer \Large primjer \LARGE {primjer} \huge {primjer} \Huge primjer \normalsize
-				
+		{\textbf{\textit{Smještajni administrator}} unosi podatke o smještaju koji je u to vrijeme raspoloživ. Svaka klinika ima raspoložive smještajne objekte, bilo u najmu ili privatnom vlasništvu. Ova vrsta administratora može mijenjati sve što se tiče samog smještaja, od kapaciteta do vlasništva samog smještajnog objekta. Isto tako smještajni administrator može i obrisati smještajnu jedincu. Podaci smještaja sastoje se od:}
 		\begin{packed_item}
+			\item Tipa stana
+			\begin{packed_item}
+				\item Veličina i vlasništvo
+			\end{packed_item}
 			
-			\item  primjer
-			\item  primjer
-			\item  primjer
-			\item[] \begin{packed_enum}
-				\item primjer
-				\item[] \begin{packed_enum}
-					\item[1.a] primjer
-					\item[b] primjer
-				\end{packed_enum}
-				\item primjer
-			\end{packed_enum}
+			\item Kategorije opremljenosti
+			\begin{packed_item}
+				\item Broj zvjezdica (1 – najslabije opremljen do 5- najbolje opremljen)
+				\item Također je opisano sve što stan dodatno posjeduje
+			\end{packed_item}
 			
+			\item Adrese
+			\begin{packed_item}
+				\item Adresa zgrade, kat, broj stana
+			\end{packed_item}
+			
+			\item Vlasništva
+			\begin{packed_item}
+				\item Privatno ili u najmu
+			\end{packed_item}
+			
+			\item Vremenski period dostupnosti za korištenje
+		\end{packed_item}		
+		
+		
+		{Također je omogućen grafički prikaz geografskog položaja nekretnine korištenjem Google Maps usluge.}
+		
+		{Uloga \textbf{\textit{administratora prijevoznih usluga}} u aplikaciji regulacija je samih prijevoznika. Podatci koje unosi u aplikaciju su:}
+		\begin{packed_item}
+			\item {osobni podaci prijevoznika: ime, prezime, broj telefona}
+			\item {tip vozila, kapacitet te registracijska tablica}
+			\item {radno vrijeme u kojem je prijevoznik dostupan}
+		\end{packed_item}
+		{Prijevoznici se mogu brisati, a njihovi neosnovni podaci mijenjati (kao što su radno vrijeme te radni dani u tjednu).}\\
+		
+		
+		{Za definiciju korisnika medicinske usluge zaslužan je \textbf{\textit{korisnički administrator}} koji  unosi njihove osobne podatke te podatke bitne za rad. Ime, prezime i osnovni kontaktni podaci korisnika, vrijeme i mjesto dolaska i odlaska u/iz zemlje te preferencije vezano uz veličinu i kvalitetu smještaja. \\Detalji njihovih tretmana ne unose se ručno već se aplikacijskim sučeljem preuzimaju iz aplikacije za evidenciju medicinskih usluga. Sučelje je realizirano kao umjetno ispitno sučelje, a podaci o tretmanima popunjavaju se korištenjem isitnih primjera. \\Korisničkom administratoru iznimno je važno vrijeme i mjesto dolaska određenog korisnika kao i vrsta smještaja za koju je sam korisnik zainteresiran.\\Ova vrsta administratora može definirati ostale korisnike te im davati određene uloge.}
+		{Jednom kada se svi podaci unesu u aplikaciju, aplikacija predlaže određenu smještajnu jedinicu te označava je zauzetom u tom vremenskom periodu.}\\
+		
+		{Aplikacija periodički provjerava status unosa medicinskih termina komunikacijom s aplikacijom medicinskih usluga. Ako se primi odgovor o zaključanom planu medicinskih usluga s listom medicinskih termina, potrebno je  pridijeliti raspoložive prijevoznike svakom od termina (prijevoz od smještaja u ordinaciju te povratak) te označiti prijevoznike zauzetima u tim terminima. }
+		
+		{Nakon što je ukupan plan završen, šalje se poruka elektroničke pošte korisniku medicinske usluge podacima ukupnog plana njihovog puta uključujući podatke o prijevozima i smještaju. Također se svakom od prijevoznika šalju posebne poruke s kontaktnim podacima korisnika kao i vremenima i adresama smještaja korisnika.}\\
+		
+		
+		{Ova aplikacija mogla bi se nadograditi i unaprijediti u različitim smjerovima. Neke od ideja za unapređenje aplikacije su:}
+		\begin{packed_item}
+			\item Implementacija i unapređenje aplikacije za mobilne uređaje (primarno je samo za ekrane računala) uz pomoć responzivnog dizajna u HTML-u
+			
+			\item Nakon provedenog boravka u nekom od smještaja, korisnici mogu dati određenu ocjenu smještaju i/ili prijevozniku te uz ocjenu ostaviti neobavezni odgovarajući komentar
+			
+			\item U aplikaciji postaviti mogućnost kartičnog plaćanja pri rezervaciji određene zdravstvene usluge
+			
+			\item Mogućnost virtualnog obilaska smještaja prije nego što se klijenti odluče za rezervaciju baš tog smještaja
+			
+			\item Dodavanje opcije za razgled grada u kojem su smješteni (glavne ulice, posebne znamenitosti i slično)
+			
+			\item Unaprijediti web stranicu na više različitih jezika, kako je aplikacija namijenjena za korisnike zdravstvenog turizma to će biti bolje što je više jezika implementirano u aplikaciji
 		\end{packed_item}
 		
-		\noindent primjer url-a: \url{https://www.fer.unizg.hr/predmet/proinz/projekt}
-		
-		\noindent posebni znakovi: \# \$ \% \& \{ \} \_ 
-		$|$ $<$ $>$ 
-		\^{} 
-		\~{} 
-		$\backslash$ 
 		
 		
-		\begin{longtblr}[
-			label=none,
-			entry=none
-			]{
-				width = \textwidth,
-				colspec={|X[8,l]|X[8, l]|X[16, l]|}, 
-				rowhead = 1,
-			} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
-			\hline \SetCell[c=3]{c}{\textbf{naslov unutar tablice}}	 \\ \hline[3pt]
-			\SetCell{LightGreen}IDKorisnik & INT	&  	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  	\\ \hline
-			korisnickoIme	& VARCHAR &   	\\ \hline 
-			email & VARCHAR &   \\ \hline 
-			ime & VARCHAR	&  		\\ \hline 
-			\SetCell{LightBlue} primjer	& VARCHAR &   	\\ \hline 
-		\end{longtblr}
-		
-
-		\begin{longtblr}[
-				caption = {Naslov s referencom izvan tablice},
-				entry = {Short Caption},
-			]{
-				width = \textwidth, 
-				colspec = {|X[8,l]|X[8,l]|X[16,l]|}, 
-				rowhead = 1,
-			}
-			\hline
-			\SetCell{LightGreen}IDKorisnik & INT	&  	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  	\\ \hline
-			korisnickoIme	& VARCHAR &   	\\ \hline 
-			email & VARCHAR &   \\ \hline 
-			ime & VARCHAR	&  		\\ \hline 
-			\SetCell{LightBlue} primjer	& VARCHAR &   	\\ \hline 
-		\end{longtblr}
-	
-
-
 		
 		
-		%unos slike
-		\begin{figure}[H]
-			\includegraphics[scale=0.4]{slike/aktivnost.PNG} %veličina slike u odnosu na originalnu datoteku i pozicija slike
-			\centering
-			\caption{Primjer slike s potpisom}
-			\label{fig:promjene}
-		\end{figure}
 		
-		\begin{figure}[H]
-			\includegraphics[width=\textwidth]{slike/aktivnost.PNG} %veličina u odnosu na širinu linije
-			\caption{Primjer slike s potpisom 2}
-			\label{fig:promjene2} %label mora biti drugaciji za svaku sliku
-		\end{figure}
-		
-		Referenciranje slike \ref{fig:promjene2} u tekstu.
-		
-		\eject
 		
 	
