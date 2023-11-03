@@ -61,9 +61,47 @@
 					\textit{Funkcionalne zahtjeve razraditi u obliku obrazaca uporabe. Svaki obrazac je potrebno razraditi prema donjem predlošku. Ukoliko u nekom koraku može doći do odstupanja, potrebno je to odstupanje opisati i po mogućnosti ponuditi rješenje kojim bi se tijek obrasca vratio na osnovni tijek.}\\
 					
 
-					\noindent \underbar{\textbf{UC$<$broj obrasca$>$ -$<$ime obrasca$>$}}
+					\noindent \underbar{\textbf{UC1 - Prijava}}
 					\begin{packed_item}
 	
+						\item \textbf{Glavni sudionik: } Administrator
+						\item  \textbf{Cilj:} Prijava administratora u sustav
+						\item  \textbf{Sudionici:} Administrator i baza podataka
+						\item  \textbf{Preduvjet:} Nema
+						\item  \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+	
+							\item Otvaranje aplikacije unutar web preglednika
+							\item Unos korisničkog imena i lozinke
+							\item Podnošenje zahtjeva za prijavu klikom na gumb
+							\item Korisnik biva preusmjeren na početnu stranicu
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+	
+							\item[2.a] Uneseni podatci ne odgovaraju traženom formatu
+							\item[] \begin{packed_enum}
+								
+								\item Ispis upozorenja o krivom formatu i onemogućen gumb za prijavu sve dok podatci ne zadovoljavaju traženi format
+								
+							\end{packed_enum}
+
+							\item[4.a] Korisnički podatci su neispravni ili nisu prepoznati u bazi podataka
+							\item[] \begin{packed_enum}
+								
+								\item Korisnika ne preusmjeravamo na početnu stranicu već mu samo ispisujemo da prijava nije uspjela.
+								
+							\end{packed_enum}
+						\end{packed_item}
+					\end{packed_item}
+					
+					%------------------------------------------------------------------------------
+					\noindent \underbar{\textbf{UC$<$broj obrasca$>$ -$<$ime obrasca$>$}}
+					\begin{packed_item}
+						
 						\item \textbf{Glavni sudionik: }$<$sudionik$>$
 						\item  \textbf{Cilj:} $<$cilj$>$
 						\item  \textbf{Sudionici:} $<$sudionici$>$
@@ -71,7 +109,7 @@
 						\item  \textbf{Opis osnovnog tijeka:}
 						
 						\item[] \begin{packed_enum}
-	
+							
 							\item $<$opis korak jedan$>$
 							\item $<$opis korak dva$>$
 							\item $<$opis korak tri$>$
@@ -82,7 +120,7 @@
 						\item  \textbf{Opis mogućih odstupanja:}
 						
 						\item[] \begin{packed_item}
-	
+							
 							\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
 							\item[] \begin{packed_enum}
 								
