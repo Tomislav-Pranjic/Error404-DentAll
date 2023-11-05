@@ -327,6 +327,300 @@
 							
 						\end{packed_item}
 					\end{packed_item}
+					
+					%------------------------------------------------------------------------------
+					\noindent \underbar{\textbf{UC5 -Pregled podataka u bazi}}
+					\begin{packed_item}
+						
+						\item \textbf{Glavni sudionik:} Administrator
+						\item  \textbf{Cilj:} Pregled svih unesenih podataka u bazi
+						\item  \textbf{Sudionici:} Administrator i baza podataka
+						\item  \textbf{Preduvjet:} UC1: Prijava
+						\item  \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+							
+							\item Administrator odabire koju grupu podataka hoće vidjeti
+							\item Ako administrator odabere filtar ili specificira sortiranje podataka podatci se sortiraju i ponovno prikažu(UC5.1)
+							\item Ako administrator odabere brisanje određenog unosa koristi se UC6
+							\item Ako administrator odabere uređivanje određenog unosa koristi se UC7
+							
+						\end{packed_enum}
+						
+					\end{packed_item}
+					
+					%------------------------------------------------------------------------------
+					\noindent \underbar{\textbf{UC6 -Brisanje unosa}}
+					\begin{packed_item}
+						
+						\item \textbf{Glavni sudionik: }Administrator
+						\item  \textbf{Cilj:} Brisanje podataka iz baze podataka
+						\item  \textbf{Sudionici:} Administrator i baza podataka
+						\item  \textbf{Preduvjet:} UC1: Prijava
+						\item  \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+							
+							\item Prikaz odabranog unosa kojeg treba obrisati
+							\item Administrator potvrđuje brisanje unosa
+							\item Prikaz ažuriranih podataka 
+							
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+							
+							\item[2.a] Administrator ne potvrđuje brisanje
+							\item[] \begin{packed_enum}
+								
+								\item Povratak na prikaz podataka bez brisanja
+								
+							\end{packed_enum}
+							
+						\end{packed_item}
+					\end{packed_item}
+					
+					%------------------------------------------------------------------------------
+					\noindent \underbar{\textbf{UC7 -Promjena podataka}}
+					\begin{packed_item}
+						
+						\item \textbf{Glavni sudionik: }Administrator
+						\item  \textbf{Cilj:} Promjena podataka u bazi podataka
+						\item  \textbf{Sudionici:} Administrator i baza podataka
+						\item  \textbf{Preduvjet:} UC1: Prijava
+						\item  \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+							
+							\item Prikaz promjenjivih podataka odabranog unosa 
+							\item Administrator izmjenjuje potrebne podatke
+							\item Podnošenje zahtjeva za izmjenom podataka
+							
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+							
+							\item[2.a] Novi podatci ne odgovaraju traženom formatu 
+							\item[] \begin{packed_enum}
+								
+								\item Ispis upozorenja o krivom formatu
+								\item Onemogućeno podnošenje zahtjeva za promjenom sve dok format nije zadovoljen
+								
+							\end{packed_enum}
+							
+							\item[3.a] Administrator odustaje od izmjene podataka
+							\item[] \begin{packed_enum}
+								
+								\item Povratak na prikaz podataka bez slanja zahtjeva za izmjenom podataka
+								
+							\end{packed_enum}
+							
+						\end{packed_item}
+					\end{packed_item}
+					
+					%------------------------------------------------------------------------------
+					\noindent \underbar{\textbf{UC8 -Unos podataka o prijevoznicima}}
+					\begin{packed_item}
+						
+						\item \textbf{Glavni sudionik: }Prijevozni administrator
+						\item  \textbf{Cilj:} Stvoriti novi zapis u bazi podataka s podacima o prijevozniku
+						\item  \textbf{Sudionici:} Prijevozni administrator i baza podataka
+						\item  \textbf{Preduvjet:} UC1: Prijava
+						\item  \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+							
+							\item Administrator odabire opciju za dodavanje novog prijevoznika
+							\item Unos osobnih podataka, kontaktnih podataka i podataka o vozilu
+							\item Odabir radnog vremena i radnih dana u tjednu
+							\item Podnošenje zahtjeva za upisom prijevoznika u bazu podataka
+							
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+							
+							\item[2.a] Podatci ne odgovaraju traženom formatu 
+							\item[] \begin{packed_enum}
+								
+								\item Ispis upozorenja o krivom formatu
+								\item Onemogućeno podnošenje zahtjeva za upisom podataka
+								
+							\end{packed_enum}
+							
+							\item[3.a] Nije ispravno odabrano radno vrijeme
+							\item[] \begin{packed_enum}
+								
+								\item Ispis upozorenja o krivom radnom vremenu
+								\item Onemogućeno podnošenje zahtjeva za upisom podataka
+								
+							\end{packed_enum}
+							
+							\item[4.a] Dogodila se greška prilikom upisa podataka u bazu
+							\item[] \begin{packed_enum}
+								
+								\item Ispis teksta greške
+								
+							\end{packed_enum}
+							
+						\end{packed_item}
+					\end{packed_item}
+					
+					%------------------------------------------------------------------------------
+					\noindent \underbar{\textbf{UC9 -Unos podataka o korisnicima}}
+					\begin{packed_item}
+						
+						\item \textbf{Glavni sudionik: }Korisnički administrator
+						\item  \textbf{Cilj:} Stvoriti novi zapis u bazi podataka s podacima o korisniku
+						\item  \textbf{Sudionici:} Korisnički administrator i baza podataka
+						\item  \textbf{Preduvjet:} UC1: Prijava
+						\item  \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+							
+							\item Administrator odabire opciju za dodavanje novog korisnika
+							\item Unos osobnih i kontaktnih podataka
+							\item Odabir lokacije dolaska korisnika(UC4)
+							\item Odabir vremena dolaska korisnika
+							\item Odabir lokacije odlaska korisnika(UC4)
+							\item Odabir vremena odlaska korisnika
+							\item Odabir preferencija korisnika
+							\item Podnošenje zahtjeva za upisom korisnika u bazu podataka
+							
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+							
+							\item[2.a] Podatci ne odgovaraju traženom formatu 
+							\item[] \begin{packed_enum}
+								
+								\item Ispis upozorenja o krivom formatu
+								\item Onemogućeno podnošenje zahtjeva za upisom podataka
+								
+							\end{packed_enum}
+							
+							\item[3.a i 5.a] Nije odabrana lokacija
+							\item[] \begin{packed_enum}
+								
+								\item Onemogućeno podnošenje zahtjeva za upisom podataka
+								
+							\end{packed_enum}
+							
+							\item[4.a i 6.a] Nije ispravno odabrano vrijeme dolaska
+							\item[] \begin{packed_enum}
+								
+								\item Ispis upozorenja o krivom unosu vremenu
+								\item Onemogućeno podnošenje zahtjeva za upisom podataka
+								
+							\end{packed_enum}
+							
+							\item[8.a] Dogodila se pogreška prilikom upisa podataka
+							\item[] \begin{packed_enum}
+								
+								\item Ispis teksta greške
+								
+							\end{packed_enum}
+							
+						\end{packed_item}
+					\end{packed_item}
+					
+					%------------------------------------------------------------------------------
+					\noindent \underbar{\textbf{UC10 -Usklađivanje podataka}}
+					\begin{packed_item}
+						
+						\item \textbf{Glavni sudionik:} Baza podataka
+						\item  \textbf{Cilj:} Uskladiti podatke iz baze podataka s podacima u bazi podataka pružatelja medicinske usluge
+						\item  \textbf{Sudionici:} Baza podataka i API medicinske usluge
+						\item  \textbf{Preduvjet:} -
+						\item  \textbf{Pokretač:} Prošlo je određeno vrijeme od zadnjeg usklađivanja
+						\item  \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+							
+							\item Baza podataka šalje upit API-ju s podacima korisnika za koje nema zabilježen ID
+							\item API odgovara s traženim popisom
+							\item Baza usklađuje ID-eve iz popisa
+							\item Baza podataka šalje upit tražeći popis zaključanih medicinskih termina zabilježenih nakon određenog datuma(Datum zadnjeg usklađivanja podataka)
+							\item API odgovara s traženim popisom
+							\item Baza podataka obrađuje sve zaključane termine(UC11)
+							
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+							
+							\item[1.a] Nema korisnika s nezabilježenim ID-em u bazi podataka
+							\item[] \begin{packed_enum}
+								
+								\item Ne šalje se upit
+								\item Prelazimo na korak 4.
+								
+							\end{packed_enum}
+							
+							\item[2.a i 5.a] Nismo dobili odgovor 
+							\item[] \begin{packed_enum}
+								
+								\item Nakon 10 sekundi pokušamo ponovno korak 1./4.
+								\item U slučaju 3 ili više neuspjeha, šaljemo obavijest smještajnom administratoru(UC10.1)
+								\item Prekidamo proces usklađivanja podataka
+								
+							\end{packed_enum}
+							
+						\end{packed_item}
+					\end{packed_item}
+					
+					%------------------------------------------------------------------------------
+					\noindent \underbar{\textbf{UC11 -Zaključan plan usluge}}
+					\begin{packed_item}
+						
+						\item \textbf{Glavni sudionik:} Baza podataka
+						\item  \textbf{Cilj:} Slanje poruke u obliku emaila korisniku i prijevozniku sa svim potrebnim podacima
+						\item  \textbf{Sudionici:} Baza podataka, korisnik i prijevoznik
+						\item  \textbf{Preduvjet:} -
+						\item  \textbf{Pokretač:} Dobiven zapis o zaključanom terminu tretmana tokom UC10: Usklađivanje podataka
+						\item  \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+							
+							\item Odabir prijevoznika dostupnog u terminu dolaska korisnika \newline(prijevoznik1)
+							\item Odabir prijevoznika dostupnog u terminu tretmana $\pm$2h \newline(prijevoznik2)
+							\item Odabir prijevoznika dostupnog u terminu odlaska korisnika \newline(prijevoznik3)
+							\item Slanje poruke svakom od prijevoznika s potrebnim podacima
+							\item Slanje poruke korisniku s podacima ukupnog plana njihovog puta i kontaktnim podacima prijevoznika
+							
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+							
+							\item[1.a, 2.a i 3.a] Ne postoji prijevoznik dostupan u tom terminu
+							\item[] \begin{packed_enum}
+								
+								\item Šaljemo obavijest prijevoznom administratoru o nemogućnosti uparivanja prijevoznika s korisnikom
+								\item Označavamo taj termin nedovršenim
+								\item Čekamo prijevoznog administratora da poduzme akciju(UC11.1)
+								
+							\end{packed_enum}
+							
+							\item[4.a] Nisu sva tri prijevoznika različita
+							\item[] \begin{packed_enum}
+								
+								\item Ne šaljemo prijevozniku više od jedne poruke već sve podatke vezane za tog prijevoznika grupiramo u jednu poruku
+								
+							\end{packed_enum}
+							
+						\end{packed_item}
+					\end{packed_item}
+					
+					% TODO: UC11.1, UC10.1, UC5.1
 				
 					
 				\subsubsection{Dijagrami obrazaca uporabe}
