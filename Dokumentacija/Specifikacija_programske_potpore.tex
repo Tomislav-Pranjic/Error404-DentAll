@@ -350,6 +350,25 @@
 					\end{packed_item}
 					
 					%------------------------------------------------------------------------------
+						\noindent \underbar{\textbf{UC5.1 - Filtriranje i sortiranje podataka za prikaz}}
+					\begin{packed_item}
+						
+						\item \textbf{Glavni sudionik: } Administrator
+						\item  \textbf{Cilj:} Pregled sortiranih i filtriranih podataka
+						\item  \textbf{Sudionici:} Administrator i baza podataka
+						\item  \textbf{Preduvjet:} UC1: Prijava
+						\item  \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+							
+							\item Odabir ponuđenih ograničenja na skup podataka (raspon vrijednosti, podaci specifično grupirani i slično)
+							\item Odabir načina sortiranja podataka (uzlazno, silazno)
+							\item Prikaz podataka
+						\end{packed_enum}
+					\end{packed_item}
+					
+					%------------------------------------------------------------------------------
+					
 					\noindent \underbar{\textbf{UC6 -Brisanje unosa}}
 					\begin{packed_item}
 						
@@ -577,6 +596,23 @@
 					\end{packed_item}
 					
 					%------------------------------------------------------------------------------
+					\noindent \underbar{\textbf{UC10.1 - Slanje obavijesti smještajnom administratoru}}
+					\begin{packed_item}
+						
+						\item \textbf{Glavni sudionik: } Baza podataka
+						\item  \textbf{Cilj:} Obavijestiti smještajnog administratora o nemogučnosti usklađivanja s API-em medicinskih usluga
+						\item  \textbf{Sudionici:} Baza podataka, smještajni administrator i API medicinskih usluga
+						\item  \textbf{Preduvjet:} UC1: Prijava
+						\item \textbf{Pokretač: } API ne odgovara na upit 3 ili više puta kod usklađivanja podataka (UC10)
+						\item  \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+							
+							\item Slanje obavijesti smještajnom administratoru na mail s uključenim vremenom i sadržajem upita API-u medicinskih usluga
+						\end{packed_enum}
+					\end{packed_item}
+					
+					%------------------------------------------------------------------------------
 					\noindent \underbar{\textbf{UC11 -Zaključan plan usluge}}
 					\begin{packed_item}
 						
@@ -620,13 +656,77 @@
 						\end{packed_item}
 					\end{packed_item}
 					
-					% TODO: UC11.1, UC10.1, UC5.1
-				
+					%------------------------------------------------------------------------------
+					
+					\noindent \underbar{\textbf{UC11.1 - Slanje obavijesti prijevoznom administratoru}}
+					\begin{packed_item}
+						
+						\item \textbf{Glavni sudionik: } Baza podataka
+						\item  \textbf{Cilj:} Obavijestiti prijevoznog administratora o nepostojanju prijevoznika s odabranim terminom
+						\item  \textbf{Sudionici:} Baza podataka, prijevozni administrator
+						\item  \textbf{Preduvjet:} UC1: Prijava
+						\item \textbf{Pokretač: } Poslana obavijest prijevoznom administratoru
+						\item  \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+							
+							\item Slanje obavijesti prijevoznom administratoru na mail s uključenim detaljima o terminu (vrijeme i mjesto tretmana)
+							\item Prijevozni administrator upisuje preijevoznika za odabrani termin
+						\end{packed_enum}
+							\item \textbf{Opis mogućih odstupanja}
+							
+						\item[] \begin{packed_enum}
+							\item[2.a] Prijevozni administrator ne upisuje prijevoznika za odabrani termin
+							\item Obavijestiti korisnika na mail o nepostojanju prijevoznika za odabrani termin
+						\end{packed_enum}
+					\end{packed_item}
+					
 					
 				\subsubsection{Dijagrami obrazaca uporabe}
 					
 					\textit{Prikazati odnos aktora i obrazaca uporabe odgovarajućim UML dijagramom. Nije nužno nacrtati sve na jednom dijagramu. Modelirati po razinama apstrakcije i skupovima srodnih funkcionalnosti.}
 				\eject		
+				\begin{figure}[H]
+					\includegraphics[width=\linewidth]{slike/Cjelokupni-prikaz-1.PNG} 
+					\centering
+					\caption{Sveobuhvatni prikaz}
+					\label{fig:sveobuhvatniPrikaz}
+				\end{figure}
+				
+				\begin{figure}[H]
+					\includegraphics[width=\linewidth]{slike/DentAll_Pocetni-Koraci.PNG} 
+					\centering
+					\caption{Početni koraci}
+					\label{fig:pocetniKoraci}
+				\end{figure}
+				
+				\begin{figure}[H]
+					\includegraphics[width=\linewidth]{slike/DentAll_PregledPodatakaUBazi.PNG}
+					\centering
+					\caption{Pregled podataka u bazi podataka}
+					\label{fig:pregledPodataka}
+				\end{figure}
+				
+				\begin{figure}[H]
+					\includegraphics[width=\linewidth]{slike/DentAll_PrijevozniIKorisničkiAdmin.png}
+					\centering
+					\caption{Prikaz uloga korisničkog i prijevoznog administratora}
+					\label{fig:prijevozniIKorisničkiAdmin}
+				\end{figure}
+				
+				\begin{figure}[H]
+					\includegraphics[width=\linewidth]{slike/DentAll_UnosRaspoloživogSmještaja.png} 
+					\centering
+					\caption{Prikaz unosa raspooloživog smještaja}
+					\label{fig:unosSmještaja}
+				\end{figure}
+				
+				\begin{figure}[H]
+					\includegraphics[width=\linewidth]{slike/DentAll_Usluga.png}
+					\centering
+					\caption{Prikaz korisničke strane}
+					\label{fig:korisnik}
+				\end{figure}
 				
 			\subsection{Sekvencijski dijagrami}
 				
