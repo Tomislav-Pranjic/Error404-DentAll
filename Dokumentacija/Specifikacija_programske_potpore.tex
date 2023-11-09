@@ -13,40 +13,97 @@
 			
 			\begin{packed_enum}
 				
-				\item Dionik 1
-				\item Dionik 2				
-				\item ...
+				\item Zdravstvena ustanova
+				\item Prijevoznik			
+				\item Vlasnik smještaja
+				\item Administrator
+				\begin{packed_enum}
+					\item Smještajni administrator
+					\item Administrator prijevoznih usluga
+					\item Korisnički administrator
+				\end{packed_enum}
+				\item Korisnik
+				\item Razvojni tim
 				
 			\end{packed_enum}
+			\pagebreak
 			
 			\noindent \textbf{Aktori i njihovi funkcionalni zahtjevi:}
 			
 			
 			\begin{packed_enum}
-				\item  \underbar{Aktor 1 (inicijator) može:}
+				
+				\item \underbar{Administrator (inicijator)  se može:}
+				
+				\begin{packed_enum}
+					\item prijaviti u sustav nakon čega dobija dobija ovlasti ovisno u koje sve vrste administratora spada (smještajni administrator, administrator \mbox{prijevoznih} usluga, korisnički administrator)
+					
+				\end{packed_enum}		
+				
+				\item  \underbar{Smještajni administrator (inicijator) može:}
 				
 				\begin{packed_enum}
 					
-					\item funkcionalnost 1
-					\item funkcionalnost 2
-					\begin{packed_enum}
-						
-						\item  podfunkcionalnost 1 
-						\item  podfunkcionalnost 2
-				
-					\end{packed_enum}
-					\item  funkcionalnost 3
+					\item definirati nove smještajne kapacitete
+					\item mijenjati osnovne podatke smještaja (tip stana, kategorija opremljenosti, adresa, vremenski period dostupnosti)
+					\item obrisati smještaj
+					\item definirati druge korisnike i dodijeliti im uloge (dodavanje novih admina)		
 					
 				\end{packed_enum}
-			
-				\item  \underbar{Aktor 2 (sudionik) može:}
+				
+				
+				
+				\item  \underbar{Administrator prijevoznih usluga (inicijator) može:}
 				
 				\begin{packed_enum}
 					
-					\item funkcionalnost 1
-					\item funkcionalnost 2
+					\item unositi podatke o prijevoznicima (osnovni osobni podatci prijevoznika, kontakt podatci prijevoznika, vrsta i kapacitet prijevoznog sredstva, radno vrijeme u kojem su raspoloživi)
+					\item obrisati prijevoznika
+					\item mijenjati neosnovne podatke o prijevozniku
 					
 				\end{packed_enum}
+				
+				\item \underbar{Korisnički administrator (inicijator) može:}
+				
+				\begin{packed_enum}
+					
+					\item unositi podatke o korisnicima medicinskih usluga (ime, prezime, kontakt, vrijeme i mjesto dolaska/odlaska, preferencije za veličinu i kvalitetu smještaja)
+					
+					
+				\end{packed_enum}
+				
+				\pagebreak
+				
+				
+				\item \underbar{Baza podataka (sudionik):}
+				
+				\begin{packed_enum}
+					
+					\item pohranjuje sve podatke o administratorima i njihovim ovlastima
+					\item  pohranjuje sve podatke o korisnicima, smještaju i prijevoznicima
+					\item nakon unosa novog korisnika od korisničkog admina, pridjeljuje se raspoloživa smještajna jedinica i označava se zauzetom u tom periodu
+					\item periodički provjerava status unosa medicinskih termina komunikacijom s aplikacijom medicinskih usluga
+					\item kada se primi odgovor o zaključanom planu medicinskih usluga s listom termina, pridjeljuju se raspoloživi prijevoznici i označavaju se zauzetim. Zatim se šalju poruke elektronične pošte svakom od prijevoznikom s kontaktnim podatcima korisnika kao i o vremenima i adresama smještaja korisnika, te korisniku usluge poruka sa podatcima o prijevoznicima i smještaju
+					
+				\end{packed_enum}
+				
+				\item \underbar{API medicinskih usluga (sudionik):}
+				
+				\begin{packed_enum}
+					
+					\item detalji tretmana se preuzimaju iz aplikacije za evidenciju medicinskih usluga
+					
+				\end{packed_enum}
+				
+				
+				\item \underbar{Google Maps (sudionik):}
+				
+				\begin{packed_enum}
+					
+					\item preko podakata o smještaju omogućava grafički prikaz lokacije smještaja
+					
+				\end{packed_enum}
+				
 			\end{packed_enum}
 			
 			\eject 
@@ -740,7 +797,16 @@
 			\textbf{\textit{dio 1. revizije}}\\
 		 
 			 \textit{Nefunkcionalni zahtjevi i zahtjevi domene primjene dopunjuju funkcionalne zahtjeve. Oni opisuju \textbf{kako se sustav treba ponašati} i koja \textbf{ograničenja} treba poštivati (performanse, korisničko iskustvo, pouzdanost, standardi kvalitete, sigurnost...). Primjeri takvih zahtjeva u Vašem projektu mogu biti: podržani jezici korisničkog sučelja, vrijeme odziva, najveći mogući podržani broj korisnika, podržane web/mobilne platforme, razina zaštite (protokoli komunikacije, kriptiranje...)... Svaki takav zahtjev potrebno je navesti u jednoj ili dvije rečenice.}
-			 
+			 \begin{packed_item}
+                \item Aplikacija mora biti u mogućnosti grafički prikazati geografski položaj nekretnine korištenjem Google Maps/Open Maps usluge.
+                \item Aplikacijsko sučelje mora imati mogućnost preuzimanja detalja korisnikovih tretmana iz aplikacije za evidenciju medicinskih usluga.
+                \item Sustav treba biti jednostavan za korištenje.
+                \item Korištenje sustava ne smije narušavati njegovu funkcionalnost i rad.
+                \item Svi privatni podatci u sustavu moraju biti zaštićeni.
+                \item Lozinke moraju biti sigurno spremljene u bazi.
+                \item Nadogradnja sustava ne smije narušavati njegove postojeće funkcije.
+                \item Sustav treba podržavati istovremeni rad više korisnika.
+		  	\end{packed_item}
 			 
 			 
 	
