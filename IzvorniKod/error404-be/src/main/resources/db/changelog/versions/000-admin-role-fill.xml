@@ -4,6 +4,8 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <includeAll path="src/main/resources/db/changelog/" />
+    <changeSet id="0" author="jmX86">
+        <sqlFile path="classpath:db/sql/admin_role.sql"/>
+    </changeSet>
 
 </databaseChangeLog>

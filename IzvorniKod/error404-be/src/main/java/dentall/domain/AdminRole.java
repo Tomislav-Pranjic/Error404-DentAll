@@ -16,9 +16,6 @@ public class AdminRole {
     @NotNull
     private String roleName;
 
-    @ManyToMany
-    private Set<Admin> admins;
-
     public Long getRoleId() {
         return roleId;
     }
