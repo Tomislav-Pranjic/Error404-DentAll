@@ -3,6 +3,7 @@ package dentall.service;
 import dentall.domain.Admin;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public interface AdminService {
@@ -17,5 +18,7 @@ public interface AdminService {
      * @throws IllegalArgumentException with message when bad arguments are given
      * @throws RequestDeniedException if admin with that username already exists
      */
-    Admin createAdmin(String userName, String firstName, Set<Long> roleIds);
+    Admin createAdmin(String userName, String password, String firstName, Set<Long> roleIds);
+
+    Optional<Admin> findByUserName(String userName);
 }

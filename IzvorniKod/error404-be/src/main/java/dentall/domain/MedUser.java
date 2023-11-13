@@ -2,15 +2,12 @@ package dentall.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 
 @Entity
-public class User {
+public class MedUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
@@ -37,7 +34,7 @@ public class User {
     private String accomodationPreference; //nisam siguran kako s ovime?
 
 
-    public User () {
+    public MedUser() {
         this.userId = null;
         this.name = null;
         this.surname = null;
@@ -48,7 +45,7 @@ public class User {
         this.accomodationPreference = null;
     }
 
-    public User (Long userId, String name, String surname, String phoneNumber, Date arrivalDate, String arrivalTown, Date departureDate, String accomodationPreference) {
+    public MedUser(Long userId, String name, String surname, String phoneNumber, Date arrivalDate, String arrivalTown, Date departureDate, String accomodationPreference) {
         this.userId = userId;
         this.name = name;
         this.surname = surname;

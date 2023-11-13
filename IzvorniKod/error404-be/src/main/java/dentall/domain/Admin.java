@@ -19,21 +19,27 @@ public class Admin {
     @Size(min=4, max=20)
     private String userName;
 
-    private String Name;
+    @NotNull
+    @Size(min=8)
+    private String passwordHash;
+
+    private String firstName;
 
     @ManyToMany
     private Set<AdminRole> roles;
 
-    public Admin(String userName, String name) {
+    public Admin(String userName, String passwordHash, String firstName) {
         this.userName = userName;
-        Name = name;
+        this.passwordHash = passwordHash;
+        this.firstName = firstName;
 
         roles = new HashSet<>();
     }
 
     public Admin() {
         this.userName = null;
-        this.Name = null;
+        this.passwordHash = null;
+        this.firstName = null;
         this.roles = new HashSet<>();
     }
 
@@ -45,12 +51,25 @@ public class Admin {
         return userName;
     }
 
-    public String getName() {
-        return Name;
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public String getFirstName() {
+        return firstName;
     }
 
     public Set<AdminRole> getRoles() {
         return roles;
+    }
+
+
+    public String getRolesString() {
+        StringBuilder rolesString = new StringBuilder();
+        for (AdminRole role : roles) {
+            rolesString.append("ROLE_").append(role.getRoleName()).append(",");
+        }
+        return rolesString.toString();
     }
 
     public void addRole(AdminRole role) {
@@ -62,7 +81,7 @@ public class Admin {
         return "Admin{" +
                 "id=" + adminId +
                 ", userName='" + userName + '\'' +
-                ", Name='" + Name + '\'' +
+                ", Name='" + firstName + '\'' +
                 ", roles={" + roles.toString() + "}" +
                 '}';
     }
