@@ -18,4 +18,5 @@ public class UserServiceJpa implements UserService {
     public List<User> listAll(){
         return userRepository.findAll();
     }
+
 }

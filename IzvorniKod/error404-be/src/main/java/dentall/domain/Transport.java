@@ -110,4 +110,5 @@ public class Transport { //mozda neki bolji naziv
     public void setRegistration (String registration) {
         this.registration = registration;
     }
+
 }

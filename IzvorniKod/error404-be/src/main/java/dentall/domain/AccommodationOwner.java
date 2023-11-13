@@ -1,6 +1,6 @@
 package dentall.domain;
 
-public enum AccomodationOwner {
+public enum AccommodationOwner {
     PRIVATE,
     FOR_RENT;
 }

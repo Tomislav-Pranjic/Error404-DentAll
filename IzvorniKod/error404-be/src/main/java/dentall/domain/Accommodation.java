@@ -1,19 +1,19 @@
 package dentall.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 
 @Entity
-public class Accomodation {
+public class Accommodation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long accomodationId;
+    private Long accommodationId;
 
     @NotNull
     private String apartmentType;
@@ -25,13 +25,13 @@ public class Accomodation {
     private String adress;
 
     @NotNull
-    private AccomodationOwner owner;
+    private AccommodationOwner owner;
 
     @NotNull
     private LocalDate availableUntil; //nekako drugacije ovo?
 
-    public Accomodation () {
-        this.accomodationId = null;
+    public Accommodation () {
+        this.accommodationId = null;
         this.apartmentType = null;
         this.noOfStars = null;
         this.adress = null;
@@ -39,8 +39,8 @@ public class Accomodation {
         this.availableUntil = null;
     }
 
-    public Accomodation (Long accomodationId, String apartmentType, Integer noOfStars, String adress, AccomodationOwner owner, LocalDate availableUntil) {
-        this.accomodationId = accomodationId;
+    public Accommodation (Long accomodationId, String apartmentType, Integer noOfStars, String adress, AccommodationOwner owner, LocalDate availableUntil) {
+        this.accommodationId = accomodationId;
         this.apartmentType = apartmentType;
         this.noOfStars = noOfStars;
         this.adress = adress;
@@ -49,11 +49,11 @@ public class Accomodation {
     }
 
     public Long getAccomodationId () {
-        return accomodationId;
+        return accommodationId;
     }
 
     public void setAccomodationId (Long accomodationId) {
-        this.accomodationId = accomodationId;
+        this.accommodationId = accomodationId;
     }
 
     public String getApartmentType () {
@@ -80,11 +80,11 @@ public class Accomodation {
         this.adress = adress;
     }
 
-    public AccomodationOwner getOwner () {
+    public AccommodationOwner getOwner () {
         return owner;
     }
 
-    public void setOwner (AccomodationOwner owner) {
+    public void setOwner (AccommodationOwner owner) {
         this.owner = owner;
     }
 

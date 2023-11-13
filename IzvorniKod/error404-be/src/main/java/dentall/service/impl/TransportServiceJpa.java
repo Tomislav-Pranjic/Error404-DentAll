@@ -18,4 +18,5 @@ public class TransportServiceJpa implements TransportService {
     public List<Transport> listAll(){
         return transportRepository.findAll();
     }
+
 }

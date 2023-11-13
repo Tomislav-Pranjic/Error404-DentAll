@@ -122,4 +122,5 @@ public class User {
     public void setAccomodationPreference (String accomodationPreference) {
         this.accomodationPreference = accomodationPreference;
     }
+
 }
