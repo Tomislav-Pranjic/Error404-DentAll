@@ -1,4 +1,8 @@
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+
+
 import Login from './components/Login';
+import Home from './components/Home';
 
 function App() {
 
@@ -20,6 +24,7 @@ function App() {
       console.log("Password is correct")
       console.log(username)
       console.log(password)
+      return <Navigate to="/home" />;
 
       // ovo bi ga trebalo redirectat na main stranicu
 
@@ -34,9 +39,15 @@ function App() {
 
 
   return (
-    <div className="App">
-      <Login onLogin={handleLogin} />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Routes>
+          <Route path='/' element = {<Login onLogin={handleLogin} />}></Route>
+          <Route path='/home' element = {<Home />}></Route>
+        </Routes>
+      </div>
+    </BrowserRouter>
+
   );
 }
 
