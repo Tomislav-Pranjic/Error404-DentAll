@@ -1,6 +1,8 @@
 package dentall.service;
 
 import dentall.domain.Admin;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,5 +22,6 @@ public interface AdminService {
      */
     Admin createAdmin(String userName, String password, String firstName, Set<Long> roleIds);
 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, noRollbackFor = Exception.class)
     Optional<Admin> findByUserName(String userName);
 }

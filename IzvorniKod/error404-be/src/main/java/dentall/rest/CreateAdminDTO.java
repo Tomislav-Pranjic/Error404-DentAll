@@ -7,7 +7,7 @@ public class CreateAdminDTO {
 
     private String password;
     private String firstName;
-    private Set<Long> roles;
+    private Set<Long> roleIds;
 
     public String getUserName() {
         return userName;
@@ -17,15 +17,15 @@ public class CreateAdminDTO {
         return firstName;
     }
 
-    public Set<Long> getRoles() {
-        return roles;
+    public Set<Long> getRoleIds() {
+        return roleIds;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setRoles(Set<Long> roles) {
-        this.roles = roles;
+    public void setRoleIds(Set<Long> roleIds) {
+        this.roleIds = roleIds;
     }
 }

@@ -23,11 +23,9 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 
 @Configuration
 @EnableMethodSecurity(
-        securedEnabled = true,
-        prePostEnabled = false)
+        securedEnabled = true)
 public class WebSecurity {
     @Bean
-    @Profile("basic-security")
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests(authorize -> {
             authorize.anyRequest().authenticated();
@@ -68,7 +66,6 @@ public class WebSecurity {
     }
 
     @Bean
-    @Profile({ "basic-security", "form-security" })
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public SecurityFilterChain h2ConsoleSecurityFilterChain(HttpSecurity http) throws Exception {
         http.securityMatcher(PathRequest.toH2Console());

@@ -1,12 +1,10 @@
 package dentall.rest;
 
-import dentall.Error404BeApplication;
 import dentall.domain.Admin;
 import dentall.domain.AdminRole;
 import dentall.service.AdminRoleService;
 import dentall.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,7 +32,12 @@ public class AdminController {
 
     @PostMapping("")
     public Admin createAdmin(@RequestBody CreateAdminDTO dto){
-        return adminService.createAdmin(dto.getUserName(), dto.getPassword(), dto.getFirstName(), dto.getRoles());
+        return adminService.createAdmin(
+                        dto.getUserName(),
+                        dto.getPassword(),
+                        dto.getFirstName(),
+                        dto.getRoleIds()
+                );
     }
 
     @GetMapping("/roles")

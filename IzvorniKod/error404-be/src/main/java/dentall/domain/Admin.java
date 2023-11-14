@@ -69,7 +69,7 @@ public class Admin {
         for (AdminRole role : roles) {
             rolesString.append("ROLE_").append(role.getRoleName()).append(",");
         }
-        return rolesString.toString();
+        return rolesString.deleteCharAt(rolesString.lastIndexOf(",")).toString();
     }
 
     public void addRole(AdminRole role) {
