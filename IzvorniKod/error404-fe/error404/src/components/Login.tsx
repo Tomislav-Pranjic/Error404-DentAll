@@ -8,6 +8,7 @@ function Login(){
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [alertVisible, setAlertVisibility] = useState(false)
 
   function isLoginCorrect(user: string, pass: string) {
     for (var i = 0; i < correctLogin.length; i++) {
@@ -28,7 +29,8 @@ function Login(){
       navigate('/home'); // redirecta na home ako su podatci dobri
 
     } else {
-      alert('Incorrect username or password. Try again.'); //obacijesti da je netocno
+      // obavijesti da je netocno
+      setAlertVisibility(true)
 
     }
   };
@@ -38,7 +40,7 @@ function Login(){
     <div className="login-container" style={{ backgroundColor: '#f0f8ff' }}>
         <form className="login-box" onSubmit={handleLogin}>
             <h2 className="text-center mb-3"> Login</h2>
-            
+
             <div className="mb-3">
                 <label htmlFor="loginUsername" className="form-label">Username</label>
                 <input type="text" className="form-control" id="loginUsername" aria-describedby="emailHelp"
@@ -53,6 +55,11 @@ function Login(){
             </div>
 
             <button type="submit" className="btn btn-primary">Submit</button>
+
+            {alertVisible && <div className="alert alert-danger alert-dismissible fade show" role="alert">
+                Wrong login credentials
+                <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick={() => setAlertVisibility(false)}></button>
+            </div>}
         </form>
     </div>
   );
