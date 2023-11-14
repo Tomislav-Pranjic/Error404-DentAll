@@ -52,8 +52,8 @@ public class AdminUserDetailsService implements UserDetailsService {
 
         return new User(
                 username,
-                admin.getPasswordHash().substring(admin.getPasswordHash().indexOf("}") + 1),
-                commaSeparatedStringToAuthorityList(admin.getRolesString())
+                admin.passwordHashForAuth().substring(admin.passwordHashForAuth().indexOf("}") + 1),
+                commaSeparatedStringToAuthorityList(admin.rolesStringForAuth())
         );
 
     }

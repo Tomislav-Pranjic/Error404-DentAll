@@ -51,7 +51,7 @@ public class Admin {
         return userName;
     }
 
-    public String getPasswordHash() {
+    public String passwordHashForAuth() {
         return passwordHash;
     }
 
@@ -64,7 +64,7 @@ public class Admin {
     }
 
 
-    public String getRolesString() {
+    public String rolesStringForAuth() {
         StringBuilder rolesString = new StringBuilder();
         for (AdminRole role : roles) {
             rolesString.append("ROLE_").append(role.getRoleName()).append(",");
