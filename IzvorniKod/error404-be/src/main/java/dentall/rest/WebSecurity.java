@@ -37,7 +37,6 @@ public class WebSecurity {
     }
 
     @Bean
-    @Profile("form-security")
     public SecurityFilterChain spaFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(new AntPathRequestMatcher("/login")).permitAll()
