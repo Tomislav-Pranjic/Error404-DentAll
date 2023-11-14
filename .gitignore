@@ -45,3 +45,4 @@ Dokumentacija/*.pdf
 
 
 .DS_Store
+node_modules/
