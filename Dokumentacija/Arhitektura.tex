@@ -116,7 +116,7 @@
 					\SetCell{LightBlue}RegVozila	& VARCHAR & Identifikacijski ključ vozila 	\\ \hline
 				\end{longtblr}
 
-				{Entitet \textbf{Admin} sadrži informacije o adminu. Sadrži atribute: Email, lozinka , IDTip. Entitet Admin povezan je s entitetom Tip preko veze Many-to-Many te atributom IDTip.}
+				{Entitet \textbf{Admin} sadrži informacije o adminu profilu te se sastoji od artibuta: UserName i lozinka.}
 				
 				\begin{longtblr}[
 					label=none,
@@ -127,12 +127,11 @@
 						rowhead = 1,
 					} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
 					\hline \SetCell[c=3]{c}{\textbf{Admin}}	 \\ \hline[3pt]
-					\SetCell{LightGreen}Email & VARCHAR	&  	Identifikacijski ključ admina	\\ \hline
+					\SetCell{LightGreen}UserName & VARCHAR	&  	Identifikacijski ključ admina	\\ \hline
 					Lozinka	& VARCHAR & Lozinka admina	\\ \hline 
-					\SetCell{LightBlue}IDTip	& VARCHAR & Identifikacijski ključ tipa admina 	\\ \hline
-				\end{longtblr}
+					\end{longtblr}
 			
-				{Entitet \textbf{Tip} opisuje tip admina. Sastoji se od atributa: IDTip i tip. Identifikacijski ključ u ovom entitetu je IDTip.}
+				{Entitet \textbf{AdminUloga} povezuje admina s njegovom ulogom. Sastoji se od atributa: UserName i IDUloge. Povezan je s entitetom Admin s vezom Many-to-Many te preko atributa UserName, te je spojen također s vezom Many-to-Many s entiteom Uloge preko atributa IDUloge.}
 				
 				\begin{longtblr}[
 					label=none,
@@ -142,9 +141,24 @@
 						colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
 						rowhead = 1,
 					} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
-					\hline \SetCell[c=3]{c}{\textbf{Tip}}	 \\ \hline[3pt]
-					\SetCell{LightGreen}IDTip & VARCHAR	&  	Identifikacijski ključ tipa	\\ \hline
-					Tip	& VARCHAR & Tip admina	\\ \hline 
+					\hline \SetCell[c=3]{c}{\textbf{AdminUloga}}	 \\ \hline[3pt]
+					\SetCell{LightBlue}UserName	& VARCHAR & Orisničko ime admina 	\\ \hline
+					\SetCell{LightBlue}IDUloge	& VARCHAR & ID Uloge admina	\\ \hline
+					\end{longtblr}
+
+				{Entitet \textbf{Uloge} sadrži informacije o samoj ulozi. Aributi od kojij se sastoji su: IDUloge(identifikacijski ključ) te Uloga}
+				
+				\begin{longtblr}[
+					label=none,
+					entry=none
+					]{
+						width = \textwidth,
+						colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
+						rowhead = 1,
+					} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
+					\hline \SetCell[c=3]{c}{\textbf{Admin}}	 \\ \hline[3pt]
+					\SetCell{LightGreen}IDUloge & VARCHAR	&  	Identifikacijski ključ uloge admina	\\ \hline
+					Uloga	& VARCHAR & Uloga admina	\\ \hline 
 					\end{longtblr}
 
 			\subsection{Dijagram baze podataka}
