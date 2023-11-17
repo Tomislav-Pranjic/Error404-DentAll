@@ -19,7 +19,9 @@
 			
 			\textbf{\textit{dio 1. revizije}}\\
 			
-		\textit{Potrebno je opisati koju vrstu i implementaciju baze podataka ste odabrali, glavne komponente od kojih se sastoji i slično.}
+		\textit{Potrebno je opisati koju vrstu i implementaciju baze podataka ste odabrali, glavne komponente od kojih se sastoji i slično.}\\
+		
+		{Baza podataka modelirana je tabličnim modelom u "Structured Query Language" (SQL) jeziku. Ona sadrži podatke potrebne za rad cijelog sustava, poput podatke o administratorima, korisnicima, kao i podatke o vozilima koji su na raspolaganju te koji ih vozači voze, zajedno s adresama svih lokacija i vlasništva dostupnog smještaja.}
 		
 			\subsection{Opis tablica}
 			
@@ -58,7 +60,7 @@
 						colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
 						rowhead = 1,
 					} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
-					\hline \SetCell[c=3]{c}{\textbf{Sjmeštaj}}	 \\ \hline[3pt]
+					\hline \SetCell[c=3]{c}{\textbf{Smještaj}}	 \\ \hline[3pt]
 					\SetCell{LightGreen}IDSmj & INT	&  	Identifikacijski ključ smještaja	\\ \hline
 					Vrsta	& VARCHAR & Vrsta smještaja  	\\ \hline 
 					\SetCell{LightBlue}IDAdr	& INT & Identifikacijski ključ adrese smještaja 	\\ \hline 
@@ -164,14 +166,14 @@
 			\subsection{Dijagram baze podataka}
 				\textit{ U ovom potpoglavlju potrebno je umetnuti dijagram baze podataka. Primarni i strani ključevi moraju biti označeni, a tablice povezane. Bazu podataka je potrebno normalizirati. Podsjetite se kolegija "Baze podataka".}
 			
-			\eject
+			
 			\begin{figure}[H]
 				\includegraphics[width=\linewidth]{slike/DentAll_RelacijskiDijagramBaze.png}
 				\centering
 				\caption{Dijagram baze podataka}
 				\label{fig:dijagramBaze}
 			\end{figure}
-			
+			\eject
 			
 		\section{Dijagram razreda}
 		
