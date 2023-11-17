@@ -2,6 +2,7 @@ package dentall.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 import java.util.Set;
@@ -10,9 +11,11 @@ import java.util.Set;
 public class AdminRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "role_id")
     private Long roleId;
 
     @Column(unique = true)
+    @Size(max = 10)
     @NotNull
     private String roleName;
 

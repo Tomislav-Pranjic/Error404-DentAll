@@ -28,24 +28,17 @@ CREATE TABLE Vozac
 
 CREATE TABLE Admin
 (
-  UserName VARCHAR(10) NOT NULL,
-  lozinka VARCHAR(8) NOT NULL,
-  PRIMARY KEY (UserName)
-);
-
-CREATE TABLE Uloge
-(
-  IDUloge VARCHAR(10) NOT NULL,
-  Uloga VARCHAR(10) NOT NULL,
-  PRIMARY KEY (IDUloge)
+  userName VARCHAR(25) NOT NULL,
+  lozinkaHash VARCHAR NOT NULL,
+  PRIMARY KEY (userName)
 );
 
 CREATE TABLE AdminUloga
 (
-  UserName VARCHAR(10) NOT NULL,
-  IDUloge VARCHAR(10) NOT NULL,
-  FOREIGN KEY (UserName) REFERENCES Admin(UserName),
-  FOREIGN KEY (IDUloge) REFERENCES Uloge(IDUloge)
+  userName VARCHAR(25) NOT NULL,
+  IDUloge INT NOT NULL,
+  FOREIGN KEY (userName) REFERENCES Admin(userName),
+  FOREIGN KEY (IDUloge) REFERENCES admin_role(roleId)
 );
 
 CREATE TABLE Smjestaj

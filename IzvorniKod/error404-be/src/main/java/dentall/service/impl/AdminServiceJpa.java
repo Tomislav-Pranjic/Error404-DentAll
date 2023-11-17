@@ -55,7 +55,7 @@ public class AdminServiceJpa implements AdminService {
         Assert.notNull(roleIds, "Admin roles must be defined.");
         Assert.isTrue(!roleIds.isEmpty(), "Admin must have at least one role.");
 
-        Admin admin = new Admin(userName, encoder.encode(password), firstName);
+        Admin admin = new Admin(userName, encoder.encode(password));
 
         roleIds.stream().forEach(roleId -> {
 //            Assert.isTrue(roleService.countByRoleId(roleId) >= 1, "Role with id '" + roleId + "' does not exist.");

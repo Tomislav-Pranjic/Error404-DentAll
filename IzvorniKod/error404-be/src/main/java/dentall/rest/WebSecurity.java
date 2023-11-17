@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,8 @@ public class WebSecurity {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests(authorize -> {
-            authorize.anyRequest().authenticated();
+            authorize.requestMatchers(new AntPathRequestMatcher("/actuator/**")).permitAll()
+                     .anyRequest().authenticated();
         });
         http.formLogin(Customizer.withDefaults());
         http.httpBasic(Customizer.withDefaults());
@@ -65,6 +67,7 @@ public class WebSecurity {
 
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
+    @Profile("dev")
     public SecurityFilterChain h2ConsoleSecurityFilterChain(HttpSecurity http) throws Exception {
         http.securityMatcher(PathRequest.toH2Console());
         http.csrf(AbstractHttpConfigurer::disable);
