@@ -12,5 +12,37 @@
 
 *.toc
 
-# Da se ne update-aju PDF-ovi koje generiramo iz LaTeX-a prije završne verzije za predaju
+# Da se ne updateaju PDF-ovi koje generiramo iz LaTeX-a prije završne verzije za predaju
 Dokumentacija/*.pdf
+
+# Kopirano iz https://gitlab.com/hrvojesimic/progi-project-teams-backend
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+#-----------------------------------------------------------------------------
+
+
+.DS_Store
+node_modules/
