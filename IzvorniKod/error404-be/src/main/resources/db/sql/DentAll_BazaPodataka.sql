@@ -1,0 +1,67 @@
+CREATE TABLE Adresa
+(
+  IDAdr INT NOT NULL,
+  Mjesto VARCHAR(10) NOT NULL,
+  Ulica VARCHAR(10) NOT NULL,
+  Broj INT NOT NULL,
+  PRIMARY KEY (IDAdr)
+);
+
+CREATE TABLE Vozilo
+(
+  RegVozila VARCHAR(10) NOT NULL,
+  Model VARCHAR(10) NOT NULL,
+  boja VARCHAR(10) NOT NULL,
+  PRIMARY KEY (RegVozila)
+);
+
+CREATE TABLE Vozac
+(
+  IDVoz INT NOT NULL,
+  Ime VARCHAR(10) NOT NULL,
+  Prezime VARCHAR(10) NOT NULL,
+  BrRadSat INT NOT NULL,
+  RegVozila VARCHAR(10) NOT NULL,
+  PRIMARY KEY (IDVoz),
+  FOREIGN KEY (RegVozila) REFERENCES Vozilo(RegVozila)
+);
+
+CREATE TABLE Admin
+(
+  userName VARCHAR(25) NOT NULL,
+  lozinkaHash VARCHAR NOT NULL,
+  PRIMARY KEY (userName)
+);
+
+CREATE TABLE AdminUloga
+(
+  userName VARCHAR(25) NOT NULL,
+  IDUloge INT NOT NULL,
+  FOREIGN KEY (userName) REFERENCES Admin(userName),
+  FOREIGN KEY (IDUloge) REFERENCES admin_role(roleId)
+);
+
+CREATE TABLE Smjestaj
+(
+  IDSmj INT NOT NULL,
+  Vrsta VARCHAR(10) NOT NULL,
+  IDAdr INT NOT NULL,
+  PRIMARY KEY (IDSmj),
+  FOREIGN KEY (IDAdr) REFERENCES Adresa(IDAdr)
+);
+
+CREATE TABLE Korisnik
+(
+  IDKor INT NOT NULL,
+  Ime VARCHAR(10) NOT NULL,
+  Prezime VARCHAR(10) NOT NULL,
+  DatDol DATE NOT NULL,
+  DatOdl DATE NOT NULL,
+  IDSmj INT NOT NULL,
+  RegVozila VARCHAR(10) NOT NULL,
+  OdvoziRegVozila VARCHAR(10) NOT NULL,
+  PRIMARY KEY (IDKor),
+  FOREIGN KEY (IDSmj) REFERENCES Smjestaj(IDSmj),
+  FOREIGN KEY (RegVozila) REFERENCES Vozilo(RegVozila),
+  FOREIGN KEY (OdvoziRegVozila) REFERENCES Vozilo(RegVozila)
+);

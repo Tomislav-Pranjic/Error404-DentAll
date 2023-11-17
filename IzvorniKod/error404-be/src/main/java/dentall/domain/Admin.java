@@ -11,9 +11,6 @@ import java.util.Set;
 @Entity
 public class Admin {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // GenerationType.IDENTITY znači ga automatski generira baza podataka
-    private Long adminId;
-
     @Column(unique = true)
     @NotNull
     @Size(min=4, max=20)
@@ -23,15 +20,12 @@ public class Admin {
     @Size(min=8)
     private String passwordHash;
 
-    private String firstName;
-
     @ManyToMany
     private Set<AdminRole> roles;
 
-    public Admin(String userName, String passwordHash, String firstName) {
+    public Admin(String userName, String passwordHash) {
         this.userName = userName;
         this.passwordHash = passwordHash;
-        this.firstName = firstName;
 
         roles = new HashSet<>();
     }
@@ -39,12 +33,7 @@ public class Admin {
     public Admin() {
         this.userName = null;
         this.passwordHash = null;
-        this.firstName = null;
         this.roles = new HashSet<>();
-    }
-
-    public Long getAdminId() {
-        return adminId;
     }
 
     public String getUserName() {
@@ -53,10 +42,6 @@ public class Admin {
 
     public String passwordHashForAuth() {
         return passwordHash;
-    }
-
-    public String getFirstName() {
-        return firstName;
     }
 
     public Set<AdminRole> getRoles() {
@@ -79,9 +64,7 @@ public class Admin {
     @Override
     public String toString() {
         return "Admin{" +
-                "id=" + adminId +
                 ", userName='" + userName + '\'' +
-                ", Name='" + firstName + '\'' +
                 ", roles={" + roles.toString() + "}" +
                 '}';
     }

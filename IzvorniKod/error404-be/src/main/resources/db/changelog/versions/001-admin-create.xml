@@ -4,7 +4,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <include file="versions/000-admin-role-fill.xml" relativeToChangelogFile="true"/>
-    <include file="versions/001-admin-create.xml" relativeToChangelogFile="true"/>
-
+    <changeSet id="1" author="jmX86">
+        <sqlFile path="classpath:db/sql/create_admin.sql"/>
+    </changeSet>
 </databaseChangeLog>
