@@ -53,11 +53,50 @@
 			
 		\section{Dijagram razreda}
 		
-			\textit{Potrebno je priložiti dijagram razreda s pripadajućim opisom. Zbog preglednosti je moguće dijagram razlomiti na više njih, ali moraju biti grupirani prema sličnim razinama apstrakcije i srodnim funkcionalnostima.}\\
+			{Na sljedećim slikama prikazani su dijagrami razreda koji se odnose na \textit{backend} dio aplikacije. Na slici 4.1 prikazan je cjelokupni dijagram razreda, a na ostalima su razdvojeni u smislene cjeline. U implementaciji korištena je \textit{Spring Boot} tehnologija. Postoje tri sloja aplikacije: \textit{Controller}(REST API), \textit{Service}(poslovna logika) te \textit{Repository}(pristup podacima). }\\
 			
-			\textbf{\textit{dio 1. revizije}}\\
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/CjelokupanDijagramRazreda.PNG}
+				\caption{Cjelokupan dijagram razreda}
+				\label{classDiagram}
+			\end{figure}
 			
-			\textit{Prilikom prve predaje projekta, potrebno je priložiti potpuno razrađen dijagram razreda vezan uz \textbf{generičku funkcionalnost} sustava. Ostale funkcionalnosti trebaju biti idejno razrađene u dijagramu sa sljedećim komponentama: nazivi razreda, nazivi metoda i vrste pristupa metodama (npr. javni, zaštićeni), nazivi atributa razreda, veze i odnosi između razreda.}\\
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/rest.PNG}
+				\caption{Dijagram razreda - Controller}
+				\label{restDiagram}
+			\end{figure}
+			
+			{Navedene klase nasljeđuju REST Controller koji je zadužen za rukovanje HTTP zahtjevima i za pružanje odgovarajućih odgovora. REST Controller vraća podatke u JSON formatu. \\ 
+			CreateAdminDTO je \textit{Data transfer Object} koji je zadužen za stvaranje administratora. \textit{DTO} služi za transfer podataka između slojeva aplikacije, pogotovo između klijenta i servera. \\
+			AdminUserDetailsService je \textit{Spring service} komponenta koja služi za baratanje detaljima administratora tijekom prijave i prilagođavanje korisničkih detalja na temelju odgovarajućih uloga i vjerodajnica, te osiguravanje sigurnosti}\\
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/dao.PNG}
+				\caption{Dijagram razreda - Repository}
+				\label{repositoryDiagram}
+			\end{figure}
+			
+			{Navedena sučelja nasljeđuju \textit{JPARepository} koji pruža generičke metode za operacije s podatcima, poput spremanja, ažuriranja, brisanja i slično.}\\
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/service.PNG}
+				\caption{Dijagram razreda - Service}
+				\label{serviceDiagram}
+			\end{figure}
+			
+			{Navedene \textit{Service} klase su \textit{Spring Service} klase, sadrže poslovnu logiku aplikacije, tj. odgovorni su za obradu podataka, implementaciju algoritama itd. Ponašaju se kao sloj između \textit{Controllera} i \textit{Repositoryja}.\\
+			\textit{AdminService} sadrži metodu \textit{createAdmin} za stvaranje administratora. Postoji provjera raznih svojstava, poput duljine lozinke, duljine nadimka, postoji li već neki administrator s tim nadimkom, postojanje navedenih uloga itd. Ako je sve uspješno sprema se novi administrator u \textit{AdminRepository}.}\\
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/domain.PNG}
+				\caption{Dijagram razreda - Models}
+				\label{domainDiagram}
+			\end{figure}
+			
+			{Modeli predstavljaju strukturu baze podataka u našoj aplikaciji. Tako imamo klase: \textit{Admin, MedUser, Accomomodation te Transport} sa svojim privatnim atributima te javnim metodama. Tako na primjer \textit{Admin} ima svoj ID, nadimak, ime te pripadajuće uloge, koje mogu biti smještajni administrator(ima najveće ovlasti), korisnički administrator te prijevozni administrator, što je sadržano u enumeraciji \textit{AdminRole}. \textit{Accommodation} i \textit{Transport} sadrže sve podatke vezane uz smještaj, odnosno prijevoz, a \textit{MedUser} sadrži sve potrebno za definiranje korisnika medicinskih usluga. }\\
+			
+			
 			
 			\textbf{\textit{dio 2. revizije}}\\			
 			
