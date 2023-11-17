@@ -12,6 +12,9 @@
 
 *.toc
 
+# MacOS datoteka
+.DS_Store
+
 # Da se ne updateaju PDF-ovi koje generiramo iz LaTeX-a prije završne verzije za predaju
 Dokumentacija/*.pdf
 
@@ -46,3 +49,4 @@ Dokumentacija/*.pdf
 
 .DS_Store
 node_modules/
+
