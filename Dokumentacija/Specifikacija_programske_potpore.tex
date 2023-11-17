@@ -788,8 +788,43 @@
 			\subsection{Sekvencijski dijagrami}
 				
 				\textbf{\textit{dio 1. revizije}}\\
+				\textbf{UC1-Prijava}
+				{Administrator unosi korisničko ime i lozinku.Web preglednik to upućuje bazi podataka na validaciju. Ako korisnički podaci nisu ispravni ili su nepoznati, korisnikova prijava nije uspjela te se ispisuje greška. Ako je prijava uspjela korisnik je preusmjeren na početnu stranicu.}
 				
-				\textit{Nacrtati sekvencijske dijagrame koji modeliraju najvažnije dijelove sustava (max. 4 dijagrama). Ukoliko postoji nedoumica oko odabira, razjasniti s asistentom. Uz svaki dijagram napisati detaljni opis dijagrama.}
+				\begin{figure}[H]
+					\includegraphics[width=\linewidth]{slike/DentAll_Sekvencijski-UC1-Prijava.jpeg} 
+					\centering
+					\caption{Sekvencijski dijagram UC1-Prijava}
+					\label{fig:Sekvencijski dijagram UC1}
+				\end{figure}
+				
+				\newpage
+				
+					\textbf{UC2-Dodavanje novog administratora}
+					
+					{Smještajni administrator prvo se mora prijaviti (UC1-Prijava). Nakon toga odabire opciju za dodavanje novog korisnika te upisuje njegove podatke. Dok nije unesen korisnik u dobrom formatu, korisniku (smještajnom administratoru) se ispisuje upozorenje o krivom formatu. Nakon što se unese dobar format, smještajni administrator unosi ulogu. Dok nije označena uloga ispisuje se upozorenje o neoznačenoj ulozi. Nakon što je uloga označena, smještajni administrator moram kliknuti na gumb pri čemu se šalje zahtjev za unos u bazu podataka. Baza  podataka može vratiti grešku te se ispisuje poruka o grešci korisniku ili se može ponovno poslati zahtjev za unos u bazu podataka. Nakon što je korisnik uspješno unesen, smještajnom administratoru se sva polja vračaju na početnu vrijednost.}
+				
+				\begin{figure}[H]
+					\includegraphics[width=\linewidth]{slike/DentAll-Sekvencijski-uc2-Dodavanje_novog_administratora.jpeg}
+					\centering
+					\caption{Sekvencijski dijagram UC2-Dodavanje novog administratora}
+					\label{fig:Sekvencijski dijagram UC2}
+				\end{figure}
+				
+				\newpage
+				
+				
+				\textbf{UC3-Unos razpoloživog smještaja}
+				
+				{Smještajni administrator se prvo se mora prijaviti(UC1-Prijava). Nakon toga smještajni administrator odabire opciju dodavanja novog smještaja te odabire tip stana. Web preglednik pošalje zahtjev bazi podataka za unos te baza ako nije odabran tip šalje povratnu informaciju pregledniku, a preglednik korisniku ispiše upozorenje o odabiru tipa. Ako je uspješno odabran tip , sljedeće se unosi kategorija, te ponovno šalje zahtjev za unos, ako nije odabrana kategorija ispisuje se upozorenje o odabiru kategorije. Nakon što je kategorija uspješno odabrana, smještajni administrator odabire maksimalan kapacitet i unosi informacije o zgradi,web preglednik ponovno pošalje zahtjev za unos, te baza podataka može poslati grešku nazad u slučaju ako je krivi format unosa. Na kraju smještajni administrator odabire tip vlasništva, čime se detaljnije bave UC3.1 -Smještaj u vlasništvu i UC3.2 - Smještaj u najmu.}
+				
+				\begin{figure}[H]
+					\includegraphics[width=\linewidth]{slike/DentAll-Sekvencijski-uc3-unos_raspoloživog_smještaja.jpg}
+					\centering
+					\caption{Sekvencijski dijagram UC3-Unos raspoloživog smještaja}
+					\label{fig:Sekvencijski dijagram UC3}
+				\end{figure}
+				
 				\eject
 	
 		\section{Ostali zahtjevi}

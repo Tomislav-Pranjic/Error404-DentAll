@@ -22,13 +22,16 @@
 			
 			\textbf{\textit{dio 1. revizije}}\\
 			
-		\textit{Potrebno je opisati koju vrstu i implementaciju baze podataka ste odabrali, glavne komponente od kojih se sastoji i slično.}
+		\textit{Potrebno je opisati koju vrstu i implementaciju baze podataka ste odabrali, glavne komponente od kojih se sastoji i slično.}\\
+		
+		{Baza podataka modelirana je tabličnim modelom u "Structured Query Language" (SQL) jeziku. Ona sadrži podatke potrebne za rad cijelog sustava, poput podatke o administratorima, korisnicima, kao i podatke o vozilima koji su na raspolaganju te koji ih vozači voze, zajedno s adresama svih lokacija i vlasništva dostupnog smještaja.}
 		
 			\subsection{Opis tablica}
 			
-
-				\textit{Svaku tablicu je potrebno opisati po zadanom predlošku. Lijevo se nalazi točno ime varijable u bazi podataka, u sredini se nalazi tip podataka, a desno se nalazi opis varijable. Svjetlozelenom bojom označite primarni ključ. Svjetlo plavom označite strani ključ}
 				
+				{Entitet \textbf{Korisnik} sadržava informacije o korisniku. Atributi od kojih se sastoji entitet su: IDKor koji je ujedno i identifikacijski ključ korisnika,
+				Ime, Prezime, DatDol odnosno vrijeme dolaska, DatOdl vrijeme odlaska, IdSmj, RegVoz i OdvoziRez. Ovaj entitet je u vezi One-to-One s entitetom  Smještaj preko atibuta
+				IDSmj, te je u vezi One-to-One s entitetom Vozilo preko atributa RegVoz i OdlaziRegVoz.}
 				
 				\begin{longtblr}[
 					label=none,
@@ -38,21 +41,142 @@
 						colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
 						rowhead = 1,
 					} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
-					\hline \SetCell[c=3]{c}{\textbf{korisnik - ime tablice}}	 \\ \hline[3pt]
-					\SetCell{LightGreen}IDKorisnik & INT	&  	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  	\\ \hline
-					korisnickoIme	& VARCHAR &   	\\ \hline 
-					email & VARCHAR &   \\ \hline 
-					ime & VARCHAR	&  		\\ \hline 
-					\SetCell{LightBlue} primjer	& VARCHAR &   	\\ \hline 
+					\hline \SetCell[c=3]{c}{\textbf{Korisnik}}	 \\ \hline[3pt]
+					\SetCell{LightGreen}IDKor & INT	&  	Identifikacijski ključ korinika	\\ \hline
+					Ime	& VARCHAR & Ime korisnika  	\\ \hline 
+					Prezime & VARCHAR &  Prezime korisnika \\ \hline 
+					DatDol & TIMESTAMP	&  Datum dolaska korisnika		\\ \hline 
+					DatOdl & TIMESTAMP	&  Datum odlaska korisnika		\\ \hline 
+					\SetCell{LightBlue}IdSmj & INT	&  Identifikacijski ključ smještaja		\\ \hline 
+					\SetCell{LightBlue}RegVozila & VARCHAR	& Identifikacijski ključ vozila u dolasku		\\ \hline 
+					\SetCell{LightBlue}OdvoziReg	& VARCHAR & Identifikacijski ključ vozila u odlasku 	\\ \hline 
 				\end{longtblr}
 				
+				{Entitet \textbf{Smještaj} opisuje smještaj u kojem će boraviti korisik. Sadrži atribute: IDSmj (ujedno i identifikacijski ključ), vrsta smještaja te IDAdr. Entitet Smještaj povezan je sa
+				vezom Many-to-Many s entitetom Adresa preko	atributa IDAdr.}
 				
+				\begin{longtblr}[
+					label=none,
+					entry=none
+					]{
+						width = \textwidth,
+						colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
+						rowhead = 1,
+					} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
+					\hline \SetCell[c=3]{c}{\textbf{Smještaj}}	 \\ \hline[3pt]
+					\SetCell{LightGreen}IDSmj & INT	&  	Identifikacijski ključ smještaja	\\ \hline
+					Vrsta	& VARCHAR & Vrsta smještaja  	\\ \hline 
+					\SetCell{LightBlue}IDAdr	& INT & Identifikacijski ključ adrese smještaja 	\\ \hline 
+				\end{longtblr}
+				
+				{Entitet \textbf{Adresa} govori o samoj adresi smještaja i to s atributima: IDAdr, Mjesto, Ulica i Broj. Identifikacijski ključ ovog entiteta je IDAdr.}
+				
+				\begin{longtblr}[
+					label=none,
+					entry=none
+					]{
+						width = \textwidth,
+						colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
+						rowhead = 1,
+					} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
+					\hline \SetCell[c=3]{c}{\textbf{Adresa}}	 \\ \hline[3pt]
+					\SetCell{LightGreen}IDAdr & INT	&  	Identifikacijski ključ adrese	\\ \hline
+					Mjesto	& VARCHAR & Mjesto u adresi smještaja	\\ \hline 
+					Ulica	& VARCHAR & Ulica u adresi smještaja	\\ \hline 
+					Broj	& INT & Kućni broj u adresi smještaja	\\ \hline  
+				\end{longtblr}
+
+
+				{Entitet \textbf{Vozilo} sadrži informacije o samom vozilu. Sadrži atribute: RegVozila (registracija vozila), Model i Boja. Identifikacijski ključ entiteta je registracija vzila (RegVoz)}
+				
+				\begin{longtblr}[
+					label=none,
+					entry=none
+					]{
+						width = \textwidth,
+						colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
+						rowhead = 1,
+					} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
+					\hline \SetCell[c=3]{c}{\textbf{Vozilo}}	 \\ \hline[3pt]
+					\SetCell{LightGreen}RegVozila & VARCHAR	&  	Identifikacijski ključ vozila	\\ \hline
+					Model	& VARCHAR & Model vozila	\\ \hline 
+					Boja	& VARCHAR & Boja vozila	\\ \hline 
+				\end{longtblr}
+
+				{Entitet \textbf{Vozač} opisuje vozača koji vozi i odvozi korisnika u i iz njegovog privremenog smještaja. Sadrži atribute: IDVoz (identifikacijski ključ), Ime, Prezime, Brradsat(broj radnih sati) te Regvozila. Povezan je s entitetom Vozilo sa vezom Many-to-Many preko atributa RegVozila.}
+				
+				\begin{longtblr}[
+					label=none,
+					entry=none
+					]{
+						width = \textwidth,
+						colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
+						rowhead = 1,
+					} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
+					\hline \SetCell[c=3]{c}{\textbf{Vozač}}	 \\ \hline[3pt]
+					\SetCell{LightGreen}IDVoz & INT	&  	Identifikacijski ključ vožača	\\ \hline
+					Ime	& VARCHAR & Ime vozača	\\ \hline 
+					Prezime	& VARCHAR & Prezime vozača	\\ \hline
+					Brradsat	& INT & Broj radnih sati vozača	\\ \hline  
+					\SetCell{LightBlue}RegVozila	& VARCHAR & Identifikacijski ključ vozila 	\\ \hline
+				\end{longtblr}
+
+				{Entitet \textbf{Admin} sadrži informacije o adminu profilu te se sastoji od artibuta: UserName i lozinka.}
+				
+				\begin{longtblr}[
+					label=none,
+					entry=none
+					]{
+						width = \textwidth,
+						colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
+						rowhead = 1,
+					} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
+					\hline \SetCell[c=3]{c}{\textbf{Admin}}	 \\ \hline[3pt]
+					\SetCell{LightGreen}UserName & VARCHAR	&  	Identifikacijski ključ admina	\\ \hline
+					Lozinka	& VARCHAR & Lozinka admina	\\ \hline 
+					\end{longtblr}
 			
+				{Entitet \textbf{AdminUloga} povezuje admina s njegovom ulogom. Sastoji se od atributa: UserName i IDUloge. Povezan je s entitetom Admin s vezom Many-to-Many te preko atributa UserName, te je spojen također s vezom Many-to-Many s entiteom Uloge preko atributa IDUloge.}
+				
+				\begin{longtblr}[
+					label=none,
+					entry=none
+					]{
+						width = \textwidth,
+						colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
+						rowhead = 1,
+					} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
+					\hline \SetCell[c=3]{c}{\textbf{AdminUloga}}	 \\ \hline[3pt]
+					\SetCell{LightBlue}UserName	& VARCHAR & Orisničko ime admina 	\\ \hline
+					\SetCell{LightBlue}IDUloge	& VARCHAR & ID Uloge admina	\\ \hline
+					\end{longtblr}
+
+				{Entitet \textbf{Uloge} sadrži informacije o samoj ulozi. Aributi od kojij se sastoji su: IDUloge(identifikacijski ključ) te Uloga}
+				
+				\begin{longtblr}[
+					label=none,
+					entry=none
+					]{
+						width = \textwidth,
+						colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
+						rowhead = 1,
+					} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
+					\hline \SetCell[c=3]{c}{\textbf{Uloge}}	 \\ \hline[3pt]
+					\SetCell{LightGreen}IDUloge & VARCHAR	&  	Identifikacijski ključ uloge admina	\\ \hline
+					Uloga	& VARCHAR & Uloga admina	\\ \hline 
+					\end{longtblr}
+
 			\subsection{Dijagram baze podataka}
 				\textit{ U ovom potpoglavlju potrebno je umetnuti dijagram baze podataka. Primarni i strani ključevi moraju biti označeni, a tablice povezane. Bazu podataka je potrebno normalizirati. Podsjetite se kolegija "Baze podataka".}
 			
-			\eject
 			
+			\begin{figure}[H]
+				\includegraphics[width=\linewidth]{slike/DentAll_RelacijskiDijagramBaze.png}
+				\centering
+				\caption{Dijagram baze podataka}
+				\label{fig:dijagramBaze}
+			\end{figure}
+			\eject
 			
 		\section{Dijagram razreda}
 		
