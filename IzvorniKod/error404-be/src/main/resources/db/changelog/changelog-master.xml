@@ -6,5 +6,6 @@
 
     <include file="versions/000-admin-role-fill.xml" relativeToChangelogFile="true"/>
     <include file="versions/001-admin-create.xml" relativeToChangelogFile="true"/>
+    <include file="versions/002-initial-table-create.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

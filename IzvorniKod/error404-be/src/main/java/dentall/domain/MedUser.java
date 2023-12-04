@@ -2,66 +2,118 @@ package dentall.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.Date;
 
 
-@Entity
+@Entity(name = "KORISNIK")
 public class MedUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    @Column(name = "korisnik_local_id")
+    private Long localUserId;
+
+    @Column(name = "korisnik_remote_id", unique = true)
+    private Long remoteUserId;
 
     @NotNull
+    @Column(name = "ime")
+    @Size(max = 32)
     private String name;
 
     @NotNull
+    @Column(name = "prezime")
+    @Size(max = 32)
     private String surname;
 
     @NotNull
+    @Column(name = "e_mail")
+    @Size(max = 64)
+    private String email;
+
+    @NotNull
+    @Column(name = "broj_mobitela")
+    @Size(max = 16)
     private String phoneNumber;
 
     @NotNull
+    @Column(name = "dat_dol")
     private Date arrivalDate;
 
     @NotNull
-    private String arrivalTown;
+    @ManyToOne
+    @JoinColumn(name = "adr_dol", referencedColumnName = "adresa_id")
+    private Address arrivalAddress;
 
     @NotNull
+    @Column(name = "dat_odl")
     private Date departureDate;
 
     @NotNull
-    private String accomodationPreference; //nisam siguran kako s ovime?
+    @ManyToOne
+    @JoinColumn(name = "adr_odl", referencedColumnName = "adresa_id")
+    private Address departureAddress;
 
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "smj_pref", referencedColumnName = "tip_id")
+    private AccommodationType accommodationPreference;
+
+    @ManyToOne
+    @JoinColumn(name = "vozac_dovozi", referencedColumnName = "vozac_id")
+    private Driver arrivalDriver;
+
+    @ManyToOne
+    @JoinColumn(name = "vozac_odvozi", referencedColumnName = "vozac_id")
+    private Driver departureDriver;
+
+    @ManyToOne
+    @JoinColumn(name = "smjestaj_id", referencedColumnName = "smjestaj_id")
+    private Accommodation accommodation;
 
     public MedUser() {
-        this.userId = null;
+        this.remoteUserId = null;
         this.name = null;
         this.surname = null;
+        this.email = null;
         this.phoneNumber = null;
         this.arrivalDate = null;
-        this.arrivalTown = null;
+        this.arrivalAddress = null;
         this.departureDate = null;
-        this.accomodationPreference = null;
+        this.departureAddress = null;
+        this.accommodationPreference = null;
+        this.arrivalDriver = null;
+        this.departureDriver = null;
+        this.accommodation = null;
     }
 
-    public MedUser(Long userId, String name, String surname, String phoneNumber, Date arrivalDate, String arrivalTown, Date departureDate, String accomodationPreference) {
-        this.userId = userId;
+    public MedUser(String name, String surname, String email, String phoneNumber, Date arrivalDate, Address arrivalAddress, Date departureDate, Address departureAddress, AccommodationType accommodationPreference) {
+        this.remoteUserId = null;
         this.name = name;
         this.surname = surname;
+        this.email = email;
         this.phoneNumber = phoneNumber;
         this.arrivalDate = arrivalDate;
-        this.arrivalTown = arrivalTown;
+        this.arrivalAddress = arrivalAddress;
         this.departureDate = departureDate;
-        this.accomodationPreference = accomodationPreference;
+        this.departureAddress = departureAddress;
+        this.accommodationPreference = accommodationPreference;
+        this.arrivalDriver = null;
+        this.departureDriver = null;
+        this.accommodation = null;
     }
 
-    public Long getUserId () {
-        return userId;
+    public Long getLocalUserId () {
+        return localUserId;
     }
 
-    public void setUserId (Long userId) {
-        this.userId = userId;
+    public Long getRemoteUserId () {
+        return remoteUserId;
+    }
+
+    public void setRemoteUserId (Long remoteUserId) {
+        this.remoteUserId = remoteUserId;
     }
 
     public String getName () {
@@ -96,12 +148,12 @@ public class MedUser {
         this.arrivalDate = arrivalDate;
     }
 
-    public String getArrivalTown () {
-        return arrivalTown;
+    public Address getArrivalAddress() {
+        return arrivalAddress;
     }
 
-    public void setArrivalTown (String arrivalTown) {
-        this.arrivalTown = arrivalTown;
+    public void setArrivalAddress(Address arrivalAddress) {
+        this.arrivalAddress = arrivalAddress;
     }
 
     public Date getDepartureDate () {
@@ -112,12 +164,51 @@ public class MedUser {
         this.departureDate = departureDate;
     }
 
-    public String getAccomodationPreference () {
-        return accomodationPreference;
+    public AccommodationType getAccommodationPreference() {
+        return accommodationPreference;
     }
 
-    public void setAccomodationPreference (String accomodationPreference) {
-        this.accomodationPreference = accomodationPreference;
+    public void setAccommodationPreference(AccommodationType accomodationPreference) {
+        this.accommodationPreference = accomodationPreference;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Address getDepartureAddress() {
+        return departureAddress;
+    }
+
+    public void setDepartureAddress(Address departureAddress) {
+        this.departureAddress = departureAddress;
+    }
+
+    public Driver getArrivalDriver() {
+        return arrivalDriver;
+    }
+
+    public void setArrivalDriver(Driver arrivalDriver) {
+        this.arrivalDriver = arrivalDriver;
+    }
+
+    public Driver getDepartureDriver() {
+        return departureDriver;
+    }
+
+    public void setDepartureDriver(Driver departureDriver) {
+        this.departureDriver = departureDriver;
+    }
+
+    public Accommodation getAccommodation() {
+        return accommodation;
+    }
+
+    public void setAccommodation(Accommodation accommodation) {
+        this.accommodation = accommodation;
+    }
 }

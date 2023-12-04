@@ -1,7 +1,7 @@
 package dentall.rest;
 
-import dentall.domain.Transport;
-import dentall.service.TransportService;
+import dentall.domain.Driver;
+import dentall.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +14,11 @@ import java.util.List;
 public class TransportController {
 
     @Autowired
-    private TransportService transportService;
+    private DriverService driverService;
 
     @GetMapping("")
-    public List<Transport> listTransport(){
-        return transportService.listAll();
+    public List<Driver> listTransport(){
+        return driverService.listAll();
     }
 
 }
