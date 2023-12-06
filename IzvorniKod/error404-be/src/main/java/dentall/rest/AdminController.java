@@ -2,6 +2,7 @@ package dentall.rest;
 
 import dentall.domain.Admin;
 import dentall.domain.AdminRole;
+import dentall.rest.dto.CreateAdminDTO;
 import dentall.service.AdminRoleService;
 import dentall.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;

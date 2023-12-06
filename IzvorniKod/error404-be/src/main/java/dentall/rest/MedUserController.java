@@ -1,16 +1,17 @@
 package dentall.rest;
 
 import dentall.domain.MedUser;
+import dentall.rest.dto.CreateMedUserDTO;
 import dentall.service.MedUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/user")
+@PreAuthorize("hasRole('ROLE_KORISNICKI') or hasRole('ROLE_SMJESTAJNI')")
 public class MedUserController {
 
     @Autowired
@@ -19,6 +20,20 @@ public class MedUserController {
     @GetMapping("")
     public List<MedUser> listUsers(){
         return medUserService.listAll();
+    }
+
+    @PostMapping("")
+    public MedUser createMedUser(@RequestBody CreateMedUserDTO dto){
+        return medUserService.createMedUser(
+                        dto.getFirstName(),
+                        dto.getLastName(),
+                        dto.getEmail(),
+                        dto.getPhoneNumber(),
+                        dto.getArrDate(),
+                        dto.getArrAddressId(),
+                        dto.getDepDate(),
+                        dto.getDepAddressId(),
+                        dto.getAccTypePrefId());
     }
 
 }

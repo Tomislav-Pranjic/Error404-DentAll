@@ -1,6 +1,6 @@
 package dentall.rest;
 
-import dentall.service.RequestDeniedException;
+import dentall.service.exceptions.RequestDeniedException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;

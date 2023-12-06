@@ -29,14 +29,12 @@ public class Accommodation {
 
     @NotNull
     @Column(name = "vlasnistvo")
-    private Boolean isOwner;
+    private Boolean isOwner;    // true - u vlasništvu, false - iznajmljeno
 
-    @NotNull
     @Column(name = "dostupno_do")
     private Date availableUntil;
 
     public Accommodation () {
-        this.accommodationId = null;
         this.apartmentType = null;
         this.noOfStars = null;
         this.address = null;
@@ -44,8 +42,7 @@ public class Accommodation {
         this.availableUntil = null;
     }
 
-    public Accommodation (Long accomodationId, AccommodationType apartmentType, Integer noOfStars, Address address, Boolean isOwner, Date availableUntil) {
-        this.accommodationId = accomodationId;
+    public Accommodation (AccommodationType apartmentType, Integer noOfStars, Address address, Boolean isOwner, Date availableUntil) {
         this.apartmentType = apartmentType;
         this.noOfStars = noOfStars;
         this.address = address;
@@ -55,10 +52,6 @@ public class Accommodation {
 
     public Long getAccomodationId () {
         return accommodationId;
-    }
-
-    public void setAccomodationId (Long accomodationId) {
-        this.accommodationId = accomodationId;
     }
 
     public AccommodationType getApartmentType () {

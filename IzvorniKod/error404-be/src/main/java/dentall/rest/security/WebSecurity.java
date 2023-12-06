@@ -1,4 +1,4 @@
-package dentall.rest;
+package dentall.rest.security;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;

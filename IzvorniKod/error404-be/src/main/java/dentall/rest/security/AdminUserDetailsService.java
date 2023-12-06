@@ -1,4 +1,4 @@
-package dentall.rest;
+package dentall.rest.security;
 
 import dentall.domain.Admin;
 import dentall.service.AdminService;

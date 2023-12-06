@@ -8,4 +8,6 @@ import java.util.List;
 public interface AccommodationService {
 
     List<Accommodation> listAll();
+
+    Accommodation createAccommodation(Long typeId, Integer stars, Long addressId, Boolean owner, String availableUntil);
 }

@@ -8,4 +8,6 @@ public interface DriverService {
 
     List<Driver> listAll();
 
+    Driver createDriver(String name, String surname, String email, String phoneNumber, String vehicleRegistration, String workStartTime, String workingDays);
+
 }

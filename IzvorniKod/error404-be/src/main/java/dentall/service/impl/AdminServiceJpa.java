@@ -4,7 +4,7 @@ import dentall.dao.AdminRepository;
 import dentall.domain.Admin;
 import dentall.domain.AdminRole;
 import dentall.service.AdminService;
-import dentall.service.RequestDeniedException;
+import dentall.service.exceptions.RequestDeniedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;

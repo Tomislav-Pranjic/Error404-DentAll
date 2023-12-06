@@ -1,6 +1,7 @@
 package dentall.service;
 
 import dentall.domain.Admin;
+import dentall.service.exceptions.RequestDeniedException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 

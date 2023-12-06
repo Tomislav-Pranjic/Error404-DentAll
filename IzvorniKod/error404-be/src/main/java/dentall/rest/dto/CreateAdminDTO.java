@@ -1,4 +1,4 @@
-package dentall.rest;
+package dentall.rest.dto;
 
 import java.util.Set;
 

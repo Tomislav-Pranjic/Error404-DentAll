@@ -32,7 +32,7 @@ public class Driver {
 
     @NotNull
     @Column(name = "broj_mobitela")
-    @Size(max = 16)
+    @Size(max = 10)
     private String phoneNumber;
 
     @NotNull
@@ -51,7 +51,6 @@ public class Driver {
     // N - Nedjelja, P - Ponedjeljak, U - Utorak, S - Srijeda, C - Četvrtak, E - Petak, B - Subota
 
     public Driver() {
-        this.driverId = null;
         this.name = null;
         this.surname = null;
         this.email = null;
@@ -61,8 +60,7 @@ public class Driver {
         this.workingDays = null;
     }
 
-    public Driver(Long driverId, String name, String surname, String email, String phoneNumber, Vehicle vehicle, Time workStartTime, String workingDays) {
-        this.driverId = driverId;
+    public Driver(String name, String surname, String email, String phoneNumber, Vehicle vehicle, Time workStartTime, String workingDays) {
         this.name = name;
         this.surname = surname;
         this.email = email;

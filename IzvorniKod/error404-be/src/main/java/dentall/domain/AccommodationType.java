@@ -25,14 +25,12 @@ public class AccommodationType {
     private Integer typeBedNumber;
 
     public AccommodationType() {
-        this.typeId = null;
         this.typeName = null;
         this.typeSize = null;
         this.typeBedNumber = null;
     }
 
-    public AccommodationType(Long typeId, String typeName, Integer typeSize, Integer typeBedNumber) {
-        this.typeId = typeId;
+    public AccommodationType(String typeName, Integer typeSize, Integer typeBedNumber) {
         this.typeName = typeName;
         this.typeSize = typeSize;
         this.typeBedNumber = typeBedNumber;
