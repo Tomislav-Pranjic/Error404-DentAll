@@ -25,6 +25,8 @@ public class Error404BeApplication {
 
 	public final static String REGISTRATION_FORMAT = "[A-Z]{2}[0-9]{3,4}[A-Z]{2}";
 
+	public static final String USERNAME_FORMAT = "[a-z]+[0-9]*";
+
 	@Bean
 	public PasswordEncoder pswdEncoder(){
 		return new BCryptPasswordEncoder();

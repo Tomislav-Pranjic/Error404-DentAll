@@ -20,20 +20,14 @@ public class AccommodationType {
     @Column(name = "tip_velicina")
     private Integer typeSize;
 
-    @NotNull
-    @Column(name = "tip_br_kreveta")
-    private Integer typeBedNumber;
-
     public AccommodationType() {
         this.typeName = null;
         this.typeSize = null;
-        this.typeBedNumber = null;
     }
 
-    public AccommodationType(String typeName, Integer typeSize, Integer typeBedNumber) {
+    public AccommodationType(String typeName, Integer typeSize) {
         this.typeName = typeName;
         this.typeSize = typeSize;
-        this.typeBedNumber = typeBedNumber;
     }
 
     public Long getTypeId() {
@@ -54,13 +48,5 @@ public class AccommodationType {
 
     public void setTypeSize(Integer typeSize) {
         this.typeSize = typeSize;
-    }
-
-    public Integer getTypeBedNumber() {
-        return typeBedNumber;
-    }
-
-    public void setTypeBedNumber(Integer typeBedNumber) {
-        this.typeBedNumber = typeBedNumber;
     }
 }

@@ -19,7 +19,7 @@ public class Accommodation {
     private AccommodationType apartmentType;
 
     @NotNull
-    @Column(name = "br_zvijezdica")
+    @Column(name = "br_zvjezdica")
     private Integer noOfStars;
 
     @NotNull
@@ -34,20 +34,26 @@ public class Accommodation {
     @Column(name = "dostupno_do")
     private Date availableUntil;
 
+    @NotNull
+    @Column(name = "br_kreveta")
+    private Integer noOfBeds;
+
     public Accommodation () {
         this.apartmentType = null;
         this.noOfStars = null;
         this.address = null;
         this.isOwner = null;
         this.availableUntil = null;
+        this.noOfBeds = null;
     }
 
-    public Accommodation (AccommodationType apartmentType, Integer noOfStars, Address address, Boolean isOwner, Date availableUntil) {
+    public Accommodation (AccommodationType apartmentType, Integer noOfStars, Address address, Boolean isOwner, Date availableUntil, Integer noOfBeds){
         this.apartmentType = apartmentType;
         this.noOfStars = noOfStars;
         this.address = address;
         this.isOwner = isOwner;
         this.availableUntil = availableUntil;
+        this.noOfBeds = noOfBeds;
     }
 
     public Long getAccomodationId () {
@@ -92,5 +98,13 @@ public class Accommodation {
 
     public void setAvailableUntil (Date availableUntil) {
         this.availableUntil = availableUntil;
+    }
+
+    public Integer getNoOfBeds () {
+        return noOfBeds;
+    }
+
+    public void setNoOfBeds (Integer noOfBeds) {
+        this.noOfBeds = noOfBeds;
     }
 }

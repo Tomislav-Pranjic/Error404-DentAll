@@ -9,5 +9,9 @@ public interface AccommodationService {
 
     List<Accommodation> listAll();
 
-    Accommodation createAccommodation(Long typeId, Integer stars, Long addressId, Boolean owner, String availableUntil);
+    Accommodation getAccommodation(Long id);
+
+    Accommodation createAccommodation(Long typeId, Integer stars, Long addressId, String owner, String availableUntil, Integer noOfBeds);
+
+    Accommodation updateAccommodation(Long id, Long typeId, Integer stars, Long addressId, String owner, String availableUntil, Integer noOfBeds);
 }

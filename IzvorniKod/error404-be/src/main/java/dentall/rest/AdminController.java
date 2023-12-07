@@ -31,14 +31,28 @@ public class AdminController {
         return adminService.listAll();
     }
 
+    @GetMapping("/{id}")
+    public Admin getAdmin(@PathVariable("id") Long id){
+        return adminService.findById(id).orElse(null);
+    }
+    
     @PostMapping("")
     public Admin createAdmin(@RequestBody CreateAdminDTO dto){
         return adminService.createAdmin(
                         dto.getUserName(),
                         dto.getPassword(),
-                        dto.getFirstName(),
                         dto.getRoleIds()
                 );
+    }
+
+    @PatchMapping("/{id}")
+    public Admin updateAdmin(@PathVariable("id") Long id, @RequestBody CreateAdminDTO dto) {
+        return adminService.updateAdmin(
+                id,
+                dto.getUserName(),
+                dto.getPassword(),
+                dto.getRoleIds()
+        );
     }
 
     @GetMapping("/roles")

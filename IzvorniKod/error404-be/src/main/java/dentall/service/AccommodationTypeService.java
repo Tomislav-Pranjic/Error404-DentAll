@@ -11,5 +11,7 @@ public interface AccommodationTypeService {
 
     Optional<AccommodationType> findById(Long id);
 
-    AccommodationType createAccommodationType(String typeName, Integer typeSize, Integer typeBedNumber);
+    AccommodationType createAccommodationType(String typeName, Integer typeSize);
+
+    AccommodationType updateAccommodationType(Long id, String name, Integer size);
 }

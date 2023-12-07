@@ -46,6 +46,10 @@ public class Admin {
         this.roles = new HashSet<>();
     }
 
+    public Long getAdminId() {
+        return adminId;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -69,6 +73,17 @@ public class Admin {
 
     public void addRole(AdminRole role) {
         this.roles.add(role);
+    }
+
+    public void removeRole(AdminRole role) {
+        this.roles.remove(role);
+    }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     @Override

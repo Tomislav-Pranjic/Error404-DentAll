@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotNull;
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     @Column(name = "adresa_id")
     private Long addressId;
 

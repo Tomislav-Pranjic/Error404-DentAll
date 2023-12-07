@@ -1,5 +1,6 @@
 package dentall.rest;
 
+import dentall.service.exceptions.ItemNotFoundException;
 import dentall.service.exceptions.RequestDeniedException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -22,6 +23,11 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(RequestDeniedException.class)
     protected ResponseEntity<?> handleRequestDenied(Exception e, WebRequest req){
+        return getResponseEntity(e);
+    }
+
+    @ExceptionHandler(ItemNotFoundException.class)
+    protected ResponseEntity<?> handleItemNotFound(Exception e, WebRequest req){
         return getResponseEntity(e);
     }
 

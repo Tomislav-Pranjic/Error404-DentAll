@@ -37,7 +37,12 @@ public class AccommodationServiceJpa implements AccommodationService {
     }
 
     @Override
-    public Accommodation createAccommodation(Long typeId, Integer stars, Long addressId, Boolean owner, String availableUntil) {
+    public Accommodation getAccommodation(Long id) {
+        return accommodationRepo.findById(id).orElseThrow(() -> new ItemNotFoundException("Accommodation with id '" + id + "' does not exist."));
+    }
+
+    @Override
+    public Accommodation createAccommodation(Long typeId, Integer stars, Long addressId, String owner, String availableUntil, Integer noOfBeds) {
         Accommodation accommodation = new Accommodation();
 
         Optional<AccommodationType> type = accTypeService.findById(typeId);
@@ -59,9 +64,11 @@ public class AccommodationServiceJpa implements AccommodationService {
         accommodation.setAddress(address.get());
 
         Assert.notNull(owner, "Ownership must be defined.");
-        accommodation.setOwner(owner);
+        Assert.isTrue(owner.matches("True|False"), "Ownership must be either 'True' or 'False'.");
 
-        if(!owner){
+        accommodation.setOwner(owner.equals("True"));
+
+        if(!accommodation.getOwner()){
             Assert.hasText(availableUntil, "Available until must be defined.");
 
             DateFormat df = new SimpleDateFormat(Error404BeApplication.DATE_FORMAT);
@@ -73,6 +80,65 @@ public class AccommodationServiceJpa implements AccommodationService {
             } catch (Exception e) {
                 throw new IllegalArgumentException("Available until must be in format '"+ Error404BeApplication.DATE_FORMAT +"'.");
             }
+        }
+
+        Assert.isTrue((noOfBeds > 0), "Number of beds must be greater than 0.");
+        accommodation.setNoOfBeds(noOfBeds);
+
+        return accommodationRepo.save(accommodation);
+    }
+
+    @Override
+    public Accommodation updateAccommodation(Long id, Long typeId, Integer stars, Long addressId, String owner, String availableUntil, Integer noOfBeds) {
+        Accommodation accommodation = accommodationRepo.findById(id).orElseThrow(() -> new ItemNotFoundException("Accommodation with id '" + id + "' does not exist."));
+
+        if(typeId != null){
+            Optional<AccommodationType> type = accTypeService.findById(typeId);
+            if(type.isEmpty()){
+                throw new ItemNotFoundException("Accommodation type with id '" + typeId + "' does not exist.");
+            }
+
+            accommodation.setApartmentType(type.get());
+        }
+
+        if(stars != null){
+            Assert.isTrue(((stars >= 1) && (stars <= 5)), "Stars must be between 1 and 5.");
+            accommodation.setNoOfStars(stars);
+        }
+
+        if(addressId != null){
+            Optional<Address> address = addressService.findById(addressId);
+
+            if(address.isEmpty()){
+                throw new ItemNotFoundException("Address with id '" + addressId + "' does not exist.");
+            }
+
+            accommodation.setAddress(address.get());
+        }
+
+        if(owner != null){
+            Assert.isTrue(owner.matches("True|False"), "Ownership must be either 'True' or 'False'.");
+
+            accommodation.setOwner(owner.equals("True"));
+        }
+
+        if(availableUntil != null){
+            Assert.hasText(availableUntil, "Available until must be defined.");
+
+            DateFormat df = new SimpleDateFormat(Error404BeApplication.DATE_FORMAT);
+
+            try {
+                Date date = new Date(df.parse(availableUntil).getTime());
+                accommodation.setAvailableUntil(date);
+
+            } catch (Exception e) {
+                throw new IllegalArgumentException("Available until must be in format '"+ Error404BeApplication.DATE_FORMAT +"'.");
+            }
+        }
+
+        if(noOfBeds != null){
+            Assert.isTrue((noOfBeds > 0), "Number of beds must be greater than 0.");
+            accommodation.setNoOfBeds(noOfBeds);
         }
 
         return accommodationRepo.save(accommodation);
