@@ -235,23 +235,40 @@
 		
 		\section{Dijagram stanja}
 			
+			{Na slici 4.7 prikazan je dijagram stanja. Prvo na što admin naiđe je prijava, te nakon toga mu se prikaže web stranica za admina. Na toj stranici može odabrati opciju pregleda svih unesenih podataka te izbrisati ili promijeniti iste. Ako je admin prijavljen kao korisnički admin onda on odabirom opcije za 
+			dodavanje novog korisnika može dodati novog korisnika. Dok ako je admin prijavljen kao admin prijevoza, može dodavati nove prijevoznike. Smještajni admin može odabirom opcije za dodavanje novog administratora, dodati novog administratora, ali isto tako odabirom opcije za dodavanje novog smještaja, može dodati novi smještaj.  }
 			
-			\textbf{\textit{dio 2. revizije}}\\
-			
-			\textit{Potrebno je priložiti dijagram stanja i opisati ga. Dovoljan je jedan dijagram stanja koji prikazuje \textbf{značajan dio funkcionalnosti} sustava. Na primjer, stanja korisničkog sučelja i tijek korištenja neke ključne funkcionalnosti jesu značajan dio sustava, a registracija i prijava nisu. }
-			
-			
+			\begin{figure}[H]
+				\includegraphics[width=\linewidth]{slike/Dijagram stanja.JPG}
+				\centering
+				\caption{Dijagram stanja}
+				\label{fig:Dijagram stanja}
+			\end{figure}
+
 			\eject 
 		
 		\section{Dijagram aktivnosti}
+
+		{Na slici 4.8 prikaza je dijagram aktivnosti. Sve počinje prijavom. Uneseno korisničko ime i lozinka se provjeravaju s bazom podataka. Ako je neispravna prijava, admin se vrača na obrazac za unos podataka za prijavu, dok ako je prijava uspješna, pojavljuje se prikaz vrsta admina.
+		Ako je prijavljen korisnički admin, on može dodavati nove korisnike. Adim prijevoza može dodavati nove prijevoznike. Dok smještajni admin može dodavati novi smještaj te dodavati nove admine.}
 			
-			\textbf{\textit{dio 2. revizije}}\\
-			
-			 \textit{Potrebno je priložiti dijagram aktivnosti s pripadajućim opisom. Dijagram aktivnosti treba prikazivati značajan dio sustava.}
-			
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{slike/Dijagram aktivnsti.JPG}
+			\centering
+			\caption{Dijagram aktivnosti}
+			\label{fig:Dijagram aktivnosti}
+		\end{figure}
+
+
 			\eject
 		\section{Dijagram komponenti}
+
+		{Na slici 4.9 prikazan je dijagram komponenti koji pokazuje međuovisnosti između frontenda, backenda i baze podataka. Frontend ima poseban server za HTML, CSS i JS datoteke koje služe za strukturu i dizajn web stranice. REST API komponenti pristupa se preko sučelja za dohvat JSON podataka te poslužuje podatke backendu. 
+		Cijeli backend je napravljen na Springu te backend komunicira s bazom podataka slanjem SQL upita.}
 		
-			\textbf{\textit{dio 2. revizije}}\\
-		
-			 \textit{Potrebno je priložiti dijagram komponenti s pripadajućim opisom. Dijagram komponenti treba prikazivati strukturu cijele aplikacije.}
+			\begin{figure}[H]
+				\includegraphics[width=\linewidth]{slike/dijagram komponenti.JPG}
+				\centering
+				\caption{Dijagram komponenti}
+				\label{fig:Dijagram komponenti}
+			\end{figure}
