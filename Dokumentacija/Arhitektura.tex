@@ -1,16 +1,16 @@
 \chapter{Arhitektura i dizajn sustava}
 		
-		\textbf{\textit{dio 1. revizije}}\\
+		%\textbf{\textit{dio 1. revizije}}\\
 
-		\textit{ Potrebno je opisati stil arhitekture te identificirati: podsustave, preslikavanje na radnu platformu, spremišta podataka, mrežne protokole, globalni upravljački tok i sklopovsko-programske zahtjeve. Po točkama razraditi i popratiti odgovarajućim skicama:}
+		%\textit{ Potrebno je opisati stil arhitekture te identificirati: podsustave, preslikavanje na radnu platformu, spremišta podataka, mrežne protokole, globalni upravljački tok i sklopovsko-programske zahtjeve. Po točkama razraditi i popratiti odgovarajućim skicama:}
 	\begin{itemize}
-		\item 	\textit{izbor arhitekture temeljem principa oblikovanja pokazanih na predavanjima (objasniti zašto ste baš odabrali takvu arhitekturu)}
-		\\Za razvoj frontend-a odabrali smo programski jezik TypeScript u kojem smo koristili React i React router biblioteku. To nam omogućuje razvoj stranice uz pomoć tzv. komponenti što čini kod čitljivije i dopušta lakše ponovno korištenje komponenti. Za izgled stranice koristili smo Bootstrap kako bi stranica imala moderan izgled. 
+		%\item 	\textit{izbor arhitekture temeljem principa oblikovanja pokazanih na predavanjima (objasniti zašto ste baš odabrali takvu arhitekturu)}
 		
-		\item 	\textit{organizaciju sustava s najviše razine apstrakcije (npr. klijent-poslužitelj, baza podataka, datotečni sustav, grafičko sučelje)}
-		\\Ulaskom na stranicu korisnik (administrator) je preusmjeren na stranicu za prijavu. Nakon unosa svog korisničkog imena i lozinke, podatci se provjeravaju u bazi podataka, i ako su ispravni, administratora se  preusmjerava na glavnu stranicu. Na glavnoj stranici su prikazani
+		\item 	%\textit{organizaciju sustava s najviše razine apstrakcije (npr. klijent-poslužitelj, baza podataka, datotečni sustav, grafičko sučelje)}
+		Ulaskom na aplikaciju korisnik (administrator) je preusmjeren na stranicu za prijavu. Nakon unosa svog korisničkog imena i lozinke, podatci se provjeravaju u bazi podataka, i ako su ispravni, administratora se  preusmjerava na glavnu stranicu. Na glavnoj stranici su prikazani
 		različiti "prozori" ovisno o tome koja vrsta administratora pristupa stranici.
-		\item 	\textit{organizaciju aplikacije (npr. slojevi frontend i backend, MVC arhitektura) }		
+		\item 	%\textit{organizaciju aplikacije (npr. slojevi frontend i backend, MVC arhitektura) }
+		Aplikacija se sastoji od backend-a, frontend-a i baze podataka. \newline Backend je pozadinski dio aplikacije koji se izvršava na serveru. Za razvoj backend-a odabran je programski jezik Java i okvir Spring što čini backend prenosiv i jednostavan za korištenje. Sastoji se od rest kontrolera koji primaju HTTP zahtjeve i vraćaju JSON podatke, Service komponenti koje provjeravaju točnost upita te konačno Repository komponenti koji omogućuju upisivanje u bazu i čitanje iste. \newline Frontend je grafičko sučelje koje omogućuje prijavu u aplikaciju, prikaz traženih podataka te lakše korištenje aplikacije. Za razvoj frontend-a odabran je programski jezik TypeScript u kojem je korišten React te React router biblioteka. Taj odabir omogućuje razvoj stranice uz pomoć tzv. komponenti što čini kod čitljivije i dopušta lakše ponovno korištenje. Za izgled stranice korišten je Bootstrap kako bi stranica imala moderan izgled. \newline Baza podataka pisana je u programskom jeziku SQL zbog njegove široke upotrebe i visoke kompatibilnosti.
 	\end{itemize}
 
 	
@@ -20,9 +20,9 @@
 				
 		\section{Baza podataka}
 			
-			\textbf{\textit{dio 1. revizije}}\\
+			%\textbf{\textit{dio 1. revizije}}\\
 			
-		\textit{Potrebno je opisati koju vrstu i implementaciju baze podataka ste odabrali, glavne komponente od kojih se sastoji i slično.}\\
+		%\textit{Potrebno je opisati koju vrstu i implementaciju baze podataka ste odabrali, glavne komponente od kojih se sastoji i slično.}\\
 		
 		{Baza podataka modelirana je tabličnim modelom u "Structured Query Language" (SQL) jeziku. Ona sadrži podatke potrebne za rad cijelog sustava, poput podatke o administratorima, korisnicima, kao i podatke o vozilima koji su na raspolaganju te koji ih vozači voze, zajedno s adresama svih lokacija i vlasništva dostupnog smještaja.}
 		
@@ -167,7 +167,7 @@
 					\end{longtblr}
 
 			\subsection{Dijagram baze podataka}
-				\textit{ U ovom potpoglavlju potrebno je umetnuti dijagram baze podataka. Primarni i strani ključevi moraju biti označeni, a tablice povezane. Bazu podataka je potrebno normalizirati. Podsjetite se kolegija "Baze podataka".}
+				%\textit{ U ovom potpoglavlju potrebno je umetnuti dijagram baze podataka. Primarni i strani ključevi moraju biti označeni, a tablice povezane. Bazu podataka je potrebno normalizirati. Podsjetite se kolegija "Baze podataka".}
 			
 			
 			\begin{figure}[H]
@@ -225,9 +225,9 @@
 			
 			
 			
-			\textbf{\textit{dio 2. revizije}}\\			
+			%\textbf{\textit{dio 2. revizije}}\\			
 			
-			\textit{Prilikom druge predaje projekta dijagram razreda i opisi moraju odgovarati stvarnom stanju implementacije}
+			%\textit{Prilikom druge predaje projekta dijagram razreda i opisi moraju odgovarati stvarnom stanju implementacije}
 			
 			
 			
@@ -245,6 +245,11 @@
 				\label{fig:Dijagram stanja}
 			\end{figure}
 
+			%\textbf{\textit{dio 2. revizije}}\\
+			
+			%\textit{Potrebno je priložiti dijagram stanja i opisati ga. Dovoljan je jedan dijagram stanja koji prikazuje \textbf{značajan dio funkcionalnosti} sustava. Na primjer, stanja korisničkog sučelja i tijek korištenja neke ključne funkcionalnosti jesu značajan dio sustava, a registracija i prijava nisu. }
+			
+			
 			\eject 
 		
 		\section{Dijagram aktivnosti}
@@ -260,6 +265,10 @@
 		\end{figure}
 
 
+			%\textbf{\textit{dio 2. revizije}}\\
+			
+			 %\textit{Potrebno je priložiti dijagram aktivnosti s pripadajućim opisom. Dijagram aktivnosti treba prikazivati značajan dio sustava.}
+			
 			\eject
 		\section{Dijagram komponenti}
 
@@ -271,4 +280,6 @@
 				\centering
 				\caption{Dijagram komponenti}
 				\label{fig:Dijagram komponenti}
-			\end{figure}
+			\end{figure}			%\textbf{\textit{dio 2. revizije}}\\
+		
+			 %\textit{Potrebno je priložiti dijagram komponenti s pripadajućim opisom. Dijagram komponenti treba prikazivati strukturu cijele aplikacije.}
