@@ -1,6 +1,6 @@
 package dentall.rest;
 
-import dentall.rest.dto.EmailDetails;
+import dentall.rest.dto.CreateEmailDTO;
 import dentall.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,14 +18,14 @@ public class EmailController {
     private EmailService emailService;
 
     @PostMapping("/sendMail")
-    public String sendMail(@RequestBody EmailDetails details) {
+    public String sendMail(@RequestBody CreateEmailDTO details) {
         String status = emailService.sendSimpleMail(details);
         return status;
     }
 
     @PostMapping("/sendMailWithAttachment")
     public String sendMailWithAttachment(
-            @RequestBody EmailDetails details) {
+            @RequestBody CreateEmailDTO details) {
         String status = emailService.sendMailWithAttachment(details);
         return status;
     }

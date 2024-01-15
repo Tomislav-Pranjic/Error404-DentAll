@@ -1,6 +1,6 @@
 package dentall.service.impl;
 
-import dentall.rest.dto.EmailDetails;
+import dentall.rest.dto.CreateEmailDTO;
 
 import java.io.File;
 
@@ -15,7 +15,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EmailServiceImpl implements EmailService {
+public class EmailServiceJpa implements EmailService {
 
     @Autowired
     private JavaMailSender javaMailSender;
@@ -24,7 +24,7 @@ public class EmailServiceImpl implements EmailService {
     private String sender;
 
     @Override
-    public String sendSimpleMail(EmailDetails details) {
+    public String sendSimpleMail(CreateEmailDTO details) {
 
         try {
 
@@ -49,7 +49,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public String sendMailWithAttachment(EmailDetails details) {
+    public String sendMailWithAttachment(CreateEmailDTO details) {
 
         MimeMessage mimeMessage
                 = javaMailSender.createMimeMessage();
