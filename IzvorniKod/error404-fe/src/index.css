@@ -68,3 +68,6 @@ button:focus-visible {
   }
 }
 */
+* {
+  padding: 0px;
+}

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "./Home.css";
 
 function Home() {
@@ -29,77 +30,34 @@ function Home() {
         <nav className="navbar bg-body-tertiary">
           <div className="container-fluid">
             <a className="navbar-brand">DentAll</a>
-            <a className="nav-link" href="/home">
+            <a className="nav-link" href="/accommodation">
               Accommodation
             </a>
-            <a className="nav-link" href="/home">
+            <a className="nav-link" href="/transportation">
               Transportation
             </a>
-            <a className="nav-link" href="/home">
+            <a className="nav-link" href="/users">
               Users
             </a>
-            <button
-              type="button"
-              className="btn btn-dark"
-              onClick={() => console.log("Logout button clicked")}
-            >
-              Logout
-            </button>
+            <a className="btn btn-dark" href="/" role="button">Logout</a>
           </div>
         </nav>
       </header>
       <main>
         <div className="main-container">
-          <br />
-          <h2>User data</h2>
-          <br />
-          <table className="table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.id}</td>
-                  <td>{item.ime}</td>
-                  <td>{item.prezime}</td>
-                  <td>
-                    <>
-                      <button
-                        className="btn btn-outline-primary"
-                        onClick={() => handleEdit(item.id)}
-                      >
-                        Edit
-                      </button>
 
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => handleDelete(item.id)}
-                      >
-                        Delete
-                      </button>
-                    </>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <br />
-          <button className="btn btn-secondary" onClick={handleAdd}>
-            Add Data
-          </button>
+        {/* ovdje treba dodati onaj glavni dio */}
+        <p>home page</p>
+
+
         </div>
-      </main>
+    </main>
 
-      <footer className="footer-container">
-        <p className="text-center text-muted">&copy; 2023 DentAll.</p>
-      </footer>
-    </div>
+    <footer className="footer-container">
+      <p className="text-center text-muted">&copy; 2023 DentAll.</p>
+    </footer>
+  </div> 
+    
   );
 }
 
