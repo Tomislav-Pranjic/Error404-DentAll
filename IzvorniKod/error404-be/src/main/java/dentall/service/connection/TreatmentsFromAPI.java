@@ -4,8 +4,10 @@ import org.apache.commons.lang3.time.DateParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -30,20 +32,22 @@ public class TreatmentsFromAPI {
     }
     // params: bool:zakljucan i String:after <- date(yyyy-MM-dd-HH-mm-ss)
 
-    public void getResponse(String after){
-        HttpURLConnection con = null;
+    public String getResponse(String after){
+        HttpURLConnection con;
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-        Timestamp sqlAfter = null;
         try {
-            sqlAfter = new Timestamp(df.parse(after).getTime());
+            new Timestamp(df.parse(after).getTime());
         } catch (Exception e) {
             logger.error("Error while parsing date: " + e.getMessage());
             throw new IllegalArgumentException("Date must be in format 'yyyy-MM-dd-HH-mm-ss'.");
         }
 
         try {
-            con = (HttpURLConnection) url.openConnection();
+            URL connectionUrl = new URL(url + "?zakljucan=true&after=" + after);
+
+            con = (HttpURLConnection) connectionUrl.openConnection();
+            con.setRequestProperty("User-Agent", "Mozilla/5.0");
             con.setRequestMethod("GET");
         } catch (Exception e) {
             logger.error("Error while opening connection: " + e.getMessage());
@@ -51,13 +55,31 @@ public class TreatmentsFromAPI {
         }
 
 
-        con.setDoOutput(true);
+//        con.setDoOutput(true);
+//        try {
+//            DataOutputStream os = new DataOutputStream(con.getOutputStream());
+//            os.writeChars("zakljucan=true&after=" + after);
+//            os.flush();
+//        } catch (IOException e) {
+//            logger.error("Error while getting output stream: " + e.getMessage());
+//            throw new IllegalArgumentException("Error while getting output stream.");
+//        }
+
         try {
-            DataOutputStream os = new DataOutputStream(con.getOutputStream());
-            os.writeChars("zakljucan=true&after=" + after);
+            int responseCode = con.getResponseCode();
+            if(responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED){
+                logger.info("Response code: " + responseCode);
+
+                String response = UserInfoFromAPI.responseToString(con, logger);
+                return response.toString();
+
+            } else {
+                logger.error("Response code: " + responseCode);
+                return "[]";
+            }
         } catch (IOException e) {
-            logger.error("Error while getting output stream: " + e.getMessage());
-            throw new IllegalArgumentException("Error while getting output stream.");
+            logger.error("Error while getting response code: " + e.getMessage());
+            return "[]";
         }
 
     }

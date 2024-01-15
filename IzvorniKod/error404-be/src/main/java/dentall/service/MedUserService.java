@@ -4,7 +4,7 @@ import dentall.domain.AccommodationType;
 import dentall.domain.Address;
 import dentall.domain.MedUser;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +12,10 @@ public interface MedUserService {
 
     List<MedUser> listAll();
 
-    MedUser createMedUser(String firstName, String lastName, String email, String phoneNumber, String arrivalDate, Long arrivalAddressId, String departureDate, Long departureAddressId, Long accTypePreferenceId);
+    MedUser createMedUser(String firstName, String lastName, String email, String phoneNumber, Long accTypePreferenceId, String dateOfBirth);
+
+    Optional<MedUser> getMedUserByRemoteId(Long remoteId);
+
+    MedUser createMedUser(MedUser medUser);
 
 }
