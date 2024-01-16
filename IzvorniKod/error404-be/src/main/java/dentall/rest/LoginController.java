@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class LoginController {
-    @PostMapping("/login")
+    @PostMapping("/login/checkCredentials")
     public void login() {
     }
 }
