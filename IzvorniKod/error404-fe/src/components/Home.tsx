@@ -1,5 +1,4 @@
-import { FormEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import "./Home.css";
 
 function Home() {
@@ -10,19 +9,10 @@ function Home() {
     { id: 4, ime: "Pero", prezime: "Perić" },
   ];
 
-  const [data] = useState(initialData);
+  const [] = useState(initialData);
 
-  const handleEdit = (id: number) => {
-    console.log(`Edit button clicked for user with ID ${id}`);
-  };
 
-  const handleDelete = (id: number) => {
-    console.log(`Delete button clicked for user with ID ${id}`);
-  };
 
-  const handleAdd = () => {
-    console.log("Add button clicked");
-  };
 
   return (
     <div className="home-container">
