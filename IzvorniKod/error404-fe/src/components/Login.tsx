@@ -34,6 +34,9 @@ function Login(){
     fetch('/api/login', options)
       .then(response => {
         if (response.status === 200) {
+
+          localStorage.setItem('username', loginForm.username);
+          localStorage.setItem('password', loginForm.password);
           navigate('/home');
         } else {
           setAlertVisibility(true)
