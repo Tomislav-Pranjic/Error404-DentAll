@@ -1,6 +1,7 @@
 package dentall.rest.security;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,10 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 @EnableMethodSecurity(
         securedEnabled = true)
 public class WebSecurity {
+
+    @Autowired
+    private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests(authorize -> {
@@ -32,7 +37,9 @@ public class WebSecurity {
                      .anyRequest().authenticated();
         });
 //        http.formLogin(Customizer.withDefaults());
-        http.httpBasic(Customizer.withDefaults());
+        http.httpBasic(httpSecurityHttpBasicConfigurer -> {
+           httpSecurityHttpBasicConfigurer.authenticationEntryPoint(restAuthenticationEntryPoint);
+        });
         http.csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
