@@ -38,39 +38,13 @@ public class MedUser {
     private String phoneNumber;
 
     @NotNull
-    @Column(name = "dat_dol")
-    private Date arrivalDate;
+    @Column(name = "datum_rodenja")
+    @Temporal(TemporalType.DATE)
+    private Date dateOfBirth;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "adr_dol", referencedColumnName = "adresa_id")
-    private Address arrivalAddress;
-
-    @NotNull
-    @Column(name = "dat_odl")
-    private Date departureDate;
-
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "adr_odl", referencedColumnName = "adresa_id")
-    private Address departureAddress;
-
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "smj_pref", referencedColumnName = "tip_id")
     private AccommodationType accommodationPreference;
-
-    @ManyToOne
-    @JoinColumn(name = "vozac_dovozi", referencedColumnName = "vozac_id")
-    private Driver arrivalDriver;
-
-    @ManyToOne
-    @JoinColumn(name = "vozac_odvozi", referencedColumnName = "vozac_id")
-    private Driver departureDriver;
-
-    @ManyToOne
-    @JoinColumn(name = "smjestaj_id", referencedColumnName = "smjestaj_id")
-    private Accommodation accommodation;
 
     public MedUser() {
         this.remoteUserId = null;
@@ -78,30 +52,18 @@ public class MedUser {
         this.surname = null;
         this.email = null;
         this.phoneNumber = null;
-        this.arrivalDate = null;
-        this.arrivalAddress = null;
-        this.departureDate = null;
-        this.departureAddress = null;
+        this.dateOfBirth = null;
         this.accommodationPreference = null;
-        this.arrivalDriver = null;
-        this.departureDriver = null;
-        this.accommodation = null;
     }
 
-    public MedUser(String name, String surname, String email, String phoneNumber, Date arrivalDate, Address arrivalAddress, Date departureDate, Address departureAddress, AccommodationType accommodationPreference) {
+    public MedUser(String name, String surname, String email, String phoneNumber, AccommodationType accommodationPreference, Date dateOfBirth) {
         this.remoteUserId = null;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.arrivalDate = arrivalDate;
-        this.arrivalAddress = arrivalAddress;
-        this.departureDate = departureDate;
-        this.departureAddress = departureAddress;
         this.accommodationPreference = accommodationPreference;
-        this.arrivalDriver = null;
-        this.departureDriver = null;
-        this.accommodation = null;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public Long getLocalUserId () {
@@ -140,30 +102,6 @@ public class MedUser {
         this.phoneNumber = phoneNumber;
     }
 
-    public Date getArrivalDate () {
-        return arrivalDate;
-    }
-
-    public void setArrivalDate (Date arrivalDate) {
-        this.arrivalDate = arrivalDate;
-    }
-
-    public Address getArrivalAddress() {
-        return arrivalAddress;
-    }
-
-    public void setArrivalAddress(Address arrivalAddress) {
-        this.arrivalAddress = arrivalAddress;
-    }
-
-    public Date getDepartureDate () {
-        return departureDate;
-    }
-
-    public void setDepartureDate (Date departureDate) {
-        this.departureDate = departureDate;
-    }
-
     public AccommodationType getAccommodationPreference() {
         return accommodationPreference;
     }
@@ -180,35 +118,11 @@ public class MedUser {
         this.email = email;
     }
 
-    public Address getDepartureAddress() {
-        return departureAddress;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setDepartureAddress(Address departureAddress) {
-        this.departureAddress = departureAddress;
-    }
-
-    public Driver getArrivalDriver() {
-        return arrivalDriver;
-    }
-
-    public void setArrivalDriver(Driver arrivalDriver) {
-        this.arrivalDriver = arrivalDriver;
-    }
-
-    public Driver getDepartureDriver() {
-        return departureDriver;
-    }
-
-    public void setDepartureDriver(Driver departureDriver) {
-        this.departureDriver = departureDriver;
-    }
-
-    public Accommodation getAccommodation() {
-        return accommodation;
-    }
-
-    public void setAccommodation(Accommodation accommodation) {
-        this.accommodation = accommodation;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }

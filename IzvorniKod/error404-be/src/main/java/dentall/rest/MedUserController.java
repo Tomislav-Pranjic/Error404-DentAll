@@ -29,11 +29,8 @@ public class MedUserController {
                         dto.getLastName(),
                         dto.getEmail(),
                         dto.getPhoneNumber(),
-                        dto.getArrDate(),
-                        dto.getArrAddressId(),
-                        dto.getDepDate(),
-                        dto.getDepAddressId(),
-                        dto.getAccTypePrefId());
+                        dto.getAccTypePrefId(),
+                        dto.getDateOfBirth());
     }
 
 }

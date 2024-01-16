@@ -11,7 +11,7 @@ public class Vehicle {
     @Id
     @NotNull
     @Column(name = "reg_vozila")
-    @Size(min=8, max = 8)
+    @Size(min=7, max = 8)
     private String registration;
 
     @NotNull
@@ -33,6 +33,13 @@ public class Vehicle {
         this.model = model;
         this.color = color;
         this.capacity = capacity;
+    }
+
+    public Vehicle() {
+        this.registration = null;
+        this.model = null;
+        this.color = null;
+        this.capacity = null;
     }
 
     public String getRegistration() {

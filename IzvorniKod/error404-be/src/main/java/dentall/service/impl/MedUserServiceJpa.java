@@ -37,7 +37,7 @@ public class MedUserServiceJpa implements MedUserService {
     }
 
     @Override
-    public MedUser createMedUser(String firstName, String lastName, String email, String phoneNumber, String arrivalDate, Long arrivalAddressId, String departureDate, Long departureAddressId, Long accTypePreferenceId) {
+    public MedUser createMedUser(String firstName, String lastName, String email, String phoneNumber, Long accTypePreferenceId, String dateOfBirth) {
         Assert.hasText(firstName, "First name must be provided.");
         Assert.isTrue(firstName.length() <= 32, "First name must not be longer than 32 characters.");
 
@@ -52,42 +52,42 @@ public class MedUserServiceJpa implements MedUserService {
         phoneNumber = phoneNumber.replaceAll(" ", "");
         Assert.isTrue(phoneNumber.matches(Error404BeApplication.PHONE_NUMBER_FORMAT), "Phone number must be in valid format.");
 
-        Assert.hasText(arrivalDate, "Arrival date must be provided.");
-        DateFormat df = new SimpleDateFormat(Error404BeApplication.DATE_FORMAT);
-
-        Date sqlArrivalDate;
-
-        try {
-            sqlArrivalDate = new Date(df.parse(arrivalDate).getTime());
-
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Available until must be in format '"+ Error404BeApplication.DATE_FORMAT +"'.");
-        }
-
-        Assert.notNull(arrivalAddressId, "Arrival address must be provided.");
-
-        Optional<Address> arrivalAddress = addressService.findById(arrivalAddressId);
-        if(arrivalAddress.isEmpty()){
-            throw new ItemNotFoundException("Address with id '" + arrivalAddressId + "' does not exist.");
-        }
-
-        Assert.hasText(departureDate, "Departure date must be provided.");
-
-        Date sqlDepartureDate;
-
-        try {
-            sqlDepartureDate = new Date(df.parse(departureDate).getTime());
-
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Available until must be in format '"+ Error404BeApplication.DATE_FORMAT +"'.");
-        }
-
-        Assert.notNull(departureAddressId, "Departure address must be provided.");
-
-        Optional<Address> departureAddress = addressService.findById(departureAddressId);
-        if(departureAddress.isEmpty()){
-            throw new ItemNotFoundException("Address with id '" + departureAddressId + "' does not exist.");
-        }
+//        Assert.hasText(arrivalDate, "Arrival date must be provided.");
+//        DateFormat df = new SimpleDateFormat(Error404BeApplication.DATE_FORMAT);
+//
+//        Date sqlArrivalDate;
+//
+//        try {
+//            sqlArrivalDate = new Date(df.parse(arrivalDate).getTime());
+//
+//        } catch (Exception e) {
+//            throw new IllegalArgumentException("Available until must be in format '"+ Error404BeApplication.DATE_FORMAT +"'.");
+//        }
+//
+//        Assert.notNull(arrivalAddressId, "Arrival address must be provided.");
+//
+//        Optional<Address> arrivalAddress = addressService.findById(arrivalAddressId);
+//        if(arrivalAddress.isEmpty()){
+//            throw new ItemNotFoundException("Address with id '" + arrivalAddressId + "' does not exist.");
+//        }
+//
+//        Assert.hasText(departureDate, "Departure date must be provided.");
+//
+//        Date sqlDepartureDate;
+//
+//        try {
+//            sqlDepartureDate = new Date(df.parse(departureDate).getTime());
+//
+//        } catch (Exception e) {
+//            throw new IllegalArgumentException("Available until must be in format '"+ Error404BeApplication.DATE_FORMAT +"'.");
+//        }
+//
+//        Assert.notNull(departureAddressId, "Departure address must be provided.");
+//
+//        Optional<Address> departureAddress = addressService.findById(departureAddressId);
+//        if(departureAddress.isEmpty()){
+//            throw new ItemNotFoundException("Address with id '" + departureAddressId + "' does not exist.");
+//        }
 
         Assert.notNull(accTypePreferenceId, "Accommodation type preference must be provided.");
 
@@ -96,9 +96,31 @@ public class MedUserServiceJpa implements MedUserService {
             throw new ItemNotFoundException("Accommodation type with id '" + accTypePreferenceId + "' does not exist.");
         }
 
+        Assert.hasText(dateOfBirth, "Date of birth must be provided.");
+        DateFormat df = new SimpleDateFormat(Error404BeApplication.DATE_FORMAT);
 
-        MedUser user = new MedUser(firstName, lastName, email, phoneNumber, sqlArrivalDate, arrivalAddress.get(), sqlDepartureDate, departureAddress.get(), typePreference.get());
+        Date sqlDateOfBirth;
+
+        try {
+            sqlDateOfBirth = new Date(df.parse(dateOfBirth).getTime());
+
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Date of birth must be in format '"+ Error404BeApplication.DATE_FORMAT +"'.");
+        }
+
+
+        MedUser user = new MedUser(firstName, lastName, email, phoneNumber, typePreference.get(), sqlDateOfBirth);
         return medUserRepository.save(user);
+    }
+
+    @Override
+    public Optional<MedUser> getMedUserByRemoteId(Long remoteId) {
+        return medUserRepository.findByRemoteUserId(remoteId);
+    }
+
+    @Override
+    public MedUser createMedUser(MedUser medUser) {
+        return medUserRepository.save(medUser);
     }
 
 }

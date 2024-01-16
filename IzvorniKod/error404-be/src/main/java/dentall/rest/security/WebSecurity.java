@@ -31,17 +31,17 @@ public class WebSecurity {
             authorize.requestMatchers(new AntPathRequestMatcher("/actuator/**")).permitAll()
                      .anyRequest().authenticated();
         });
-        http.formLogin(Customizer.withDefaults());
+//        http.formLogin(Customizer.withDefaults());
         http.httpBasic(Customizer.withDefaults());
         http.csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
 
     @Bean
+    @Profile("spa")
     public SecurityFilterChain spaFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers(new AntPathRequestMatcher("/login")).permitAll()
-                .anyRequest().authenticated());
+                .requestMatchers(new AntPathRequestMatcher("/login")));
         http.formLogin(configurer -> {
                     configurer.successHandler((request, response, authentication) ->
                                     response.setStatus(HttpStatus.NO_CONTENT.value())

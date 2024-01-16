@@ -5,11 +5,9 @@ public class CreateMedUserDTO {
     private String lastName;
     private String email;
     private String phoneNumber;
-    private String arrDate;
-    private Long arrAddressId;
-    private String depDate;
-    private Long depAddressId;
     private Long accTypePrefId;
+
+    private String dateOfBirth;
 
     public String getFirstName() {
         return firstName;
@@ -27,23 +25,15 @@ public class CreateMedUserDTO {
         return phoneNumber;
     }
 
-    public String getArrDate() {
-        return arrDate;
-    }
-
-    public Long getArrAddressId() {
-        return arrAddressId;
-    }
-
-    public String getDepDate() {
-        return depDate;
-    }
-
-    public Long getDepAddressId() {
-        return depAddressId;
-    }
-
     public Long getAccTypePrefId() {
         return accTypePrefId;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }

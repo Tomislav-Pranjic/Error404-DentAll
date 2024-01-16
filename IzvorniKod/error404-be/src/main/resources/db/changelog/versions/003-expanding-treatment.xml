@@ -4,9 +4,9 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <include file="versions/000-admin-role-fill.xml" relativeToChangelogFile="true"/>
-    <include file="versions/001-admin-create.xml" relativeToChangelogFile="true"/>
-    <include file="versions/002-initial-table-create.xml" relativeToChangelogFile="true"/>
-    <include file="versions/003-expanding-treatment.xml" relativeToChangelogFile="true"/>
+    <changeSet id="3" author="jmX86">
+        <dropTable tableName="KORISNIK" cascadeConstraints="true"/>
 
+        <sqlFile path="classpath:db/sql/expanding_treatment.sql"/>
+    </changeSet>
 </databaseChangeLog>
