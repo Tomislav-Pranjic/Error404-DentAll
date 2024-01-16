@@ -1,5 +1,4 @@
-import { FormEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import "./Users.css";
 
 function Users() {
