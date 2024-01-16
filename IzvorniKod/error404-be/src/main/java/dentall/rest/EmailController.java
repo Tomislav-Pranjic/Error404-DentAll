@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Profile("email")
 @RequestMapping("/email")
 @PreAuthorize("hasRole('ROLE_SMJESTAJNI') or hasRole('ROLE_KORISNICKI') or hasRole('ROLE_PRIJEVOZNI')")
 public class EmailController {
@@ -19,16 +18,14 @@ public class EmailController {
     @Autowired
     private EmailService emailService;
 
-    @PostMapping("/sendMail")
-    public String sendMail(@RequestBody CreateEmailDTO details) {
-        String status = emailService.sendSimpleMail(details);
-        return status;
+    @PostMapping("/sendEmail")
+    public String sendEmail(@RequestBody CreateEmailDTO details) {
+        return emailService.sendSimpleEmail(details);
     }
 
-    @PostMapping("/sendMailWithAttachment")
-    public String sendMailWithAttachment(
+    @PostMapping("/sendEmailWithAttachment")
+    public String sendEmailWithAttachment(
             @RequestBody CreateEmailDTO details) {
-        String status = emailService.sendMailWithAttachment(details);
-        return status;
+        return emailService.sendEmailWithAttachment(details);
     }
 }
