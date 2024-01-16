@@ -4,27 +4,20 @@
 
 		%\textit{ Potrebno je opisati stil arhitekture te identificirati: podsustave, preslikavanje na radnu platformu, spremišta podataka, mrežne protokole, globalni upravljački tok i sklopovsko-programske zahtjeve. Po točkama razraditi i popratiti odgovarajućim skicama:}
 	\begin{itemize}
-		%\item 	\textit{izbor arhitekture temeljem principa oblikovanja pokazanih na predavanjima (objasniti zašto ste baš odabrali takvu arhitekturu)}
+		\item 	%\textit{izbor arhitekture temeljem principa oblikovanja pokazanih na predavanjima (objasniti zašto ste baš odabrali takvu arhitekturu)}
+		Aplikacija se sastoji od backend-a, frontend-a i baze podataka. \newline Backend je pozadinski dio aplikacije koji se izvršava na serveru. Za razvoj backend-a odabran je programski jezik Java i okvir Spring što čini backend prenosiv i jednostavan za korištenje. Sastoji se od rest kontrolera koji primaju HTTP zahtjeve i vraćaju JSON podatke, Service komponenti koje provjeravaju točnost upita i valjanost njihovih vrijednosti te konačno Repository komponenti koji omogućuju upisivanje u bazu i čitanje iste. \newline Frontend je grafičko sučelje koje omogućuje prijavu u aplikaciju, prikaz traženih podataka te lakše korištenje aplikacije. Za razvoj frontend-a odabran je programski jezik TypeScript u kojem je korišten React te React router biblioteka. Taj odabir omogućuje razvoj stranice uz pomoć tzv. komponenti što čini kod čitljivije i dopušta lakše ponovno korištenje. Za izgled stranice korišten je Bootstrap kako bi stranica imala moderan izgled. \newline Baza podataka pisana je u programskom jeziku SQL zbog njegove široke upotrebe i visoke kompatibilnosti.
+		\item	%\textit{organizaciju sustava s najviše razine apstrakcije (npr. klijent-poslužitelj, baza podataka, datotečni sustav, grafičko sučelje)}
+		Ulaskom na aplikaciju korisnik (administrator) je preusmjeren na stranicu za prijavu. Nakon unosa svog korisničkog imena i lozinke, podatci se provjeravaju, i ako su ispravni, administratora se  preusmjerava na administratorsku stranicu. Na toj stranici su prikazani različiti podaci ovisno o tome koji administrator pristupa stranici, na primjer smještajni administrator vidi samo podatke vezane uz smještaj. \newline Sustav dodatno komunicira sa vanjskim API-em kako bi dobio podatke koje mu trebaju te ih zatim sprema u bazu podataka iz koje ih dobavlja svaki sljedeći put. \newline Frontend je organiziran u jednoj mapi (\textit{IzvorniKod/error404-fe/error404}) te 2 podmape, u mapi se nalaze paketi i dodaci potrebni za pokretanje frontend-a te podmape \textit{src} i \textit{public}. Unutar podmape \textit{src} nalazi se sam kod frontend dijela aplikacije te u mapama \textit{assets} i \textit{components} se redom nalaze \textit{namespace} u .svg obliku, te dodatne komponente koje omogućavaju rad frontend-a. \newline Backend je organiziran u 1 mapi (\textit{IzvorniKod/error404-be}), te 2 podmape, \textit{src} i \textit{docker}. U mapi \textit{src/main} nalazi se sav kod za backend, on je podjeljen u 2 podmape. Unutar mape \textit{java/dentall} nalazi se kod koji je pisan u programskom jeziku Javi, on je podjeljen na više podmapa u kojima se nalaze dijelovi MVC arhitekture, u mapi \textit{dao} nalaze se Repository komponente, u mapi \textit{service} nalaze se Service komponenete, u mapi \textit{rest} nalaze se kontroleri, u mapi \textit{domain} nalaze se ostale klase koje služe organizaciji podataka. Unutar mape \textit{resources} nalazi se mapa baza podataka \textit{db} koja se sastoji od 2 podmape \textit{sql} i \textit{changelog}, gdje se redom nalaze sam SQL kod baze podataka te datoteke pisane u XML-u (\textit{eXtensive Markup Language}) koje služe boljem povezivanju baze podataka sa backend-om. 
 		
-		\item 	%\textit{organizaciju sustava s najviše razine apstrakcije (npr. klijent-poslužitelj, baza podataka, datotečni sustav, grafičko sučelje)}
-		Ulaskom na aplikaciju korisnik (administrator) je preusmjeren na stranicu za prijavu. Nakon unosa svog korisničkog imena i lozinke, podatci se provjeravaju u bazi podataka, i ako su ispravni, administratora se  preusmjerava na glavnu stranicu. Na glavnoj stranici su prikazani
-		različiti "prozori" ovisno o tome koja vrsta administratora pristupa stranici.
-		\item 	%\textit{organizaciju aplikacije (npr. slojevi frontend i backend, MVC arhitektura) }
-		Aplikacija se sastoji od backend-a, frontend-a i baze podataka. \newline Backend je pozadinski dio aplikacije koji se izvršava na serveru. Za razvoj backend-a odabran je programski jezik Java i okvir Spring što čini backend prenosiv i jednostavan za korištenje. Sastoji se od rest kontrolera koji primaju HTTP zahtjeve i vraćaju JSON podatke, Service komponenti koje provjeravaju točnost upita te konačno Repository komponenti koji omogućuju upisivanje u bazu i čitanje iste. \newline Frontend je grafičko sučelje koje omogućuje prijavu u aplikaciju, prikaz traženih podataka te lakše korištenje aplikacije. Za razvoj frontend-a odabran je programski jezik TypeScript u kojem je korišten React te React router biblioteka. Taj odabir omogućuje razvoj stranice uz pomoć tzv. komponenti što čini kod čitljivije i dopušta lakše ponovno korištenje. Za izgled stranice korišten je Bootstrap kako bi stranica imala moderan izgled. \newline Baza podataka pisana je u programskom jeziku SQL zbog njegove široke upotrebe i visoke kompatibilnosti.
+		
 	\end{itemize}
-
-	
-
-		
-
-				
 		\section{Baza podataka}
 			
 			%\textbf{\textit{dio 1. revizije}}\\
 			
 		%\textit{Potrebno je opisati koju vrstu i implementaciju baze podataka ste odabrali, glavne komponente od kojih se sastoji i slično.}\\
 		
-		{Baza podataka modelirana je tabličnim modelom u "Structured Query Language" (SQL) jeziku. Ona sadrži podatke potrebne za rad cijelog sustava, poput podatke o administratorima, korisnicima, kao i podatke o vozilima koji su na raspolaganju te koji ih vozači voze, zajedno s adresama svih lokacija i vlasništva dostupnog smještaja.}
+		{Baza podataka modelirana je tabličnim modelom u "\textit{Structured Query Language}" (SQL) jeziku. Ona se sastoji od osam entiteta. Entiteti baze podataka su tablice u kojima su zadržani podaci potrebni za rad cijelog sustava. Tablice su redom \textbf{Korisnik}, \textbf{Smještaj}, \textbf{Adresa}, \textbf{Vozilo}, \textbf{Vozač}, \textbf{Admin}, \textbf{AdminUloga} i \textbf{Uloge}. Unutar baze je moguće dodavati (\textit{insert}), mijenjati (\textit{update}) i brisati (\textit{delete}) podatke koje ona sadrži, također je moguće izvršavati \textit{select} i agregatne upite koji će prikazivati traženi sadržaj koji se nalazi unutar baze podataka.}
 		
 			\subsection{Opis tablica}
 			
