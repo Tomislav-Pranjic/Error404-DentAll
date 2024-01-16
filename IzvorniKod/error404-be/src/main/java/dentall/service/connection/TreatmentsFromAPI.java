@@ -3,6 +3,7 @@ package dentall.service.connection;
 import org.apache.commons.lang3.time.DateParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -17,6 +18,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.temporal.ChronoUnit;
 
+@Service
 public class TreatmentsFromAPI {
 
     private final Logger logger = LoggerFactory.getLogger(TreatmentsFromAPI.class);

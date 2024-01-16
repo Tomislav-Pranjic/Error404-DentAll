@@ -10,4 +10,5 @@ public interface DriverService {
 
     Driver createDriver(String name, String surname, String email, String phoneNumber, String vehicleRegistration, String workStartTime, String workingDays);
 
+    Driver getFreeDriverForDate(String date);
 }

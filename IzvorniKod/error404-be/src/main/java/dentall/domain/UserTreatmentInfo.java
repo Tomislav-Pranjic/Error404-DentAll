@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
 
 @Entity(name = "TRETMAN_INFO")
@@ -17,9 +18,17 @@ public class UserTreatmentInfo {
     @Temporal(TemporalType.DATE)
     private Date arrivalDate;
 
+    @Column(name = "vrij_dol")
+    @Temporal(TemporalType.TIME)
+    private Time arrivalTime;
+
     @Column(name = "dat_odl")
     @Temporal(TemporalType.DATE)
     private Date departureDate;
+
+    @Column(name = "vrij_odl")
+    @Temporal(TemporalType.TIME)
+    private Time departureTime;
 
     @ManyToOne
     @JoinColumn(name = "adr_dol", referencedColumnName = "adresa_id")
@@ -68,6 +77,8 @@ public class UserTreatmentInfo {
         this.treatmentDate = treatmentDate;
         this.lockDateTime = lockDateTime;
         this.medUser = medUser;
+        this.arrivalTime = null;
+        this.departureTime = null;
     }
 
     public UserTreatmentInfo() {
@@ -82,6 +93,8 @@ public class UserTreatmentInfo {
         this.treatmentDate = null;
         this.lockDateTime = null;
         this.medUser = null;
+        this.arrivalTime = null;
+        this.departureTime = null;
     }
 
     public UserTreatmentInfo(Date treatmentDate, Timestamp lockDateTime, MedUser medUser) {
@@ -93,6 +106,8 @@ public class UserTreatmentInfo {
         this.arrivalDriver = null;
         this.departureDriver = null;
         this.accommodation = null;
+        this.arrivalTime = null;
+        this.departureTime = null;
         this.treatmentDate = treatmentDate;
         this.lockDateTime = lockDateTime;
         this.medUser = medUser;
@@ -180,5 +195,21 @@ public class UserTreatmentInfo {
 
     public void setMedUser(MedUser medUser) {
         this.medUser = medUser;
+    }
+
+    public Time getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public void setArrivalTime(Time arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
+
+    public Time getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(Time departureTime) {
+        this.departureTime = departureTime;
     }
 }

@@ -2,16 +2,24 @@ package dentall.service.impl;
 
 import dentall.Error404BeApplication;
 import dentall.dao.DriverRepository;
+import dentall.dao.UserTreatmentInfoRepository;
 import dentall.domain.Driver;
+import dentall.domain.UserTreatmentInfo;
 import dentall.domain.Vehicle;
 import dentall.service.DriverService;
 import dentall.service.VehicleService;
 import dentall.service.exceptions.ItemNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.sql.Date;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +31,11 @@ public class DriverServiceJpa implements DriverService {
 
     @Autowired
     private VehicleService vehicleService;
+
+    @Autowired
+    private UserTreatmentInfoRepository userTreatmentInfoRepository;
+
+    private Logger logger = LoggerFactory.getLogger(DriverServiceJpa.class);
 
     @Override
     public List<Driver> listAll() {
@@ -60,5 +73,46 @@ public class DriverServiceJpa implements DriverService {
 
         Driver driver = new Driver(name, surname, email, phoneNumber, vehicle.get(), time, workingDays);
         return driverRepository.save(driver);
+    }
+
+    @Override
+    public Driver getFreeDriverForDate(String date) {
+        DateFormat df = new SimpleDateFormat(Error404BeApplication.DATE_FORMAT);
+        Date sqlDate;
+        try {
+            sqlDate = new Date(df.parse(date).getTime());
+        } catch (Exception e) {
+            logger.error("Error while parsing date: " + e.getMessage());
+            return null;
+        }
+
+        List<UserTreatmentInfo> treatmentsForThatDay = userTreatmentInfoRepository.findAllByArrivalDateOrDepartureDateOrTreatmentDate(sqlDate, sqlDate, sqlDate);
+        List<Driver> drivers = driverRepository.findAll();
+        List<Driver> notTotallyFreeDrivers = new ArrayList<>();
+
+        for (UserTreatmentInfo treatment : treatmentsForThatDay) {
+            if(drivers.remove(treatment.getArrivalDriver()))
+                notTotallyFreeDrivers.add(treatment.getArrivalDriver());
+        }
+        if(!drivers.isEmpty()){
+            return drivers.get(0);
+        }
+
+        Driver driverWithMinWorkThatDay = notTotallyFreeDrivers.remove(0);
+        int numOfWorkOfMinDriver = userTreatmentInfoRepository.countAllByArrivalDateOrDepartureDateOrTreatmentDateAndArrivalDriverOrDepartureDriver(sqlDate, sqlDate, sqlDate, driverWithMinWorkThatDay, driverWithMinWorkThatDay);
+
+        for(Driver driver : notTotallyFreeDrivers) {
+            int workThatDay = userTreatmentInfoRepository.countAllByArrivalDateOrDepartureDateOrTreatmentDateAndArrivalDriverOrDepartureDriver(sqlDate, sqlDate, sqlDate, driver, driver);
+
+            if(workThatDay < numOfWorkOfMinDriver) {
+                driverWithMinWorkThatDay = driver;
+                numOfWorkOfMinDriver = workThatDay;
+            }
+        }
+
+        if(numOfWorkOfMinDriver < 4)
+            return driverWithMinWorkThatDay;
+        else
+            return null;
     }
 }

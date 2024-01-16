@@ -19,7 +19,9 @@ import java.text.SimpleDateFormat;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserInfoFromAPI {
     private final Logger logger = LoggerFactory.getLogger(UserInfoFromAPI.class);
 

@@ -5,8 +5,10 @@ import dentall.domain.MedUser;
 import dentall.domain.UserTreatmentInfo;
 import dentall.service.MedUserService;
 import dentall.service.OldAPIConnectionService;
+import dentall.service.UserTreatmentInfoService;
 import dentall.service.connection.TreatmentsFromAPI;
 import dentall.service.connection.UserInfoFromAPI;
+import dentall.service.properties.SchedulingDataProperties;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,8 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,11 +32,35 @@ public class OldAPIConnectionServiceJpa implements OldAPIConnectionService {
     @Autowired
     private MedUserService medUserService;
 
+    @Autowired
+    private UserTreatmentInfoService userTreatmentInfoService;
+
+    @Autowired
+    private TreatmentsFromAPI treatmentsFromAPI;
+
+    @Autowired
+    private UserInfoFromAPI userInfoFromAPI;
+
+    @Autowired
+    private SchedulingDataProperties schedulingData;
+
     @Override
     public void getNewTreatmentsSince(String date) {
+        logger.info("Getting new treatments since: " + date);
+
         String responseStringFromAPI;
 
-        TreatmentsFromAPI treatmentsFromAPI = new TreatmentsFromAPI();
+        DateFormat dfForTimestampFromOldApi = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateFormat dfForLocalTimestamp = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        DateFormat dfWithLocalDateFormat = new SimpleDateFormat(Error404BeApplication.DATE_FORMAT);
+
+        Timestamp lastDate;
+        try {
+            lastDate = new Timestamp(dfForLocalTimestamp.parse(date).getTime());
+        } catch (ParseException e) {
+            logger.error("Error while parsing lastDate: " + e.getMessage());
+            return;
+        }
 
         try {
             responseStringFromAPI = treatmentsFromAPI.getResponse(date);
@@ -64,7 +93,12 @@ public class OldAPIConnectionServiceJpa implements OldAPIConnectionService {
 
             try {
                 JSONObject userObjectFromTreatment = singleTreatment.getJSONObject("user");
+
+                logger.info("User: " + userObjectFromTreatment.toString());
+
                 Long userID = userObjectFromTreatment.getLong("userId");
+
+                logger.info("User ID: " + userID);
 
                 Optional<MedUser> optionalMedUser = medUserService.getMedUserByRemoteId(userID);
                 if(optionalMedUser.isPresent()) {
@@ -72,7 +106,6 @@ public class OldAPIConnectionServiceJpa implements OldAPIConnectionService {
                     userTreatmentInfo.setMedUser(medUser);
                 } else {
                     logger.info("User with ID: " + userID + " not found in database, sending request to API to get user info");
-                    UserInfoFromAPI userInfoFromAPI = new UserInfoFromAPI();
 
                     MedUser medUser = userInfoFromAPI.getResponse(userID);
                     userTreatmentInfo.setMedUser(medUser);
@@ -80,18 +113,50 @@ public class OldAPIConnectionServiceJpa implements OldAPIConnectionService {
 
                 String treatmentDateString = singleTreatment.getString("datum");
 
-                DateFormat df = new SimpleDateFormat(Error404BeApplication.DATE_FORMAT);
-
-                Date sqlTreatmentDate = new Date(df.parse(treatmentDateString).getTime());
+                Date sqlTreatmentDate = new Date(dfWithLocalDateFormat.parse(treatmentDateString).getTime());
 
                 userTreatmentInfo.setTreatmentDate(sqlTreatmentDate);
 
-                // TODO: set other fields
+                String lockDateTimeString = singleTreatment.getString("dtZakljucavanja");
 
+                if(lockDateTimeString != null && !lockDateTimeString.equals("null")) {
+                    Timestamp sqlLockDateTime;
+                    lockDateTimeString = lockDateTimeString.replace("T", " ");
+
+                    sqlLockDateTime = new Timestamp(dfForTimestampFromOldApi.parse(lockDateTimeString.substring(0, lockDateTimeString.indexOf("."))).getTime());
+
+                    if(sqlLockDateTime.after(lastDate)){
+                        schedulingData.setLastDate(dfForLocalTimestamp.format(sqlLockDateTime));
+                        lastDate = new Timestamp(sqlLockDateTime.getTime());
+                    }
+                    userTreatmentInfo.setLockDateTime(sqlLockDateTime);
+                }
+
+                if(userTreatmentInfoService.countTreatmentsWithUserAndDate(userTreatmentInfo.getMedUser().getLocalUserId(), userTreatmentInfo.getTreatmentDate()) > 0) {
+                    logger.info("Treatment with user ID: " + userTreatmentInfo.getMedUser().getLocalUserId() + " and date: " + userTreatmentInfo.getTreatmentDate() + " already exists in database");
+                    continue;
+                }
+
+                userTreatmentInfoService.createTreatment(userTreatmentInfo);
             } catch (Exception e) {
                 logger.error("Error while parsing response from API: " + e.getMessage());
                 return;
             }
+        }
+    }
+
+    @Override
+    public void treatmentMatchmaking() {
+        logger.info("Starting treatment matchmaking");
+
+        List<UserTreatmentInfo> treatmentsToMatch = userTreatmentInfoService.findAllByMissingAccommodationAndDriverInfo();
+
+        for(UserTreatmentInfo treatment : treatmentsToMatch){
+            if(treatment.getArrivalDate() == null || treatment.getArrivalAddress() == null || treatment.getDepartureDate() == null || treatment.getDepartureAddress() == null) {
+                continue;
+            }
+
+
         }
     }
 }
