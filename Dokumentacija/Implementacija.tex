@@ -6,13 +6,22 @@
 			%\textbf{\textit{dio 2. revizije}}
 			
 			 %\textit{Detaljno navesti sve tehnologije i alate koji su primijenjeni pri izradi dokumentacije i aplikacije. Ukratko ih opisati, te navesti njihovo značenje i mjesto primjene. Za svaki navedeni alat i tehnologiju je potrebno \textbf{navesti internet poveznicu} gdje se mogu preuzeti ili više saznati o njima}.
+			 
+			 Tehnologije i alati koji su se koristili u izradi aplikaciji grupirane su s obzirom na mjesto primjene: backend, frontend, baza podataka, dokumentacija i ispitivanje. Za komunikaciju među članovima korištena je aplikacija \href{https://www.whatsapp.com/}{WhatsApp} koju održava tvrtka Meta, te platformu \href{https://support.microsoft.com/en-us/topic/what-is-microsoft-teams-3de4d369-0167-8def-b93b-0eb5286d7a29}{Microsoft Teams}, koja se također koristila za komunikaciju s asistentom i demonstratorom, a koju održava Microsoft.
+			 \newline \textbf{Backend} \newline
+			 Korišteno je radno okruženje \href{https://www.jetbrains.com/idea/}{InteliJ IDEA}  koje je razvila tvrtka JetBrains za koji postoji komercijalna, Apache 2 licensa, a radno okruženje se koristilo preko fakultetskog računa. Za provjeru funkcionalnosti prilikom izrade koristila se aplikacija \href{https://www.postman.com/}{Postman} koja ima mogućnost slanja HTTP zahtjeva backend-u. 
+			 \newline \textbf{Frontend} \newline
+			 Korišteno je radno okruženje \href{https://code.visualstudio.com/download}{VSC (Visual Studio Code)} kojeg je razvila tvrtka Microsoft. Radno okruženje je služilo pisanju koda. Nadalje korišteni su preglednici \href{https://www.apple.com/safari/}{Safari} kojeg je razvila tvrtka Apple, \href{https://www.mozilla.org/en-US/firefox/new/}{Firefox} kojeg je razvila tvrtka Mozilla te \href{https://www.google.com/chrome/}{Chrome} kojeg je razvila tvrtka Google, preglednici su korišteni u svrhu provjere funkcionalnosti i izgleda frontend-a.
+			 \newline \textbf{Baza podataka} \newline
+			 Baza podataka je napisana u SQL jeziku, u tu svrhu poslužio je upravljački sustav \href{https://www.postgresql.org/}{PostgresSQL} te alati naziva,  \href{https://www.pgadmin.org/}{pgAdmin}, oba su otvorena koda. Dijagram baze podataka napravljen je pomoću online alata \href{https://erdplus.com/}{EDRPlus} koji služi za modeliranje dijagrama baze podataka.
+			 \newline \textbf{Dokumentacija} \newline
+			 Dokumentacija je pisana pomuću okruženja \href{https://www.texstudio.org/}{TeXstudio}, LaTex jezikom, dok su \href{https://www.uml-diagrams.org/}{UML} dijagrami izrađeni dijelom programom \href{https://astah.net/}{Astah} kojeg je razvila tvrtka Change Vision, a dijelom online okolinom \href{https://www.visual-paradigm.com/}{Visual Paradigm} kojeg je razvila tvrtka istoga imena.
+			 \newline \textbf{Ispitivanje} \newline
+			 
+			 %samo Bog zna
+			 
 			\eject 
-			Tehnologije i alati koji su se koristili u izradi aplikaciji grupirane su s obzirom na mjseto primjene: backend, frontend, baza podataka, dokumentacija i ispitivanje.
-			
-			\textbf{Backend}
-			Korišteno je radno okruženje InteliJ IDEA koje je razvila tvrtka JetBrains za koji postoji komercijalna, Apache 2 licensa, a radno okruženje se koristilo preko fakultetskog računa. 
-			Za frontend
-	
+		
 		\section{Ispitivanje programskog rješenja}
 			
 			%\textbf{\textit{dio 2. revizije}}\\
@@ -20,18 +29,18 @@
 			 %\textit{U ovom poglavlju je potrebno opisati provedbu ispitivanja implementiranih funkcionalnosti na razini komponenti i na razini cijelog sustava s prikazom odabranih ispitnih slučajeva. Studenti trebaju ispitati temeljnu funkcionalnost i rubne uvjete.}
 	
 			
-			%\subsection{Ispitivanje komponenti}
+			\subsection{Ispitivanje komponenti}
 			%\textit{Potrebno je provesti ispitivanje jedinica (engl. unit testing) nad razredima koji implementiraju temeljne funkcionalnosti. Razraditi \textbf{minimalno 6 ispitnih slučajeva} u kojima će se ispitati redovni slučajevi, rubni uvjeti te izazivanje pogreške (engl. exception throwing). Poželjno je stvoriti i ispitni slučaj koji koristi funkcionalnosti koje nisu implementirane. Potrebno je priložiti izvorni kôd svih ispitnih slučajeva te prikaz rezultata izvođenja ispita u razvojnom okruženju (prolaz/pad ispita). }
 			
 			
 			
-			%\subsection{Ispitivanje sustava}
+			\subsection{Ispitivanje sustava}
 			
 			 %\textit{Potrebno je provesti i opisati ispitivanje sustava koristeći radni okvir Selenium\footnote{\url{https://www.seleniumhq.org/}}. Razraditi \textbf{minimalno 4 ispitna slučaja} u kojima će se ispitati redovni slučajevi, rubni uvjeti te poziv funkcionalnosti koja nije implementirana/izaziva pogrešku kako bi se vidjelo na koji način sustav reagira kada nešto nije u potpunosti ostvareno. Ispitni slučaj se treba sastojati od ulaza (npr. korisničko ime i lozinka), očekivanog izlaza ili rezultata, koraka ispitivanja i dobivenog izlaza ili rezultata.\\ }
 			 
 			 %\textit{Izradu ispitnih slučajeva pomoću radnog okvira Selenium moguće je provesti pomoću jednog od sljedeća dva alata:}
 			 %\begin{itemize}
-			 %	\item \textit{dodatak za preglednik \textbf{Selenium IDE} - snimanje korisnikovih akcija radi automatskog ponavljanja ispita	}
+			 %	\item \textit{dodatak za preglednik \textbf{Selenium IDE} - snimanje korisnikovih akcija radi automatskog ponavljanja ispita}
 			 %	\item \textit{\textbf{Selenium WebDriver} - podrška za pisanje ispita u jezicima Java, C\#, PHP koristeći posebno programsko sučelje.}
 			 %\end{itemize}
 		 	%\textit{Detalji o korištenju alata Selenium bit će prikazani na posebnom predavanju tijekom semestra.}
@@ -41,7 +50,7 @@
 		
 		\section{Dijagram razmještaja}
 
-		{Na slici prikazan je dijagram razmještaja. Cjelokupan sustav je baziran na arhitekturi "klijent-poslužitelj". Klijentsko računalo i poslužitelj za frontend povezani su protokolom HTTP. Na poslužiteljskom računalu nalaze se Frontent-react, Backend-Spring i DB poslužitelj. Spring iz backenda dohvaća podatke iz SQL baze podataka. }
+		{Na slici prikazan je dijagram razmještaja. Cjelokupan sustav je baziran na arhitekturi "klijent-poslužitelj". Klijentsko računalo i poslužitelj za frontend povezani su protokolom HTTP. Na poslužiteljskom računalu nalaze se Frontent-react, Backend-Spring i DB poslužitelj. Spring iz backenda dohvaća podatke iz SQL baze podataka.}
 			
 		\begin{figure}[H]
 			\includegraphics[width=\linewidth]{slike/Dijagram razmještaja.JPG}
