@@ -7,13 +7,13 @@
 			
 			 %\textit{Detaljno navesti sve tehnologije i alate koji su primijenjeni pri izradi dokumentacije i aplikacije. Ukratko ih opisati, te navesti njihovo značenje i mjesto primjene. Za svaki navedeni alat i tehnologiju je potrebno \textbf{navesti internet poveznicu} gdje se mogu preuzeti ili više saznati o njima}.
 			 
-			 Tehnologije i alati koji su se koristili u izradi aplikaciji grupirane su s obzirom na mjesto primjene: backend, frontend, baza podataka, dokumentacija i ispitivanje. Za komunikaciju među članovima korištena je aplikacija \href{https://www.whatsapp.com/}{WhatsApp} koju održava tvrtka Meta, te platformu \href{https://support.microsoft.com/en-us/topic/what-is-microsoft-teams-3de4d369-0167-8def-b93b-0eb5286d7a29}{Microsoft Teams}, koja se također koristila za komunikaciju s asistentom i demonstratorom, a koju održava Microsoft.
+			 Tehnologije i alati koji su se koristili u izradi aplikaciji grupirane su s obzirom na mjesto primjene: backend, frontend, baza podataka, dokumentacija i ispitivanje. Za komunikaciju među članovima korištena je aplikacija \href{https://www.whatsapp.com/}{WhatsApp} koju održava tvrtka Meta, te platformu \href{https://support.microsoft.com/en-us/topic/what-is-microsoft-teams-3de4d369-0167-8def-b93b-0eb5286d7a29}{Microsoft Teams}, koja se također koristila za komunikaciju s asistentom i demonstratorom, a koju održava Microsoft. Za upravljanje izvornog koda korišten je alat \href{https://git-scm.com/}{Git} koji je otvorenog koda na platformi \href{https://github.com/}{GitHub} kojeg razvija tvrtka istoga imena, a čija je roditeljska tvrtka Microsoft, i konačno za puštanje aplikacije u pogon korišten je poslužitelj \href{https://render.com/}{Render}.
 			 \newline \textbf{Backend} \newline
-			 Korišteno je radno okruženje \href{https://www.jetbrains.com/idea/}{InteliJ IDEA}  koje je razvila tvrtka JetBrains za koji postoji komercijalna, Apache 2 licensa, a radno okruženje se koristilo preko fakultetskog računa. Za provjeru funkcionalnosti prilikom izrade koristila se aplikacija \href{https://www.postman.com/}{Postman} koja ima mogućnost slanja HTTP zahtjeva backend-u. 
+			 Korišteno je radno okruženje \href{https://www.jetbrains.com/idea/}{InteliJ IDEA}  koje je razvila tvrtka JetBrains za koji postoji komercijalna, Apache 2 licensa, a radno okruženje se koristilo preko fakultetskog računa. Za provjeru funkcionalnosti prilikom izrade koristila se aplikacija \href{https://www.postman.com/}{Postman} koja ima mogućnost slanja HTTP zahtjeva backend-u. Za razvoj su korištene tehnologije \href{https://spring.io/}{Spring} i programski jezik \href{https://www.java.com/en/}{Java}.
 			 \newline \textbf{Frontend} \newline
-			 Korišteno je radno okruženje \href{https://code.visualstudio.com/download}{VSC (Visual Studio Code)} kojeg je razvila tvrtka Microsoft. Radno okruženje je služilo pisanju koda. Nadalje korišteni su preglednici \href{https://www.apple.com/safari/}{Safari} kojeg je razvila tvrtka Apple, \href{https://www.mozilla.org/en-US/firefox/new/}{Firefox} kojeg je razvila tvrtka Mozilla te \href{https://www.google.com/chrome/}{Chrome} kojeg je razvila tvrtka Google, preglednici su korišteni u svrhu provjere funkcionalnosti i izgleda frontend-a.
+			 Korišteno je radno okruženje \href{https://code.visualstudio.com/download}{VSC (Visual Studio Code)} kojeg je razvila tvrtka Microsoft. Radno okruženje je služilo pisanju koda. Nadalje korišteni su preglednici \href{https://www.apple.com/safari/}{Safari} kojeg je razvila tvrtka Apple, \href{https://www.mozilla.org/en-US/firefox/new/}{Firefox} kojeg je razvila tvrtka Mozilla te \href{https://www.google.com/chrome/}{Chrome} kojeg je razvila tvrtka Google, preglednici su korišteni u svrhu provjere izgleda frontend-a. Za sam razvoj su korištene biblioteke tehnologije \href{https://react.dev/}{React} te programski jezik \href{https://www.typescriptlang.org/}{TypeScript}, a za izgled tehnologija \href{https://getbootstrap.com/}{Bootstrap}
 			 \newline \textbf{Baza podataka} \newline
-			 Baza podataka je napisana u SQL jeziku, u tu svrhu poslužio je upravljački sustav \href{https://www.postgresql.org/}{PostgresSQL} te alati naziva,  \href{https://www.pgadmin.org/}{pgAdmin}, oba su otvorena koda. Dijagram baze podataka napravljen je pomoću online alata \href{https://erdplus.com/}{EDRPlus} koji služi za modeliranje dijagrama baze podataka.
+			 Baza podataka je napisana u SQL jeziku, u tu svrhu poslužio je upravljački sustav \href{https://www.postgresql.org/}{PostgresSQL} te alat naziva,  \href{https://www.pgadmin.org/}{pgAdmin}, oba su otvorena koda. Dijagram baze podataka napravljen je pomoću online alata \href{https://erdplus.com/}{EDRPlus} koji služi za modeliranje dijagrama baze podataka.
 			 \newline \textbf{Dokumentacija} \newline
 			 Dokumentacija je pisana pomuću okruženja \href{https://www.texstudio.org/}{TeXstudio}, LaTex jezikom, dok su \href{https://www.uml-diagrams.org/}{UML} dijagrami izrađeni dijelom programom \href{https://astah.net/}{Astah} kojeg je razvila tvrtka Change Vision, a dijelom online okolinom \href{https://www.visual-paradigm.com/}{Visual Paradigm} kojeg je razvila tvrtka istoga imena.
 			 \newline \textbf{Ispitivanje} \newline
@@ -65,8 +65,93 @@
 			%\textbf{\textit{dio 2. revizije}}\\
 		
 			 %\textit{U ovom poglavlju potrebno je dati upute za puštanje u pogon (engl. deployment) ostvarene aplikacije. Na primjer, za web aplikacije, opisati postupak kojim se od izvornog kôda dolazi do potpuno postavljene baze podataka i poslužitelja koji odgovara na upite korisnika. Za mobilnu aplikaciju, postupak kojim se aplikacija izgradi, te postavi na neku od trgovina. Za stolnu (engl. desktop) aplikaciju, postupak kojim se aplikacija instalira na računalo. Ukoliko mobilne i stolne aplikacije komuniciraju s poslužiteljem i/ili bazom podataka, opisati i postupak njihovog postavljanja. Pri izradi uputa preporučuje se \textbf{naglasiti korake instalacije uporabom natuknica} te koristiti što je više moguće \textbf{slike ekrana} (engl. screenshots) kako bi upute bile jasne i jednostavne za slijediti.}
-			
-			
+			Upute za puštanje u pogon su podijeljene u tri dijela jer svaki od tri dijela aplikacije (frontend, backend, baza podataka) zahtjeva posebnu pripremu za postavljanje na server.
+			Početni koraci su jednaki za sve komponente, potrebno je prijaviti se na \url{https://render.com/} (u slučaju prvog korištenja registrirati se) te na izborniku kao na slici odabrati što se želi pustiti u pogon.
+			\begin{figure}[H]
+				\includegraphics[width=\linewidth]{slike/RenderIzbornik.JPG}
+				\centering
+				\caption{Izbornik sustava za puštanje u pogon na Renderu}
+				\label{fig:Izbornik Render}
+			\end{figure}
+			\textbf{Baza podataka} \newline
+			Puštanje u pogon započinje postavljanjem baze podataka, to činimo odabirom opcije \textbf{New PostgreSQL} u izborniku. Taj odabir će otvoriti prozor prikazan na slici.
+			\begin{figure}[H]
+				\includegraphics[width=\linewidth]{slike/PostgreSQLprviDio.JPG}
+				\centering
+				\caption{Izgled izbornika za puštanje baze podataka u pogon.}
+				\label{fig:PostgreSQL izbornik prvi dio}
+			\end{figure}
+			Za puštanje u pogon, potrebno je iz izbornika za regiju (\textit{Region}) odabrati opciju Frankfurt, upisati ime baze podataka (npr. Error404-DentAll-BazaPodataka) u polje \textit{Name} što se može vidjeti na slici iznad. Zatim odabrati besplatnu opciju u izborniku tipa (\textit{Instance type}), prikazano na slici dolje. Naposljetku je potrebno pritisnuti gumb "\textit{Create Database}" također prikazan na slici dolje. Sva ostala polja mogu ostati prazna.
+			\begin{figure}[H]
+				\includegraphics[width=\linewidth]{slike/PostgreSQLdrugiDio.JPG}
+				\centering
+				\caption{Izgled izbornika za puštanje baze podataka u pogon.}
+				\label{fig:PostgreSQL izbornik drugi dio}
+			\end{figure}
+			\textbf{Frontend i Backend} \newline
+			Puštanje u pogon frontenda i backenda započinje jednako, odabirom opcije \textbf{New Web Service} u već prikazanom izborniku. Zatim je potrebno povezati vlastiti GitHub račun sa Renderom te upisati url repozitorija (upisati \url{https://github.com/Tomislav-Pranjic/Error404-DentAll} u prostor za javne repozitorije) prikazano na donjoj slici.
+			\begin{figure}[H]
+				\includegraphics[width=\linewidth]{slike/PublicRepo.JPG}
+				\centering
+				\caption{Mjesto za upis URL-a mape u kojoj se nalazi web servis}
+				\label{fig:Izbornik za puštanje web servisa}
+			\end{figure}
+			Za početak će biti opisano puštanje u pogon backenda. \newline
+			\textbf{1. korak} \newline 
+			Prvo ćemo odabrati ime web servisa, primjer "Error404-be", zatim odabrati istu regiju kao i za bazu podataka (Frankfurt), nadalje potrebno je odabrati granu koda sa koje puštamo backend u pogon, ime grane je "main", onda je potrebno upisati korijensku mapu (\textit{IzvorniKod/error404-be}), te konačno od raznih vrsta web servisa potrebno odabrati pravi \textit{Runtime}, za Backend je to \textbf{Docker}, kako prozor izgleda na kraju ovog koraka vidi se na slici.
+			\begin{figure}[H]
+				\includegraphics[width=\linewidth]{slike/BackendPtOne.JPG}
+				\centering
+				\caption{Mjesto za odabira imena, regije, grane, mape te vrste web servisa}
+				\label{fig:Backend prvi}
+			\end{figure}
+			\textbf{2. korak} \newline U ovom koraku odabiremo besplatnu verziju tipa servera (\textit{Instance type}), isto kao i kod baze podataka, zatim stvaramo dvije varijable okoline \textit{OWNER\_PASS = "\$2a\$10\$6djQ3MpO06d5dgvp9ijBee6ZKKj5L5iJVrrDPQjtD4I6em2p7JjMu"}, i \textit{PORT = 8080},
+			koje će služiti kako bismo mogli povezati backend i frontend.
+			\begin{figure}[H]
+				\includegraphics[width=\linewidth]{slike/BackendPtToo.JPG}
+				\centering
+				\caption{Mjesto za odabira tipa, i upis varijabli okoline}
+				\label{fig:Backend drugi}
+			\end{figure}
+			\textbf{3. korak} \newline Dalje odabiremo opciju \textit{Advanced} koja nam dopušta dodatne opcije uređivanja poput specificiranja \textit{Health Check Path}, stranice koja će uvijek vraćati HTTP kod "200 OK", a služi za provjera rada backend-a.
+			\begin{figure}[H]
+				\includegraphics[width=\linewidth]{slike/BackendPtTree.JPG}
+				\centering
+				\caption{Mjesto za specificiranja Health Check puta}
+				\label{fig:Backend treći}
+			\end{figure}
+			\textbf{4. korak} \newline Dalje, potrebno je upisati lokaciju \textit{Docerfile-a}, relativno korijenskoj mapi (\textit{/docker/maven/Dockerfile}), te konačno pritisnuti gumb \textbf{Create Web Service}, ostale postavke ostaviti kako su inicijalizirane.
+			\begin{figure}[H]
+				\includegraphics[width=\linewidth]{slike/BackendPtFor.JPG}
+				\centering
+				\caption{Mjesto za specificiranja docerfile lokacije}
+				\label{fig:Backend četvrti}
+			\end{figure}
+			\begin{figure}[H]
+				\includegraphics[width=\linewidth]{slike/BackendPtV.JPG}
+				\centering
+				\caption{Gumb za stvaranje web servisa}
+				\label{fig:Backend peti}
+			\end{figure}
+			Dalje će biti opisan postupak puštanja frontenda u pogon.  %Abandon all hope, ye who enter here
+			\newline 
+			\textbf{1. korak} \newline
+			Za početak, kao i svagdje, odabiremo ime servisa, neka to za primjer bude "Error404-DentAll-fe", zatim odabiremo već poznatu regiju (Frankfurt), te istu granu kao i za backend ("main"), korijenska mapa ovoga je puta \textit{IzvorniKod/error404-fe} te se upisuje na isto mjesto kao i kod backenda, ali za razliku od backenda, \textit{Runtime} je \textbf{Node}. Kao \textit{Build Command} upisujemo \textbf{yarn build}, a kao \textit{Start Command} \textbf{yarn start-prod}.
+			\begin{figure}[H]
+				\includegraphics[width=\linewidth]{slike/FrontendPtOne.JPG}
+				\centering
+				\caption{Konfiguracija frontenda}
+				\label{fig:Frontend prvi}
+			\end{figure}
+			\textbf{2. korak} \newline
+			Za razliku od backenda ne koristimo nikakve proširene mogućnosti nego samo stvaramo 2 varijable okoline, \textit{API\_URL = "https://error404dentall-be.onrender.com/api"}, i \textit{PORT = 8080},
+			koje će služiti kako bismo mogli povezati frontend i backend. Nakon toga jednostavno se pritisne gumb \textbf{Create Web Service} i novi servis je stvoren.
+			\begin{figure}[H]
+				\includegraphics[width=\linewidth]{slike/FrontendPtToo.JPG}
+				\centering
+				\caption{Konfiguracija varijabli okoline}
+				\label{fig:Frontend drugi}
+			\end{figure}
 			 %\textit{Dovršenu aplikaciju potrebno je pokrenuti na javno dostupnom poslužitelju. Studentima se preporuča korištenje neke od sljedećih besplatnih usluga: \href{https://aws.amazon.com/}{Amazon AWS}, \href{https://azure.microsoft.com/en-us/}{Microsoft Azure} ili \href{https://www.heroku.com/}{Heroku}. Mobilne aplikacije trebaju biti objavljene na F-Droid, Google Play ili Amazon App trgovini.}
 			
 			
