@@ -10,7 +10,6 @@ import java.sql.Time;
 @Entity(name = "VOZAC")
 public class Driver {
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "vozac_id")
     private Long driverId;
