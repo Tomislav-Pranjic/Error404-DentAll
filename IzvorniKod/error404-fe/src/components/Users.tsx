@@ -1,17 +1,34 @@
-import { useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import "./Users.css";
-import UserList from './UserList';
+import User from './User';
+import UserForm from './UserForm';
+import { Base64 } from 'js-base64';
 
 function Users() {
-  const initialData = [
-    { id: 1, ime: "Ana", prezime: "Anić" },
-    { id: 2, ime: "Marko", prezime: "Marković" },
-    { id: 3, ime: "Ivo", prezime: "Ivić" },
-    { id: 4, ime: "Pero", prezime: "Perić" },
-  ];
+  
+  const[users,setUsers] = useState<any[]>([]);
+  
 
-  const [data] = useState(initialData);
+  const storedUsername = localStorage.getItem('username');
+  const storedPassword = localStorage.getItem('password');
 
+  React.useEffect(() => {
+      const options = {
+          method: 'GET',
+          headers: new Headers({
+              "Authorization": `Basic ${Base64.encode(`${storedUsername}:${storedPassword}`)}`,
+              "Content-Type": "application/json",
+                "Accept": "*/*",
+              "Accept-Encoding": "gzip, deflate, br",
+              "Connection": "keep-alive"
+          }),
+          body: ''
+      };
+      fetch('/users')
+      .then(data => data.json())
+      .then(users => setUsers(users))
+  }, []);
+  
   const handleEdit = (id: number) => {
     console.log(`Edit button clicked for user with ID ${id}`);
   };
@@ -54,27 +71,32 @@ function Users() {
                 <th>ID</th>
                 <th>Firstname</th>
                 <th>Lastname</th>
-                <th></th>
+                <th>Phone</th>
+                <th>Date Of Birth</th>
+                <th>Prefered Accomodation</th>
               </tr>
             </thead>
             <tbody>
-              {data.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.id}</td>
-                  <td>{item.ime}</td>
-                  <td>{item.prezime}</td>
+              {users.map((user) => (
+                <tr key={user.id}>
+                  <td>{user.id}</td>
+                  <td>{user.name}</td>
+                  <td>{user.lastname}</td>
+                  <td>{user.phone}</td>
+                  <td>{user.dateOfBirth}</td>
+                  <td>{user.accTypePrefId}</td>
                   <td>
                     <>
                       <button
                         className="btn btn-outline-primary"
-                        onClick={() => handleEdit(item.id)}
+                        onClick={() => handleEdit(user.id)}
                       >
                         Edit
                       </button>
 
                       <button
                         className="btn btn-danger"
-                        onClick={() => handleDelete(item.id)}
+                        onClick={() => handleDelete(user.id)}
                       >
                         Delete
                       </button>

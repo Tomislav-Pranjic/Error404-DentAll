@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "start-prod": "node app.cjs",
     "start": "pnpm run build && pnpm run start-prod",
-    "nikola-build":"npm install && tsc && vite build"
+    "nikola-build": "npm install && tsc && vite build"
   },
   "dependencies": {
     "axios": "^1.6.5",
