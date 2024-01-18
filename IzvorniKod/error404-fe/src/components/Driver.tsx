@@ -24,7 +24,7 @@ function Driver(props: { driver: { driverId: any; name: any; surname: any; email
               </div>
             )}
           </div>
-          <button onClick={handleToggleShowMore}>
+          <button className="btn btn-outline-primary" onClick={handleToggleShowMore}>
             {showMore ? 'Show Less' : 'Show More'}
           </button>
         </div>
