@@ -33,4 +33,9 @@ public class DriverController {
                         dto.getWorkStartTime(),
                         dto.getWorkingDays());
     }
+
+    @PatchMapping("/{id}")
+    public Driver updateDriver(@PathVariable("id") Long id, @RequestBody CreateDriverDTO dto){
+        return driverService.updateDriver(id, dto);
+    }
 }

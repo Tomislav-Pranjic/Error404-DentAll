@@ -5,6 +5,8 @@ import dentall.dao.MedUserRepository;
 import dentall.domain.AccommodationType;
 import dentall.domain.Address;
 import dentall.domain.MedUser;
+import dentall.rest.MedUserController;
+import dentall.rest.dto.CreateMedUserDTO;
 import dentall.service.AccommodationTypeService;
 import dentall.service.AddressService;
 import dentall.service.MedUserService;
@@ -123,6 +125,44 @@ public class MedUserServiceJpa implements MedUserService {
     @Override
     public MedUser createMedUser(MedUser medUser) {
         return medUserRepository.save(medUser);
+    }
+
+    @Override
+    public MedUser updateMedUser(Long id, CreateMedUserDTO dto) {
+        MedUser medUser = medUserRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Med user with id '" + id + "' does not exist."));
+
+        if(dto.getFirstName() != null){
+            Assert.hasText(dto.getFirstName(), "First name must be provided.");
+            Assert.isTrue(dto.getFirstName().length() <= 32, "First name must not be longer than 32 characters.");
+            medUser.setName(dto.getFirstName());
+        }
+
+        if(dto.getLastName() != null){
+            Assert.hasText(dto.getLastName(), "Last name must be provided.");
+            Assert.isTrue(dto.getLastName().length() <= 32, "Last name must not be longer than 32 characters.");
+            medUser.setSurname(dto.getLastName());
+        }
+
+        if(dto.getEmail() != null){
+            Assert.hasText(dto.getEmail(), "Email must be provided.");
+            Assert.isTrue(dto.getEmail().length() <= 64, "Email must not be longer than 64 characters.");
+            Assert.isTrue(dto.getEmail().matches(Error404BeApplication.EMAIL_FORMAT), "Email must be in valid format.");
+            medUser.setEmail(dto.getEmail());
+        }
+
+        if(dto.getPhoneNumber() != null){
+            Assert.hasText(dto.getPhoneNumber(), "Phone number must be provided.");
+            String phoneNumber = dto.getPhoneNumber().replaceAll(" ", "");
+            Assert.isTrue(phoneNumber.matches(Error404BeApplication.PHONE_NUMBER_FORMAT), "Phone number must be in valid format.");
+            medUser.setPhoneNumber(phoneNumber);
+        }
+
+        if(dto.getAccTypePrefId() != null){
+            AccommodationType accType = accTypeService.findById(dto.getAccTypePrefId()).orElseThrow(() -> new ItemNotFoundException("Accommodation type with id '" + dto.getAccTypePrefId() + "' does not exist."));
+            medUser.setAccommodationPreference(accType);
+        }
+
+        return medUserRepository.saveAndFlush(medUser);
     }
 
 }

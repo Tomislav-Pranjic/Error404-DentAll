@@ -6,6 +6,7 @@ import dentall.dao.UserTreatmentInfoRepository;
 import dentall.domain.Driver;
 import dentall.domain.UserTreatmentInfo;
 import dentall.domain.Vehicle;
+import dentall.rest.dto.CreateDriverDTO;
 import dentall.rest.dto.DriverWorkInfoDTO;
 import dentall.service.DriverService;
 import dentall.service.VehicleService;
@@ -125,5 +126,54 @@ public class DriverServiceJpa implements DriverService {
     @Override
     public Driver updateDriver(Driver driver) {
         return null;
+    }
+
+    @Override
+    public Driver updateDriver(Long id, CreateDriverDTO dto) {
+        Driver driver = driverRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Driver with id '" + id + "' does not exist."));
+
+        if(dto.getFirstName() != null) {
+            Assert.isTrue(dto.getFirstName().length() <= 16, "Name must not be longer than 16 characters.");
+            driver.setName(dto.getFirstName());
+        }
+
+        if(dto.getLastName() != null) {
+            Assert.isTrue(dto.getLastName().length() <= 16, "Surname must not be longer than 16 characters.");
+            driver.setSurname(dto.getLastName());
+        }
+
+        if(dto.getEmail() != null) {
+            Assert.isTrue(dto.getEmail().length() <= 64, "Email must not be longer than 64 characters.");
+            Assert.isTrue(dto.getEmail().matches(Error404BeApplication.EMAIL_FORMAT), "Email must be in valid format.");
+            driver.setEmail(dto.getEmail());
+        }
+
+        if(dto.getPhoneNumber() != null) {
+            String phoneNumber = dto.getPhoneNumber().replaceAll(" ", "");
+            Assert.isTrue(phoneNumber.matches(Error404BeApplication.PHONE_NUMBER_FORMAT), "Phone number must be in valid format.");
+            driver.setPhoneNumber(phoneNumber);
+        }
+
+        if(dto.getVehicleReg() != null) {
+            Assert.isTrue(dto.getVehicleReg().matches(Error404BeApplication.REGISTRATION_FORMAT), "Vehicle registration must be in valid format.");
+            Optional<Vehicle> vehicle = vehicleService.findByRegistration(dto.getVehicleReg());
+            if (vehicle.isEmpty()) {
+                throw new ItemNotFoundException("Vehicle with registration '" + dto.getVehicleReg() + "' does not exist.");
+            }
+            driver.setVehicle(vehicle.get());
+        }
+
+        if(dto.getWorkStartTime() != null) {
+            Assert.isTrue(dto.getWorkStartTime().matches(Error404BeApplication.TIME_FORMAT), "Work start time must be in valid format(HH:mm).");
+            Time time = Time.valueOf(dto.getWorkStartTime() + ":00");
+            driver.setWorkStartTime(time);
+        }
+
+        if(dto.getWorkingDays() != null) {
+            Assert.isTrue(dto.getWorkingDays().matches(Error404BeApplication.WORKING_DAYS_FORMAT), "Working days must be in valid format(NPUSCEB).");
+            driver.setWorkingDays(dto.getWorkingDays());
+        }
+
+        return driverRepository.saveAndFlush(driver);
     }
 }

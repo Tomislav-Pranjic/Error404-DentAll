@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication
 public class Error404BeApplication {
 
-	public static final String EMAIL_FORMAT = "[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+";
+	public static final String EMAIL_FORMAT = "[[a-zA-Z0-9]+[\\.-_]?[a-zA-Z0-9]+]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+";
 
 	public static final String PHONE_NUMBER_FORMAT = "[0-9]{3}[0-9]{3}[0-9]{3,4}";
 

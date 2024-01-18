@@ -1,6 +1,7 @@
 package dentall.service;
 
 import dentall.domain.Driver;
+import dentall.rest.dto.CreateDriverDTO;
 import dentall.rest.dto.DriverWorkInfoDTO;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface DriverService {
     DriverWorkInfoDTO getFreeDriverForDate(String date);
 
     Driver updateDriver(Driver driver);
+
+    Driver updateDriver(Long id, CreateDriverDTO dto);
 }
