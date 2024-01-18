@@ -12,4 +12,6 @@ public interface VehicleService {
     Optional<Vehicle> findByRegistration(String registration);
 
     Vehicle createVehicle(String registration, String model, String color, Integer capacity);
+
+    Vehicle updateVehicle(Vehicle vehicle);
 }

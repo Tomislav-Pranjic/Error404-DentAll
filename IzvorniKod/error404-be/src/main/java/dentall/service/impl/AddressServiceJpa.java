@@ -14,6 +14,7 @@ import java.util.Optional;
 @Service
 @Transactional
 public class AddressServiceJpa implements AddressService {
+    //TODO: Napraviti provjeru da li adresa vec postoji u bazi prema grad, ulica, broj
 
     @Autowired
     private AddressRepository addressRepo;

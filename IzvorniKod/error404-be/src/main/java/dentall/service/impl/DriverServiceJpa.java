@@ -48,6 +48,8 @@ public class DriverServiceJpa implements DriverService {
 
     @Override
     public Driver createDriver(String name, String surname, String email, String phoneNumber, String vehicleRegistration, String workStartTime, String workingDays) {
+
+
         Assert.hasText(name, "Name must be set.");
         Assert.isTrue(name.length() <= 16, "Name must not be longer than 16 characters.");
 
@@ -61,6 +63,26 @@ public class DriverServiceJpa implements DriverService {
         Assert.hasText(phoneNumber, "Phone number must be set.");
         phoneNumber = phoneNumber.replaceAll(" ", "");
         Assert.isTrue(phoneNumber.matches(Error404BeApplication.PHONE_NUMBER_FORMAT), "Phone number must be in valid format.");
+
+        Optional<Driver> driver = driverRepository.findDriverByNameAndSurnameAndPhoneNumber(name, surname, phoneNumber);
+        if (driver.isPresent()) {
+            throw new IllegalArgumentException("Driver with name '" + name + "' and surname '" + surname + "' and phone number '" + phoneNumber + "' already exists.");
+        }
+
+        driver = driverRepository.findDriverByNameAndSurnameAndEmail(name, surname, email);
+        if (driver.isPresent()) {
+            throw new IllegalArgumentException("Driver with name '" + name + "' and surname '" + surname + "' and email '" + email + "' already exists.");
+        }
+
+        driver = driverRepository.findDriverByPhoneNumber(phoneNumber);
+        if (driver.isPresent()) {
+            throw new IllegalArgumentException("Driver with phone number '" + phoneNumber + "' already exists.");
+        }
+
+        driver = driverRepository.findDriverByEmail(email);
+        if (driver.isPresent()) {
+            throw new IllegalArgumentException("Driver with email '" + email + "' already exists.");
+        }
 
         Assert.isTrue(vehicleRegistration.matches(Error404BeApplication.REGISTRATION_FORMAT), "Vehicle registration must be in valid format.");
         Optional<Vehicle> vehicle = vehicleService.findByRegistration(vehicleRegistration);
