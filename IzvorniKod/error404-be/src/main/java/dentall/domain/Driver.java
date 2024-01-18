@@ -128,4 +128,18 @@ public class Driver {
     public void setWorkingDays(String workingDays) {
         this.workingDays = workingDays;
     }
+
+    @Override
+    public String toString() {
+        return "Driver{" +
+                "driverId=" + driverId +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", vehicle=" + vehicle +
+                ", workStartTime=" + workStartTime +
+                ", workingDays='" + workingDays + '\'' +
+                '}';
+    }
 }

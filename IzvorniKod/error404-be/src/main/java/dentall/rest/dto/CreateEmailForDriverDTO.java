@@ -1,18 +1,17 @@
 package dentall.rest.dto;
 
-public class CreateEmailDTO {
+import dentall.domain.Driver;
+import dentall.domain.MedUser;
+import dentall.domain.UserTreatmentInfo;
+
+import java.util.Set;
+
+public class CreateEmailForDriverDTO {
 
     private String recipient;
     private String msgBody;
     private String subject;
-    private String attachment;
-
-    public CreateEmailDTO(String recipient, String msgBody, String subject, String attachment) {
-        this.recipient = recipient;
-        this.msgBody = msgBody;
-        this.subject = subject;
-        this.attachment = attachment;
-    }
+    private UserTreatmentInfo treatmentInfo;
 
     public String getRecipient() {
         return recipient;
@@ -38,11 +37,11 @@ public class CreateEmailDTO {
         this.subject = subject;
     }
 
-    public String getAttachment() {
-        return attachment;
+    public UserTreatmentInfo getTreatmentInfo() {
+        return treatmentInfo;
     }
 
-    public void setAttachment(String attachment) {
-        this.attachment = attachment;
+    public void setTreatmentInfo(UserTreatmentInfo treatmentInfo) {
+        this.treatmentInfo = treatmentInfo;
     }
 }

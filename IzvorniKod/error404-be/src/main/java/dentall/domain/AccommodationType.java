@@ -49,4 +49,13 @@ public class AccommodationType {
     public void setTypeSize(Integer typeSize) {
         this.typeSize = typeSize;
     }
+
+    @Override
+    public String toString() {
+        return "AccommodationType{" +
+                "typeId=" + typeId +
+                ", typeName='" + typeName + '\'' +
+                ", typeSize=" + typeSize +
+                '}';
+    }
 }

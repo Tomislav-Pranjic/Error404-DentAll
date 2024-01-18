@@ -1,12 +1,11 @@
 package dentall.service;
 
-import dentall.rest.dto.CreateEmailDTO;
+import dentall.rest.dto.CreateEmailForDriverDTO;
+import dentall.rest.dto.CreateEmailForMedUserDTO;
 
 public interface EmailService {
 
-    //za slanje jednostavnog maila
-    String sendSimpleEmail(CreateEmailDTO details);
+    String sendEmailToMedUser(CreateEmailForMedUserDTO details);
+    String sendEmailToDriver(CreateEmailForDriverDTO details);
 
-    //za slanje maila s privitkom
-    String sendEmailWithAttachment(CreateEmailDTO details);
 }

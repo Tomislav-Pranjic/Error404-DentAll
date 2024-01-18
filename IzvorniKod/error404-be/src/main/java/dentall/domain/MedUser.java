@@ -125,4 +125,18 @@ public class MedUser {
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
+
+    @Override
+    public String toString() {
+        return "MedUser{" +
+                "localUserId=" + localUserId +
+                ", remoteUserId=" + remoteUserId +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", accommodationPreference=" + accommodationPreference +
+                '}';
+    }
 }

@@ -73,4 +73,14 @@ public class Vehicle {
     public void setCapacity(Integer capacity) {
         this.capacity = capacity;
     }
+
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "registration='" + registration + '\'' +
+                ", model='" + model + '\'' +
+                ", color='" + color + '\'' +
+                ", capacity=" + capacity +
+                '}';
+    }
 }
