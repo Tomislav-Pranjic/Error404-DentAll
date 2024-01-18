@@ -1,7 +1,6 @@
 package dentall.rest;
 
-import dentall.rest.dto.CreateEmailForDriverDTO;
-import dentall.rest.dto.CreateEmailForMedUserDTO;
+import dentall.domain.UserTreatmentInfo;
 import dentall.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,14 +17,13 @@ public class EmailController {
     @Autowired
     private EmailService emailService;
 
-    @PostMapping("/sendEmailToMedUser")
-    public String sendEmailToMedUser(@RequestBody CreateEmailForMedUserDTO details) {
-        return emailService.sendEmailToMedUser(details);
+    @PostMapping("/sendEmails")
+    public String sendEmails(@RequestBody UserTreatmentInfo details) {
+        String s1 = emailService.sendEmailToMedUser(details);
+        String s2 = emailService.sendEmailToArrivalDriver(details);
+        String s3 = emailService.sendEmailToDepartureDriver(details);
+        return s1 + "\n" + s2 + "\n" + s3;
     }
 
-    @PostMapping("/sendEmailToDriver")
-    public String sendEmailToDriver(@RequestBody CreateEmailForDriverDTO details) {
-        return emailService.sendEmailToDriver(details);
-    }
 
 }

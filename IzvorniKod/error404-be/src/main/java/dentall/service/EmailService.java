@@ -1,11 +1,11 @@
 package dentall.service;
 
-import dentall.rest.dto.CreateEmailForDriverDTO;
-import dentall.rest.dto.CreateEmailForMedUserDTO;
+import dentall.domain.UserTreatmentInfo;
 
 public interface EmailService {
 
-    String sendEmailToMedUser(CreateEmailForMedUserDTO details);
-    String sendEmailToDriver(CreateEmailForDriverDTO details);
+    String sendEmailToMedUser(UserTreatmentInfo details);
+    String sendEmailToArrivalDriver(UserTreatmentInfo details);
+    String sendEmailToDepartureDriver(UserTreatmentInfo details);
 
 }
