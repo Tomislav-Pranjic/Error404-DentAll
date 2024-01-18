@@ -212,4 +212,23 @@ public class UserTreatmentInfo {
     public void setDepartureTime(Time departureTime) {
         this.departureTime = departureTime;
     }
+
+    @Override
+    public String toString() {
+        return "UserTreatmentInfo{" +
+                "treatment_id=" + treatment_id +
+                ", arrivalDate=" + arrivalDate +
+                ", arrivalTime=" + arrivalTime +
+                ", departureDate=" + departureDate +
+                ", departureTime=" + departureTime +
+                ", arrivalAddress=" + arrivalAddress +
+                ", departureAddress=" + departureAddress +
+                ", arrivalDriver=" + arrivalDriver +
+                ", departureDriver=" + departureDriver +
+                ", accommodation=" + accommodation +
+                ", treatmentDate=" + treatmentDate +
+                ", lockDateTime=" + lockDateTime +
+                ", medUser=" + medUser +
+                '}';
+    }
 }
