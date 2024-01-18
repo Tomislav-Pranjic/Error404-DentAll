@@ -16,7 +16,7 @@ function Accommodation() {
                 <a className="nav-link" href="/accommodation">
                   Accommodation
                 </a>
-                <a className="nav-link" href="transportation/">
+                <a className="nav-link" href="/transportation">
                   Transportation
                 </a>
                 <a className="nav-link" href="/users">

@@ -22,7 +22,7 @@ function Transportation(){
       method: 'GET',
       headers: new Headers({
           "Authorization": `Basic ${Base64.encode(`${storedUsername}:${storedPassword}`)}`,
-          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/json",
             "Accept": "*/*",
           "Accept-Encoding": "gzip, deflate, br",
           "Connection": "keep-alive"
@@ -30,7 +30,6 @@ function Transportation(){
       body: body
     };
     
-
 
   },[]);
  
@@ -46,7 +45,7 @@ function Transportation(){
                 <a className="nav-link" href="/accommodation">
                   Accommodation
                 </a>
-                <a className="nav-link" href="transportation/">
+                <a className="nav-link" href="/transportation">
                   Transportation
                 </a>
                 <a className="nav-link" href="/users">
