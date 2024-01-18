@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import React from 'react';
 import './Transportation.css';
 import Driver from './Driver';
 import { Base64 } from 'js-base64';
@@ -7,7 +8,8 @@ import { Base64 } from 'js-base64';
 function Transportation(){
 
   const[drivers,setDrivers] = useState<any[]>([]);
-  const [showMore, setShowMore] = useState(false);
+  const [editDriver, setEditDriver] = useState<number | null>(null);
+  const [driverForm, setDriverForm] = useState({ name: '', surname: '',email: '',phoneNumber: '',workStartTime: '',workingDays: ''});
 
   const storedUsername = localStorage.getItem('username');
   const storedPassword = localStorage.getItem('password');
@@ -33,14 +35,21 @@ function Transportation(){
 
   },[]);
 
+  function onChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const {name, value} = event.target;
+    setDriverForm(oldForm => ({...oldForm, [name]: value}))
+  }
 
-  const handleToggleShowMore = () => {
-    setShowMore(!showMore);
+
+  const handleToggleShowMore = (driverId: number) => {
+    setEditDriver(prevId => (prevId === driverId ? null : driverId));
   };
 
-  const handleEdit = (id: number) => {
-    console.log(`Edit button clicked for user with ID ${id}`);
+  const handleEdit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    console.log("edit")
   };
+
 
   const handleDelete = (id: number) => {
     console.log(`Delete button clicked for user with ID ${id}`);
@@ -84,32 +93,79 @@ function Transportation(){
             </thead>
             <tbody>
               {drivers.map((driver) => (
-                <tr key={driver.driverId}>
-                  <td>{driver.name}</td>
-                  <td>{driver.surname}</td>
-                  <td>
-                    <>
-                      <button className="btn btn-outline-primary" onClick={handleToggleShowMore}>
-                        {showMore ? 'Show Less' : 'Show More'}
-                      </button>
-                      
-                      <button
-                        className="btn btn-outline-primary"
-                        onClick={() => handleEdit(driver.driverId)}
-                      >
-                        Edit
-                      </button>
+                <React.Fragment key={driver.driverId}>
+                  <tr>
+                    <td>{driver.name}</td>
+                    <td>{driver.surname}</td>
+                    <td>
+                      <>
+                        <button
+                          className="btn btn-outline-primary"
+                          onClick={() => handleToggleShowMore(driver.driverId)}
+                        >
+                          {editDriver === driver.driverId ? 'Cancel' : 'Edit'}
+                        </button>
 
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => handleDelete(driver.driverId)}
-                      >
-                        Delete
-                      </button>
-                    </>
-                  </td>
-                </tr>
-                // <tr></tr> ---> ovo kada bude show more
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => handleDelete(driver.driverId)}
+                        >
+                          Delete
+                        </button>
+                      </>
+                    </td>
+                  </tr>
+                  {editDriver === driver.driverId && (
+                    <tr key={`form_${driver.driverId}`}>
+                    <td colSpan={3}>
+                      <form className="login-box" onSubmit={handleEdit}>
+                        <label className="form-label">
+                          First Name:
+                          <input
+                            className="form-control"
+                            type="text"
+                            name="name"
+                            defaultValue={driver.name}
+                            onChange={onChange}
+                          />
+                        </label>
+                        <br />
+                        <label className="form-label">
+                          Last Name:
+                          <input
+                            className="form-control"
+                            type="text"
+                            name='surname'
+                            defaultValue={driver.surname}
+                            onChange={onChange}
+                          />
+                        </label>
+                        <br />
+                        <label className="form-label">
+                          Email:
+                          <input className="form-control" type="text" name='email' defaultValue={driver.email} onChange={onChange}/>
+                        </label>
+                        <br />
+                        <label className="form-label">
+                          Phone Number:
+                          <input className="form-control" type="text" name='phoneNumber' defaultValue={driver.phoneNumber} onChange={onChange}/>
+                        </label>
+                        <br />
+                        <label className="form-label">
+                          Start of Work Time:
+                          <input className="form-control" type="text" name='workStartTime' defaultValue={driver.workStartTime} onChange={onChange}/>
+                        </label>
+                        <label className="form-label">
+                          Working Days:
+                          <input className="form-control" type="text" name='workingDays' defaultValue={driver.workingDays} onChange={onChange}/>
+                        </label>
+                        <br />
+                        <button type="submit" className="btn btn-primary">Save</button>
+                      </form>
+                    </td>
+                  </tr>
+                  )}
+                </React.Fragment>
               ))}
             </tbody>
           </table>

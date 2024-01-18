@@ -24,9 +24,6 @@ function Driver(props: { driver: { driverId: any; name: any; surname: any; email
               </div>
             )}
           </div>
-          <button className="btn btn-outline-primary" onClick={handleToggleShowMore}>
-            {showMore ? 'Show Less' : 'Show More'}
-          </button>
         </div>
         
       );
@@ -35,23 +32,3 @@ function Driver(props: { driver: { driverId: any; name: any; surname: any; email
 
 export default Driver;
 
-
-// function Driver(props) {
-//     const {firstName,lastName,email,phoneNumber,vehicleReg,workStartTime,workingDays} = props.driver;
-  
-//     firstName: "",
-//  lastName: "",
-//  email: "",
-//  phoneNumber: "",
-//  vehicleReg: "AZ1234AZ" or "AZ123AZ",
-//  workStartTime: "HH:mm",
-//  workingDays: "NPUSCEB" #Staviti inicijale onih dana kada će vozač raditi
- 
-//     return (
-//       <p>{firstName}</p>
-//     );
-//   }
-  
-//   export default Driver;
-
-// Driver.tsx
