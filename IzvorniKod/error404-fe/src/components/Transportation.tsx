@@ -1,6 +1,40 @@
+import { useEffect, useState } from 'react';
 import './Transportation.css';
+import Driver from './Driver';
+import { Base64 } from 'js-base64';
+
 
 function Transportation(){
+
+  const[drivers,setDrivers] = useState<any[]>([]);
+
+  const storedUsername = localStorage.getItem('username');
+  const storedPassword = localStorage.getItem('password');
+  
+
+
+  useEffect(() => {
+    // event.preventDefault(); // da ne bi refreshalo
+
+
+    const body = `username=${storedUsername}&password=${storedPassword}`;
+    const options = {
+      method: 'GET',
+      headers: new Headers({
+          "Authorization": `Basic ${Base64.encode(`${storedUsername}:${storedPassword}`)}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+            "Accept": "*/*",
+          "Accept-Encoding": "gzip, deflate, br",
+          "Connection": "keep-alive"
+      }),
+      body: body
+    };
+    
+
+
+  },[]);
+ 
+
 
 
     return (
@@ -24,9 +58,10 @@ function Transportation(){
           </header>
           <main>
             <div className="main-container">
-
-            {/* ovdje treba dodati onaj glavni dio */}
-
+                
+                {drivers.map(driver => (
+                <Driver key={driver.driverId} driver={driver} />
+              ))}
 
             </div>
           </main>
