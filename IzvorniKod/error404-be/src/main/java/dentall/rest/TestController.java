@@ -40,7 +40,13 @@ public class TestController {
     @GetMapping("/tretman/startTask")
     public String startTask(){
         oldAPIConn.getNewTreatmentsSince(schedulingData.getLastDate());
-        return "Task started!";
+        return "Got new treatments and finished matchmaking.";
+    }
+
+    @GetMapping("/tretman/matchmaking")
+    public String matchmaking(){
+        oldAPIConn.treatmentMatchmaking();
+        return "Finished matchmaking.";
     }
 
     @GetMapping("/tretman/missingInfo")

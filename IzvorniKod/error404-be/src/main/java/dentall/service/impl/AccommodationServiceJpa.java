@@ -2,13 +2,13 @@ package dentall.service.impl;
 
 import dentall.Error404BeApplication;
 import dentall.dao.AccommodationRepository;
-import dentall.domain.Accommodation;
-import dentall.domain.AccommodationType;
-import dentall.domain.Address;
+import dentall.domain.*;
 import dentall.service.AccommodationService;
 import dentall.service.AccommodationTypeService;
 import dentall.service.AddressService;
+import dentall.service.UserTreatmentInfoService;
 import dentall.service.exceptions.ItemNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class AccommodationServiceJpa implements AccommodationService {
 
     @Autowired
@@ -30,6 +31,9 @@ public class AccommodationServiceJpa implements AccommodationService {
 
     @Autowired
     private AddressService addressService;
+
+    @Autowired
+    private UserTreatmentInfoService userTreatmentInfoService;
 
     @Override
     public List<Accommodation> listAll(){
@@ -142,5 +146,44 @@ public class AccommodationServiceJpa implements AccommodationService {
         }
 
         return accommodationRepo.save(accommodation);
+    }
+
+    @Override
+    public Accommodation getAccommodationForUserBetweenDates(MedUser user, Date arrivalDate, Date departureDate) {
+        AccommodationType preferance = user.getAccommodationPreference();
+
+        Accommodation freeAccommodation;
+
+        if(preferance != null) {
+            List<Accommodation> preferedAccommodations = accommodationRepo.findAllByApartmentTypeOrderByNoOfStarsDesc(preferance);
+
+            freeAccommodation = checkForFreeAccommodation(arrivalDate, departureDate, preferedAccommodations);
+            if (freeAccommodation != null) return freeAccommodation;
+        }
+        // Ako smo ovdje onda nije pronađen smještaj koji odgovara korisnikovim preferencama
+        // pa se traži bilo koji slobodan smještaj. Pretraživat ćemo ih od onog s najviše zvjezdica prema dolje.
+
+        List<Accommodation> allAccommodations = accommodationRepo.findAllByOrderByNoOfStarsDesc();
+
+        freeAccommodation = checkForFreeAccommodation(arrivalDate, departureDate, allAccommodations);
+
+        return freeAccommodation;
+    }
+
+    private Accommodation checkForFreeAccommodation(Date arrivalDate, Date departureDate, List<Accommodation> accommodationList) {
+        for(Accommodation accommodation : accommodationList) {
+            if (accommodation.getAvailableUntil() != null) {
+                if (accommodation.getAvailableUntil().after(departureDate)) {
+                    if(userTreatmentInfoService.isAccommodationFreeBetweenDates(accommodation, arrivalDate, departureDate)){
+                        return accommodation;
+                    }
+                }
+            }else{
+                if(userTreatmentInfoService.isAccommodationFreeBetweenDates(accommodation, arrivalDate, departureDate)){
+                    return accommodation;
+                }
+            }
+        }
+        return null;
     }
 }
