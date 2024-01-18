@@ -26,7 +26,7 @@ function Login(){
     const options = {
       method: 'POST',
       headers: new Headers({
-          "Authorization": `xBasic ${Base64.encode(`${loginForm.username}:${loginForm.password}`)}`,
+          "Authorization": `Basic ${Base64.encode(`${loginForm.username}:${loginForm.password}`)}`,
           "Content-Type": "application/x-www-form-urlencoded",
             "Accept": "*/*",
           "Accept-Encoding": "gzip, deflate, br",
