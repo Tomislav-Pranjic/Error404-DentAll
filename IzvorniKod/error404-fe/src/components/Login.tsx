@@ -26,12 +26,16 @@ function Login(){
     const options = {
       method: 'POST',
       headers: new Headers({
-        "Authorization": `Basic ${Base64.encode(`${loginForm.username}:${loginForm.password}`)}`
+          "Authorization": `Basic ${Base64.encode(`${loginForm.username}:${loginForm.password}`)}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+            "Accept": "*/*",
+          "Accept-Encoding": "gzip, deflate, br",
+          "Connection": "keep-alive"
       }),
       body: body
     };
 
-    fetch('/api/login', options)
+    fetch('/api/login/checkCredentials', options)
       .then(response => {
         if (response.status === 200) {
 

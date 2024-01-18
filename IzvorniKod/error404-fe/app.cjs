@@ -7,16 +7,14 @@ const app = express();
 
 const { PORT } = process.env;
 const { API_URL } = process.env;
-const { HOST } = process.env;
-
-app.use("/api", createProxyMiddleware({ target: API_URL, changeOrigin: true }));
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
-app.listen(PORT, HOST, () => {
-    console.log(`Starting Proxy at ${HOST}:${PORT}`);
-});
+app.use("/api", createProxyMiddleware({ target: API_URL, changeOrigin: true }));
 
-app.get('*', async (req, res) => {
+app.listen(PORT || 5173, () => {
+    console.log(`Starting server at localhost:${PORT}`);
+});
+app.use('*', async (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
