@@ -8,9 +8,9 @@ function UserForm() {
     function onSubmit(e) {
         e.preventDefault();
         const data = {
-            id: form.id;
-            firstname: form.firstname;
-            lastname: form.lastname;
+            id: form.id,
+            firstname: form.firstname,
+            lastname: form.lastname,
         };
         const options = {
             method: 'POST',
