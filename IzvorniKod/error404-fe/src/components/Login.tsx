@@ -41,7 +41,7 @@ function Login(){
 
           localStorage.setItem('username', loginForm.username);
           localStorage.setItem('password', loginForm.password);
-          navigate('/home');
+          navigate('/users');
         } else {
           setAlertVisibility(true)
         }

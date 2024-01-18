@@ -1,16 +1,28 @@
+import { FormEvent, useState } from 'react';
+
+
 function UserForm() {
 
-    function onChange(event) {
+    const [userForm, setUserForm] = useState({ firstName: '', lastName: '', email: '', phoneNumber: '', accTypePrefId: '', dateOfBirth: ''});
+
+    function onChange(event: { target: { name: any; value: any; }; }) {
         const {name, value} = event.target;
-        setForm(oldForm => ({...oldForm, [name]: value}))
+        setUserForm(oldForm => ({...oldForm, [name]: value}))
     }
 
-    function onSubmit(e) {
+
+    function onSubmit(e: { preventDefault: () => void; }) {
         e.preventDefault();
+
         const data = {
-            id: form.id,
-            firstname: form.firstname,
-            lastname: form.lastname,
+
+            firstName: userForm.firstName,
+            lastName: userForm.lastName,
+            email: userForm.email,
+            phoneNumber: userForm.phoneNumber,
+            accTypePrefId: userForm.accTypePrefId,
+            dateOfBirth: userForm.dateOfBirth
+
         };
         const options = {
             method: 'POST',
@@ -20,7 +32,7 @@ function UserForm() {
             body: JSON.stringify(data)
         };
 
-        return fetch('/students', options);
+        return fetch('/api/user', options);
     }
 
     function isValid() {
@@ -32,19 +44,33 @@ function UserForm() {
             <h2>New User</h2>
             <form onSubmit={onSubmit}>
                 <div className="FormRow">
-                    <label>ID</label>
-                    <input name='id' onChange={onChange} value={form.id}/>
-                </div>
-                <div className="FormRow">
                     <label>First name</label>
-                    <input name='firstname' onChange={onChange} value={form.firstname}/>
+                    <input name='firstname' onChange={onChange} value={userForm.firstName}/>
                 </div>
                 <div className="FormRow">
                     <label>Last name</label>
-                    <input name='lastname' onChange={onChange} value={form.lastname}/>
+                    <input name='lastname' onChange={onChange} value={userForm.lastName}/>
+                </div>
+                <div className="FormRow">
+                    <label>Email</label>
+                    <input name='email' type='email' onChange={onChange} value={userForm.email}/>
+                </div>
+                <div className="FormRow">
+                    <label>Phone Number</label>
+                    <input name='phoneNumber' type='tel' onChange={onChange} value={userForm.phoneNumber}/>
+                </div>
+                <div className="FormRow">
+                    <label>Preferred Type of Accommodation</label>
+                    <input name='accTypePrefId' onChange={onChange} value={userForm.accTypePrefId}/>
+                </div>
+                <div className="FormRow">
+                    <label>Date Of Birth</label>
+                    <input name='dateOfBirth' type='date' onChange={onChange} value={userForm.dateOfBirth}/>
                 </div>
                 <button type="submit">Add User</button>
             </form>
         </div>
     )
 }
+
+export default UserForm;

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import User from './User';
 import './UserList.css';
 
 function UserList(){
+
+    const[users,setUsers] = useState<any[]>([]);
 
     React.useEffect(() => {
       fetch('/users')
@@ -10,7 +12,6 @@ function UserList(){
       .then(users => setUsers(users))
     }, []);
     
-
     return(
         <div className='UserList'>
             {
@@ -21,3 +22,5 @@ function UserList(){
         </div>
     );
 }
+
+export default UserList;

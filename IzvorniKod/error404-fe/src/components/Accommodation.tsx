@@ -31,7 +31,6 @@ function Accommodation() {
 
             {/* ovdje treba dodati onaj glavni dio */}
 
-
             </div>
           </main>
     

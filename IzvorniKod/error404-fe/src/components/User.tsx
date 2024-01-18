@@ -1,11 +1,12 @@
 import React from 'react';
 
-function User(props){
-    const {id, name, lastname, phone, timeOfArrival, placeOfArrival, sizePref, qualPref} = props.user
+function User(props: { user: { id: any; firstname: any; lastname: any; phone: any; accTypePrefId: any; dateOfBirth: any; }; }){
+    const {id, firstname, lastname, phone,accTypePrefId, dateOfBirth } = props.user
 
     return (
-        <p>{firstname} {lastname} {phone} {timeOfArrival} {placeOfArrival} {sizePref} {qualPref} ({id})</p>
+        <p>{firstname} {lastname} {phone} {accTypePrefId} {dateOfBirth} </p>
     );
 } 
 
 export default User;
+

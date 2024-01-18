@@ -37,8 +37,6 @@ function Home() {
         <div className="main-container">
 
         {/* ovdje treba dodati onaj glavni dio */}
-        <p>home page</p>
-
 
         </div>
     </main>

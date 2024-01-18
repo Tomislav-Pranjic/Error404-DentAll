@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import "./Users.css";
+import UserList from './UserList';
 
 function Users() {
   const initialData = [
