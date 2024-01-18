@@ -35,9 +35,6 @@ function UserForm() {
         return fetch('/api/user', options);
     }
 
-    function isValid() {
-        
-    }
     
     return (
         <div className="UserForm">
