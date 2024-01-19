@@ -34,11 +34,7 @@ public class WebSecurity {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests(authorize -> {
-            authorize.requestMatchers(new AntPathRequestMatcher("/actuator/**")).permitAll()
-                     .anyRequest().authenticated();
-        });
-        http.authorizeHttpRequests(authorize -> {
-            authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+            authorize.requestMatchers(new AntPathRequestMatcher("/actuator/**"), new AntPathRequestMatcher("/**", "OPTIONS")).permitAll()
                      .anyRequest().authenticated();
         });
         http.httpBasic(httpSecurityHttpBasicConfigurer -> {
