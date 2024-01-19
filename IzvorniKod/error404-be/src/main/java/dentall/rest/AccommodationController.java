@@ -65,7 +65,7 @@ public class AccommodationController {
         );
     }
 
-    @DeleteMapping("/{id}")
+    @PostMapping("/{id}/delete")
     @ResponseStatus(HttpStatus.OK)
     public void deleteAccommodation(@PathVariable Long id){
         accommodationService.deleteAccommodation(id);
