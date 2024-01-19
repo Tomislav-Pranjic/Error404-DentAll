@@ -17,8 +17,7 @@
 			 \newline \textbf{Dokumentacija} \newline
 			 Dokumentacija je pisana pomuću okruženja \href{https://www.texstudio.org/}{TeXstudio}, LaTex jezikom, dok su \href{https://www.uml-diagrams.org/}{UML} dijagrami izrađeni dijelom programom \href{https://astah.net/}{Astah} kojeg je razvila tvrtka Change Vision, a dijelom online okolinom \href{https://www.visual-paradigm.com/}{Visual Paradigm} kojeg je razvila tvrtka istoga imena.
 			 \newline \textbf{Ispitivanje} \newline
-			 
-			 Za ispitivanje komponenti korišten je alat \href{https://junit.org/junit5/}{JUnit 5} u okolini Spring Boot, te pisan u programskom jeziku Java. Ispitivanje sustava provedeno je pomoću dodataka za preglednik \href{https://www.selenium.dev/selenium-ide/}{Selenium IDE} koji je otvorenog koda i preglednika \href{https://www.mozilla.org/en-US/firefox/new/}{Firefox}, \href{https://www.apple.com/safari/}{Safari} i \href{https://www.google.com/chrome/}{Chrome}.
+			 Za ispitivanje komponenti korišten je alat \href{https://junit.org/junit5/}{JUnit 5} u okolini Spring Boot, te pisan u programskom jeziku Java. Ispitivanje sustava provedeno je pomoću dodataka za preglednik \href{https://www.selenium.dev/selenium-ide/}{Selenium IDE} koji je otvorenog koda i preglednika \href{https://www.mozilla.org/en-US/firefox/new/}{Firefox}.
 			 
 			\eject 
 		
@@ -83,6 +82,66 @@
 			 %	\item \textit{\textbf{Selenium WebDriver} - podrška za pisanje ispita u jezicima Java, C\#, PHP koristeći posebno programsko sučelje.}
 			 %\end{itemize}
 		 	%\textit{Detalji o korištenju alata Selenium bit će prikazani na posebnom predavanju tijekom semestra.}
+			
+			Zbog broja ne implementiranih funkcija na sustavu testiranje je ograničeno. \newline
+			Provjerava se dodavanje novog korisnika (\textit{user}), vozača (\textit{driver}), administratora (\textit{admin}) te smještaja (\textit{accommodation}).
+			Za početak, dodavanje novog korisnika nije moguće preko tipke koja je za tu funkciju predviđena. Očekivani rezultat bi bio prikaz dodanog korisnika, ali korisnik se ne dodaje te ne prikazuje.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/addingANewUserTest.JPG}
+				\caption{Snimka kako bi dodavanje novog korisnika trebalo izgledati}
+				\label{addingANewUserTest}
+			\end{figure}
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/addingANewUserResults.JPG}
+				\caption{Rezultati testa}
+				\label{addingANewUserResults}
+			\end{figure}
+			
+			Nadalje, klik na gumb za koji je predviđeno dodavanje novog vozača otvara formu predviđenu za to. Nakon upisa podataka i klika na gumb za dodati novog vozača, novi vozač bi se trebao prikazati u listi, ali to se ne događa.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/addingANewDriverTest.JPG}
+				\caption{Snimka kako bi dodavanje novog vozača trebalo izgledati}
+				\label{addingANewDriverTest}
+			\end{figure}
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/addingANewDriverResults.JPG}
+				\caption{Rezultati testa}
+				\label{addingANewDriverResults}
+			\end{figure}
+			
+			Treći test je dodavanje novog administratora, pri pritsku na tipku koja je za to predviđena otvara se forma koja omogućuje upis novog administratora, ali on se ne prikazuje, kao ni jedan upisani adminstrator u sustavu.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/addingANewAdminTest.JPG}
+				\caption{Snimka kako bi dodavanje novog korisnika trebalo izgledati}
+				\label{addingANewAdminTest}
+			\end{figure}
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/addingANewUserResults.JPG}
+				\caption{Rezultati testa}
+				\label{addingANewAdinResults}
+			\end{figure}
+			
+			Posljednji test je dodavanje novog smještaja, pri pritisku na tipku koja je zato predviđena otvara se forma koja omogućuje upis novog smještaja, ali on se ne prikazuje s ostalim, već upisanim smještajima.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/addingANewAccTest.JPG}
+				\caption{Snimka kako bi dodavanje novog smještaja trebalo izgledati}
+				\label{addingANewAccTest}
+			\end{figure}
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/addingANewAccResults.JPG}
+				\caption{Rezultati testa}
+				\label{addingANewAccResults}
+			\end{figure}
+			
+			Testiranje sustava pokazuje da on nije u mogućnosti ostvariti komunikaciju između frontenda i backenda, ali da je u mogućnosti prikazati prethodno upisane vrijednosti u bazi podataka. 
 			
 			\eject 
 		
