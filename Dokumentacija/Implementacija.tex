@@ -18,7 +18,7 @@
 			 Dokumentacija je pisana pomuću okruženja \href{https://www.texstudio.org/}{TeXstudio}, LaTex jezikom, dok su \href{https://www.uml-diagrams.org/}{UML} dijagrami izrađeni dijelom programom \href{https://astah.net/}{Astah} kojeg je razvila tvrtka Change Vision, a dijelom online okolinom \href{https://www.visual-paradigm.com/}{Visual Paradigm} kojeg je razvila tvrtka istoga imena.
 			 \newline \textbf{Ispitivanje} \newline
 			 
-			 %samo Bog zna
+			 Za ispitivanje komponenti korišten je alat \href{https://junit.org/junit5/}{JUnit 5} u okolini Spring Boot, te pisan u programskom jeziku Java. Ispitivanje sustava provedeno je pomoću dodataka za preglednik \href{https://www.selenium.dev/selenium-ide/}{Selenium IDE} koji je otvorenog koda i preglednika \href{https://www.mozilla.org/en-US/firefox/new/}{Firefox}, \href{https://www.apple.com/safari/}{Safari} i \href{https://www.google.com/chrome/}{Chrome}.
 			 
 			\eject 
 		
@@ -32,7 +32,46 @@
 			\subsection{Ispitivanje komponenti}
 			%\textit{Potrebno je provesti ispitivanje jedinica (engl. unit testing) nad razredima koji implementiraju temeljne funkcionalnosti. Razraditi \textbf{minimalno 6 ispitnih slučajeva} u kojima će se ispitati redovni slučajevi, rubni uvjeti te izazivanje pogreške (engl. exception throwing). Poželjno je stvoriti i ispitni slučaj koji koristi funkcionalnosti koje nisu implementirane. Potrebno je priložiti izvorni kôd svih ispitnih slučajeva te prikaz rezultata izvođenja ispita u razvojnom okruženju (prolaz/pad ispita). }
 			
+			Ispitivanje komponenti ostvareno je pomoću JUnit 5 alata za ispitivanje u okolini Spring Boot, a pisan u programskom jeziku Java. \newline
+			Na donjoj slici prikazan je izvorni kod klase \textit{AdminTest}, ona provjerava stvara li sustav objekt \textit{Admin} sa oba konstruktora te može li se pristupiti tim podacima. Test \textbf{getAdminInfoDef()} testira inicijalizaciju objekta \textit{Admin} kojemu su u slučaju ne postavljanja argumenata sve vrijednosti jednake \textbf{NULL}. Zatim test \textbf{getAdminInfoTest} testira kreiranje objekta \textit{Admin} sa nekim danim vrijednostima, u testnom primjeru je to \textit(username = "tomi") te \textit{passwordHash = "password"}. 
 			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/adminTest.JPG}
+				\caption{Kod klase AdminTest}
+				\label{adminTest}
+			\end{figure}
+			
+			Nadalje, provedeno je ispitivanje klase \textit{Accommodation} koja obrađuje informacije o smještaju u sustavu. Na donjoj slici prikazan je izvorni kod klase \textit{AccommodationTest} koji se sastoji od funkcije \textbf{setUp} koji stvara potrebne informacije, testa \textbf{testGetDefault} koji ispituje inicijalizaciju te provjerava njezinu ispravnost, inicijalna vrijednost za svaki atribut treba biti \textbf{NULL}. Test \textbf{testGetCorrect} testira stvaranje objekta kada su mu zadane neke vrjednosti, npr. adresa je \textit{address = Unska ulica 23, Zagreb}, tip smještaja je \textit{accommodationType = stan, 200}, broj zvjezdica je \textit{noOfStars = 3} i broj kreveta \textit{noOfBeds = 5} te povrat i spremanje danih vrijednosti.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/AccommodationTest.JPG}
+				\caption{Kod klase AccommodationTest}
+				\label{AccommodationTest}
+			\end{figure}
+			
+			Za kraj provedeno je ispitivanje klase \textit{UserTreatmentInfo}, na isti način kao i prethodne dvije klase, testiran je konstruktor bez zadanih vrijednosti i sa zadanim vrijednostima, jedina razlika je u tome da ova klasa ima dva konstruktora koji traže vrijednosti. Prvo inicijaliziramo tri insance klase \textbf{UserTreatmentInfo}, jedno bez zadanih vrijednosti, drugu u koju upisujemo vrijednosti: \textit{treatment\_id = 123L}, zatim za datum dolazka i odlaska isti, onaj koji jest u trenutku pokretanja, dalje za adresu dolaska i odlaska istu vrijednost \textit{address = "Zagreb, Savska, 132"}, istoga vozača na odlaku i povratku (čije vrijednosti su \textit{name="Marko", surname="Popić", email="mail@mail.com", phoneNumber="0992583695"}, vozilo crveni \textit{Porcshe}, vrijeme početka rada trenutno, a za dane rada \textit{string="NUCP"}), smještaj s istim vrijednostima kao i u ispitivanju klase \textit{Accommodation}, datum usluge isti kao već spomenuti, trenutni (onaj u trenutku pokretanja testa) \textit{Timestamp} za trenutak zaključavanja i korisnik sa podacima \textit{name="Luke", surname="Skywalker", email="lukeskywalker@force.com", phoneNumber = "036958721"} već spomenuti {accomodationType} te datum rođenja jednak onom pri pokretanju što se sprema u varjablu \textbf{userInfoTestOne}. Treći konstruktor traži samo tri vrijednosti datum liječenja što je u testnom primjeru postavljeno na jednak onom na dan testiranja, trenutak zaključavanja koji je postavljen na jednak način i korisnika usluge, on je postavljen jednako kao i u prethodnom konstruktoru, a sve je spremljeno u varijablu \textbf{userInfoTestToo}. Inicijalizaciju podataka pokazuje slika dolje.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/userTreatmentInfoPtOne.JPG}
+				\caption{Kod klase UserTreatmentTest, funkcija \textbf{setUp}}
+				\label{UserTreatmentInfoTestPtOne}
+			\end{figure}
+			
+			Konstruktor bez zadanih vrijednosti treba za svaki atribut postaviti \textbf{NULL} što provjerava test \textbf{getUserInfoDef}. Prvi konstruktor treba postaviti vrijednosti oblika varijable \textbf{userInfoTestOne} što provjerava test \textbf{getUserInfoOne} što je prikazano na slici dolje.
+				
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/userTreatmentInfoPtToo.JPG}
+				\caption{Kod klase UserTreatmentTest, test \textbf{getUserInfoDef} i test \textbf{getUserInfoOne}}
+				\label{UserTreatmentInfoTestPtToo}
+			\end{figure}
+			
+			 Posljednji konstruktor prima vrijednosti oblika varijable  \textbf{userInfoTestToo}, a ispravnost postavljanja provjerava test \textbf{getUserInfoToo} čiji je izvorni kod prikazan na slici dolje.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/userTreatmentInfoPtTree.JPG}
+				\caption{Kod klase UserTreatmentTest, test \textbf{getUserInfoToo}}
+				\label{UserTreatmentInfoTestPtTree}
+			\end{figure}
 			
 			\subsection{Ispitivanje sustava}
 			
