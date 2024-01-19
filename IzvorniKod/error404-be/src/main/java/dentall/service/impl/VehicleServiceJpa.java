@@ -36,7 +36,20 @@ public class VehicleServiceJpa implements VehicleService {
     @Override
     public Vehicle updateVehicle(Vehicle vehicle) {
         Vehicle v = vehicleRepo.findVehicleByRegistration(vehicle.getRegistration()).orElseThrow(() -> new ItemNotFoundException("Vehicle with registration: '" + vehicle.getRegistration() + "' not found"));
-        return vehicleRepo.saveAndFlush(vehicle);
+
+        if(vehicle.getModel() != null){
+            v.setModel(vehicle.getModel());
+        }
+
+        if(vehicle.getColor() != null){
+            v.setColor(vehicle.getColor());
+        }
+
+        if(vehicle.getCapacity() != null){
+            v.setCapacity(vehicle.getCapacity());
+        }
+
+        return vehicleRepo.saveAndFlush(v);
     }
 
 

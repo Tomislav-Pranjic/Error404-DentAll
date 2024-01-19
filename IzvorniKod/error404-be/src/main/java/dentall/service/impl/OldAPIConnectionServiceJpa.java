@@ -55,6 +55,10 @@ public class OldAPIConnectionServiceJpa implements OldAPIConnectionService {
     @Autowired
     private AccommodationService accommodationService;
 
+    @Autowired
+    private EmailService emailService;
+
+
     @Override
     public void getNewTreatmentsSince(String date) {
         logger.info("Getting new treatments since: " + date);
@@ -171,82 +175,96 @@ public class OldAPIConnectionServiceJpa implements OldAPIConnectionService {
             UserTreatmentInfo treatment = treatmentsToMatch.get(i);
             logger.info("Treatment: " + treatment.toString());
 
-            if(treatment.getArrivalDate() != null && treatment.getArrivalAddress() != null) {
+            if(treatment.getArrivalDriver() == null) {
+                if (treatment.getArrivalDate() != null && treatment.getArrivalAddress() != null) {
 
-                DriverWorkInfoDTO arrivalDriverWithWorkInfo = driverService.getFreeDriverForDate(treatment.getArrivalDate().toString());
+                    DriverWorkInfoDTO arrivalDriverWithWorkInfo = driverService.getFreeDriverForDate(treatment.getArrivalDate().toString());
 
-                if(arrivalDriverWithWorkInfo != null){
-                    Driver arrivalDriver = arrivalDriverWithWorkInfo.getDriver();
-                    treatment.setArrivalDriver(arrivalDriver);
+                    if (arrivalDriverWithWorkInfo != null) {
+                        Driver arrivalDriver = arrivalDriverWithWorkInfo.getDriver();
+                        treatment.setArrivalDriver(arrivalDriver);
 
-                    logger.info("Arrival driver: " + arrivalDriver.toString());
+                        logger.info("Arrival driver: " + arrivalDriver.toString());
 
-                    int numOfTrips = arrivalDriverWithWorkInfo.getNumberOfTrips();
+                        int numOfTrips = arrivalDriverWithWorkInfo.getNumberOfTrips();
 
-                    logger.info("Number of trips: " + numOfTrips);
+//                        logger.info("Number of trips: " + numOfTrips);
 
-                    java.util.Date workStartTime = new java.util.Date(arrivalDriver.getWorkStartTime().getTime());
-                    logger.info("Work start time: " + workStartTime);
+                        java.util.Date workStartTime = new java.util.Date(arrivalDriver.getWorkStartTime().getTime());
+//                        logger.info("Work start time: " + workStartTime);
 
-                    Time tripStartTime = new Time(workStartTime.toInstant().plus(numOfTrips * 2L, ChronoUnit.HOURS).toEpochMilli());
+                        Time tripStartTime = new Time(workStartTime.toInstant().plus(numOfTrips * 2L, ChronoUnit.HOURS).toEpochMilli());
 
-                    treatment.setArrivalTime(tripStartTime);
+                        treatment.setArrivalTime(tripStartTime);
 
-                    treatmentsToMatch.set(i, treatment);
-                    userTreatmentInfoService.updateTreatment(treatment);
+                        treatmentsToMatch.set(i, treatment);
+                        userTreatmentInfoService.updateTreatment(treatment);
 
-                }else{
-                    logger.warn("No free driver for arrival date: " + treatment.getArrivalDate().toString());
+                    } else {
+                        logger.warn("No free driver for arrival date: " + treatment.getArrivalDate().toString());
+                    }
+                } else {
+                    logger.warn("Couldn't assign arrival driver, arrival date or address is null for treatment: " + treatment);
                 }
-            }else{
-                logger.warn("Couldn't assign arrival driver, arrival date or address is null for treatment: " + treatment.toString());
             }
 
             treatment = treatmentsToMatch.get(i);
 
-            if(treatment.getDepartureDate() != null && treatment.getDepartureAddress() != null){
-                DriverWorkInfoDTO departureDriverWithWorkInfo = driverService.getFreeDriverForDate(treatment.getDepartureDate().toString());
+            if(treatment.getDepartureDriver() == null) {
+                if (treatment.getDepartureDate() != null && treatment.getDepartureAddress() != null) {
+                    DriverWorkInfoDTO departureDriverWithWorkInfo = driverService.getFreeDriverForDate(treatment.getDepartureDate().toString());
 
-                if(departureDriverWithWorkInfo != null){
-                    Driver departureDriver = departureDriverWithWorkInfo.getDriver();
-                    treatment.setDepartureDriver(departureDriver);
+                    if (departureDriverWithWorkInfo != null) {
+                        Driver departureDriver = departureDriverWithWorkInfo.getDriver();
+                        treatment.setDepartureDriver(departureDriver);
 
-                    int numOfTrips = departureDriverWithWorkInfo.getNumberOfTrips();
+                        logger.info("Departure driver: " + departureDriver.toString());
 
-                    java.util.Date workStartTime = new java.util.Date(departureDriver.getWorkStartTime().getTime());
-                    Time tripStartTime = new Time(workStartTime.toInstant().plus(numOfTrips * 2L, ChronoUnit.HOURS).toEpochMilli());
+                        int numOfTrips = departureDriverWithWorkInfo.getNumberOfTrips();
 
-                    treatment.setDepartureTime(tripStartTime);
+                        java.util.Date workStartTime = new java.util.Date(departureDriver.getWorkStartTime().getTime());
+                        Time tripStartTime = new Time(workStartTime.toInstant().plus(numOfTrips * 2L, ChronoUnit.HOURS).toEpochMilli());
 
-                    treatmentsToMatch.set(i, treatment);
-                    userTreatmentInfoService.updateTreatment(treatment);
+                        treatment.setDepartureTime(tripStartTime);
 
-                }else{
-                    logger.warn("No free driver for departure date: " + treatment.getDepartureDate().toString());
+                        treatmentsToMatch.set(i, treatment);
+                        userTreatmentInfoService.updateTreatment(treatment);
+
+                    } else {
+                        logger.warn("No free driver for departure date: " + treatment.getDepartureDate().toString());
+                    }
+                } else {
+                    logger.warn("Couldn't assign departure driver, departure date or address is null for treatment: " + treatment);
                 }
-            }else{
-                logger.warn("Couldn't assign departure driver, departure date or address is null for treatment: " + treatment.toString());
             }
 
             treatment = treatmentsToMatch.get(i);
 
-            if(treatment.getDepartureDate() != null && treatment.getArrivalDate() != null){
+            if(treatment.getAccommodation() == null) {
+                if (treatment.getDepartureDate() != null && treatment.getArrivalDate() != null) {
 //                logger.info("Arrival date: " + treatment.getArrivalDate().toString() + " Departure date: " + treatment.getDepartureDate().toString());
-                Accommodation accommodation = accommodationService.getAccommodationForUserBetweenDates(treatment.getMedUser(), treatment.getArrivalDate(), treatment.getDepartureDate());
+                    Accommodation accommodation = accommodationService.getAccommodationForUserBetweenDates(treatment.getMedUser(), treatment.getArrivalDate(), treatment.getDepartureDate());
 
-                if(accommodation != null){
-                    treatment.setAccommodation(accommodation);
+                    if (accommodation != null) {
+                        treatment.setAccommodation(accommodation);
 
-                    treatmentsToMatch.set(i, treatment);
-                    userTreatmentInfoService.updateTreatment(treatment);
-                }else{
-                    logger.warn("No free accommodation for user: " + treatment.getMedUser().getLocalUserId() + " between dates: " + treatment.getArrivalDate().toString() + " and " + treatment.getDepartureDate().toString());
+                        logger.info("Accommodation: " + accommodation);
+
+                        treatmentsToMatch.set(i, treatment);
+                        userTreatmentInfoService.updateTreatment(treatment);
+                    } else {
+                        logger.warn("No free accommodation for user: " + treatment.getMedUser().getLocalUserId() + " between dates: " + treatment.getArrivalDate().toString() + " and " + treatment.getDepartureDate().toString());
+                    }
+                } else {
+                    logger.warn("Couldn't assign accommodation, arrival date or departure date are null for treatment: " + treatment);
                 }
-            }else{
-                logger.warn("Couldn't assign accommodation, arrival date or departure date are null for treatment: " + treatment.toString());
             }
 
-            //TODO: send email to user and driver if all treatment info is set
+            treatment = treatmentsToMatch.get(i);
+            if(treatment.getArrivalDriver() != null && treatment.getDepartureDriver() != null && treatment.getAccommodation() != null) {
+                logger.info("Sending email to user and drivers for treatment: " + treatment);
+                emailService.sendEmailToEveryoneInvolved(treatment);
+            }
         }
     }
 }

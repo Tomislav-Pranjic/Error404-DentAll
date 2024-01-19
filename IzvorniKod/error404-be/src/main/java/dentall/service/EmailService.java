@@ -8,4 +8,6 @@ public interface EmailService {
     String sendEmailToArrivalDriver(UserTreatmentInfo details);
     String sendEmailToDepartureDriver(UserTreatmentInfo details);
 
+    void sendEmailToEveryoneInvolved(UserTreatmentInfo details);
+
 }

@@ -256,4 +256,26 @@
     }
       ```
 
+# Treatment information controller Endpoints
 
+- **List treatments:**
+  - Endpoint: `GET /treatmentInfo`
+  - Description: Retrieve a list of all treatments.
+
+- **List all treatments that have some data missing:**
+  - Endpoint: `GET /treatmentInfo/missingInfo`
+  - Description: Get a list of all treatments that have some of the arrival or departure data missing
+
+- **Update data of treatment:**
+  - Endpoint: `PATCH /treatmentInfo/{id}`
+  - Description: Update treatment information.
+  - Request Body:
+  ``` 
+  { 
+  arrivalDate: "yyyy-MM-dd",
+  departureDate: "yyyy-MM-dd",
+  arrivalAddressId: 1,
+  departureAddressId: 1
+    }
+  ```
+  - Note: Podatci se ne bi trebali mijenjati nakon što su jednom postavljeni zato što se na temelju njih automatski dodjeli vozač i smještaj nakon čega se šalje mail vozačima i korisniku sa svim informacijama.

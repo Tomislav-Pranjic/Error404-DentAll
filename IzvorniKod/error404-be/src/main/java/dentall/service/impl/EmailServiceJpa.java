@@ -3,6 +3,8 @@ package dentall.service.impl;
 import dentall.domain.UserTreatmentInfo;
 
 import dentall.service.EmailService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -20,6 +22,7 @@ public class EmailServiceJpa implements EmailService {
     @Value("${spring.mail.username}")
     private String sender;
 
+    private final Logger logger = LoggerFactory.getLogger(EmailServiceJpa.class);
 
     @Override
     public String sendEmailToMedUser(UserTreatmentInfo treatmentInfo) {
@@ -47,11 +50,13 @@ public class EmailServiceJpa implements EmailService {
 
             // Sending the mail
             javaMailSender.send(mailMessage);
+            logger.info("E-mail to MedUser successfully sent");
             return "E-mail to MedUser successfully sent";
         }
 
         // Catch block to handle the exceptions
         catch (Exception e) {
+            logger.error("Error while sending e-mail to MedUser: " + e.getMessage());
             return "Error while sending e-mail to MedUser" + e.getMessage();
         }
     }
@@ -80,12 +85,13 @@ public class EmailServiceJpa implements EmailService {
 
             // Sending the mail
             javaMailSender.send(mailMessageArrival);
-
+            logger.info("E-mail to arrival driver successfully sent");
             return "E-mail to arrival driver successfully sent";
         }
 
         // Catch block to handle the exceptions
         catch (Exception e) {
+            logger.error("Error while sending e-mail to arrival driver: " + e.getMessage());
             return "Error while sending e-mail to arrival driver" + e.getMessage();
         }
     }
@@ -113,12 +119,25 @@ public class EmailServiceJpa implements EmailService {
             mailMessageDeparture.setText(userDetails.toString());
 
             javaMailSender.send(mailMessageDeparture);
+            logger.info("E-mail to departure driver successfully sent");
             return "E-mail to departure driver successfully sent";
         }
 
         // Catch block to handle the exceptions
         catch (Exception e) {
+            logger.error("Error while sending e-mail to departure driver: " + e.getMessage());
             return "Error while sending e-mail to departure driver" + e.getMessage();
+        }
+    }
+
+    @Override
+    public void sendEmailToEveryoneInvolved(UserTreatmentInfo details) {
+        try {
+            sendEmailToMedUser(details);
+            sendEmailToArrivalDriver(details);
+            sendEmailToDepartureDriver(details);
+        }catch (Exception e) {
+            logger.error("Error while sending e-mail to everyone involved: " + e.getMessage());
         }
     }
 }
