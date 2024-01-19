@@ -29,7 +29,7 @@ function Accommodation() {
       }),
       body: "",
     };
-    fetch("/api/admins")
+    fetch("/api/admin")
       .then((data) => data.json())
       .then((admin) => setAdmins(admin));
 
@@ -229,28 +229,20 @@ function Accommodation() {
     }
   };
   function accommodationFormIsValid() {
-    const {
-      typeId,
-      type,
-      stars,
-      address,
-      addressId,
-      ownership,
-      availableUntil,
-      noOfBeds,
-    } = accommodationData;
+    const { type, stars, address, ownership, availableUntil, noOfBeds } =
+      accommodationData;
+
+    const isOwnershipFalse = ownership === "False";
+
     return (
-      (typeId > 0 &&
-        type.typeName.length > 0 &&
-        type.typeSize > 0 &&
-        stars >= 1 &&
-        address.city.length > 0 &&
-        address.street.length > 0 &&
-        address.number >= 1 &&
-        addressId > 0 &&
-        (ownership === "True" || ownership === "False")) ||
-      ((ownership === "False" ? availableUntil.length > 0 : true) &&
-        noOfBeds >= 1)
+      type.typeName.length > 0 &&
+      stars >= 1 &&
+      address.city.length > 0 &&
+      address.street.length > 0 &&
+      address.number >= 1 &&
+      (ownership === "True" || ownership === "False") &&
+      (isOwnershipFalse ? availableUntil.length > 0 : true) &&
+      noOfBeds >= 1
     );
   }
 
@@ -473,7 +465,7 @@ function Accommodation() {
                   <th>Type</th>
                   <th>Stars</th>
                   <th>City</th>
-                  <th>Street</th>
+                  <th>Street Number</th>
                   <th>Number</th>
                   <th>Ownership</th>
                   <th>No. of Beds</th>
@@ -561,7 +553,7 @@ function Accommodation() {
                 </div>
                 <div className="form-group col-md">
                   <label>
-                    Number:
+                    Street Number:
                     <input
                       type="number"
                       className="form-control"
