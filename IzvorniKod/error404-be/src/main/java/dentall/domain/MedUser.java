@@ -2,66 +2,80 @@ package dentall.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.Date;
 
 
-@Entity
+@Entity(name = "KORISNIK")
 public class MedUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    @Column(name = "korisnik_local_id")
+    private Long localUserId;
+
+    @Column(name = "korisnik_remote_id", unique = true)
+    private Long remoteUserId;
 
     @NotNull
+    @Column(name = "ime")
+    @Size(max = 32)
     private String name;
 
     @NotNull
+    @Column(name = "prezime")
+    @Size(max = 32)
     private String surname;
 
     @NotNull
+    @Column(name = "e_mail")
+    @Size(max = 64)
+    private String email;
+
+    @NotNull
+    @Column(name = "broj_mobitela")
+    @Size(max = 16)
     private String phoneNumber;
 
     @NotNull
-    private Date arrivalDate;
+    @Column(name = "datum_rodenja")
+    @Temporal(TemporalType.DATE)
+    private Date dateOfBirth;
 
-    @NotNull
-    private String arrivalTown;
-
-    @NotNull
-    private Date departureDate;
-
-    @NotNull
-    private String accomodationPreference; //nisam siguran kako s ovime?
-
+    @ManyToOne
+    @JoinColumn(name = "smj_pref", referencedColumnName = "tip_id")
+    private AccommodationType accommodationPreference;
 
     public MedUser() {
-        this.userId = null;
+        this.remoteUserId = null;
         this.name = null;
         this.surname = null;
+        this.email = null;
         this.phoneNumber = null;
-        this.arrivalDate = null;
-        this.arrivalTown = null;
-        this.departureDate = null;
-        this.accomodationPreference = null;
+        this.dateOfBirth = null;
+        this.accommodationPreference = null;
     }
 
-    public MedUser(Long userId, String name, String surname, String phoneNumber, Date arrivalDate, String arrivalTown, Date departureDate, String accomodationPreference) {
-        this.userId = userId;
+    public MedUser(String name, String surname, String email, String phoneNumber, AccommodationType accommodationPreference, Date dateOfBirth) {
+        this.remoteUserId = null;
         this.name = name;
         this.surname = surname;
+        this.email = email;
         this.phoneNumber = phoneNumber;
-        this.arrivalDate = arrivalDate;
-        this.arrivalTown = arrivalTown;
-        this.departureDate = departureDate;
-        this.accomodationPreference = accomodationPreference;
+        this.accommodationPreference = accommodationPreference;
+        this.dateOfBirth = dateOfBirth;
     }
 
-    public Long getUserId () {
-        return userId;
+    public Long getLocalUserId () {
+        return localUserId;
     }
 
-    public void setUserId (Long userId) {
-        this.userId = userId;
+    public Long getRemoteUserId () {
+        return remoteUserId;
+    }
+
+    public void setRemoteUserId (Long remoteUserId) {
+        this.remoteUserId = remoteUserId;
     }
 
     public String getName () {
@@ -88,36 +102,36 @@ public class MedUser {
         this.phoneNumber = phoneNumber;
     }
 
-    public Date getArrivalDate () {
-        return arrivalDate;
+    public AccommodationType getAccommodationPreference() {
+        return accommodationPreference;
     }
 
-    public void setArrivalDate (Date arrivalDate) {
-        this.arrivalDate = arrivalDate;
+    public void setAccommodationPreference(AccommodationType accomodationPreference) {
+        this.accommodationPreference = accomodationPreference;
     }
 
-    public String getArrivalTown () {
-        return arrivalTown;
+    public String getEmail() {
+        return email;
     }
 
-    public void setArrivalTown (String arrivalTown) {
-        this.arrivalTown = arrivalTown;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Date getDepartureDate () {
-        return departureDate;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setDepartureDate (Date departureDate) {
-        this.departureDate = departureDate;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
-    public String getAccomodationPreference () {
-        return accomodationPreference;
+    @Override
+    public String toString() {
+        return  name + " " + surname +
+                ", E-mail: " + email + '\'' +
+                ", Phone number: " + phoneNumber +
+                ", Date of birth: " + dateOfBirth
+                ;
     }
-
-    public void setAccomodationPreference (String accomodationPreference) {
-        this.accomodationPreference = accomodationPreference;
-    }
-
 }

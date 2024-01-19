@@ -8,19 +8,29 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-@Entity
+@Entity(name = "ADMIN")
 public class Admin {
     @Id
-    @Column(unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "admin_id")
+    private Long adminId;
+
+    @Column(unique = true, name = "user_name")
     @NotNull
     @Size(min=4, max=20)
     private String userName;
 
     @NotNull
-    @Size(min=8)
+    @Size(max = 100)
+    @Column(name = "password_hash")
     private String passwordHash;
 
     @ManyToMany
+    @JoinTable(
+            name = "ADMIN_ULOGE",
+            joinColumns = @JoinColumn(name = "admin_id", referencedColumnName = "admin_id"),
+            inverseJoinColumns = @JoinColumn(name = "uloga_id", referencedColumnName = "uloga_id")
+    )
     private Set<AdminRole> roles;
 
     public Admin(String userName, String passwordHash) {
@@ -34,6 +44,10 @@ public class Admin {
         this.userName = null;
         this.passwordHash = null;
         this.roles = new HashSet<>();
+    }
+
+    public Long getAdminId() {
+        return adminId;
     }
 
     public String getUserName() {
@@ -59,6 +73,17 @@ public class Admin {
 
     public void addRole(AdminRole role) {
         this.roles.add(role);
+    }
+
+    public void removeRole(AdminRole role) {
+        this.roles.remove(role);
+    }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     @Override

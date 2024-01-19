@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "types": ["babel__generator"],
+    "typeRoots": ["node_modules/@types", "path/to/your/custom/types"],
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["vite.config.ts"]
+}

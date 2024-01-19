@@ -1,66 +1,70 @@
 package dentall.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 
-@Entity
+@Entity(name = "SMJESTAJ")
 public class Accommodation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "smjestaj_id")
     private Long accommodationId;
 
     @NotNull
-    private String apartmentType;
+    @ManyToOne
+    @JoinColumn(name = "smjestaj_tip", referencedColumnName = "tip_id")
+    private AccommodationType apartmentType;
 
     @NotNull
+    @Column(name = "br_zvjezdica")
     private Integer noOfStars;
 
     @NotNull
-    private String adress;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "adr_id", referencedColumnName = "adresa_id")
+    private Address address;
 
     @NotNull
-    private AccommodationOwner owner;
+    @Column(name = "vlasnistvo")
+    private Boolean isOwner;    // true - u vlasništvu, false - iznajmljeno
+
+    @Column(name = "dostupno_do")
+    private Date availableUntil;
 
     @NotNull
-    private LocalDate availableUntil; //nekako drugacije ovo?
+    @Column(name = "br_kreveta")
+    private Integer noOfBeds;
 
     public Accommodation () {
-        this.accommodationId = null;
         this.apartmentType = null;
         this.noOfStars = null;
-        this.adress = null;
-        this.owner = null;
+        this.address = null;
+        this.isOwner = null;
         this.availableUntil = null;
+        this.noOfBeds = null;
     }
 
-    public Accommodation (Long accomodationId, String apartmentType, Integer noOfStars, String adress, AccommodationOwner owner, LocalDate availableUntil) {
-        this.accommodationId = accomodationId;
+    public Accommodation (AccommodationType apartmentType, Integer noOfStars, Address address, Boolean isOwner, Date availableUntil, Integer noOfBeds){
         this.apartmentType = apartmentType;
         this.noOfStars = noOfStars;
-        this.adress = adress;
-        this.owner = owner;
+        this.address = address;
+        this.isOwner = isOwner;
         this.availableUntil = availableUntil;
+        this.noOfBeds = noOfBeds;
     }
 
     public Long getAccomodationId () {
         return accommodationId;
     }
 
-    public void setAccomodationId (Long accomodationId) {
-        this.accommodationId = accomodationId;
-    }
-
-    public String getApartmentType () {
+    public AccommodationType getApartmentType () {
         return apartmentType;
     }
 
-    public void setApartmentType (String apartmentType) {
+    public void setApartmentType (AccommodationType apartmentType) {
         this.apartmentType = apartmentType;
     }
 
@@ -72,27 +76,35 @@ public class Accommodation {
         this.noOfStars = noOfStars;
     }
 
-    public String getAdress () {
-        return adress;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAdress (String adress) {
-        this.adress = adress;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
-    public AccommodationOwner getOwner () {
-        return owner;
+    public Boolean getOwner() {
+        return isOwner;
     }
 
-    public void setOwner (AccommodationOwner owner) {
-        this.owner = owner;
+    public void setOwner (Boolean isOwner) {
+        this.isOwner = isOwner;
     }
 
-    public LocalDate getAvailableUntil () {
+    public Date getAvailableUntil () {
         return availableUntil;
     }
 
-    public void setAvailableUntil (LocalDate availableUntil) {
+    public void setAvailableUntil (Date availableUntil) {
         this.availableUntil = availableUntil;
+    }
+
+    public Integer getNoOfBeds () {
+        return noOfBeds;
+    }
+
+    public void setNoOfBeds (Integer noOfBeds) {
+        this.noOfBeds = noOfBeds;
     }
 }
