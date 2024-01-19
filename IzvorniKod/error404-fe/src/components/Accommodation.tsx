@@ -368,7 +368,8 @@ function Accommodation() {
                   </tr>
                 </thead>
                 <tbody>
-                  {admins.map((admin) => (
+                  {/* srusi stranicu */}
+                  {/* {admins.map((admin) => (
                     <tr key={admin.adminId}>
                       <td>{admin.username}</td>
                       <td>{admin.role.roleName}</td>
@@ -379,7 +380,7 @@ function Accommodation() {
                         <button>Delete</button>
                       </td>
                     </tr>
-                  ))}
+                  ))} */}
                 </tbody>
               </table>
             </div>

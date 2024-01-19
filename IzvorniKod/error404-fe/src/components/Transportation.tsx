@@ -144,6 +144,7 @@ function Transportation(){
       setDrivers(oldDrivers => oldDrivers.map(driver => 
         driver.driverId === editedDriver.driverId ? editedDriver : driver
       ));
+      handleToggleShowMore(0);
       console.log('Uspjesno editan vozac');
     })
   }
@@ -234,8 +235,8 @@ function Transportation(){
         .then(response => response.json())
         .then(newDriver => {
           if (response.ok) {
-            
             setDrivers(oldDrivers => [...oldDrivers, newDriver]);
+            handleAddDriverForm()
             console.log('Uspjesno dodan vozac');
           }
         })
