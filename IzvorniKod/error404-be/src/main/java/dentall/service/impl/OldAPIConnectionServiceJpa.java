@@ -245,6 +245,8 @@ public class OldAPIConnectionServiceJpa implements OldAPIConnectionService {
             }else{
                 logger.warn("Couldn't assign accommodation, arrival date or departure date are null for treatment: " + treatment.toString());
             }
+
+            //TODO: send email to user and driver if all treatment info is set
         }
     }
 }

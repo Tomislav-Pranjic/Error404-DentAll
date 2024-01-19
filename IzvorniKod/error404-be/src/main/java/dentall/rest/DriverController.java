@@ -2,6 +2,7 @@ package dentall.rest;
 
 import dentall.domain.Driver;
 import dentall.rest.dto.CreateDriverDTO;
+import dentall.rest.dto.CreateDriverWithVehicleDTO;
 import dentall.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -32,5 +33,15 @@ public class DriverController {
                         dto.getVehicleReg(),
                         dto.getWorkStartTime(),
                         dto.getWorkingDays());
+    }
+
+    @PostMapping("/vehicle")
+    public Driver createDriverWithVehicle(@RequestBody CreateDriverWithVehicleDTO dto){
+        return driverService.createDriver(dto);
+    }
+
+    @PatchMapping("/{id}")
+    public Driver updateDriver(@PathVariable("id") Long id, @RequestBody CreateDriverDTO dto){
+        return driverService.updateDriver(id, dto);
     }
 }

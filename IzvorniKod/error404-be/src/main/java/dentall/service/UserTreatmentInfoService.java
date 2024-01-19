@@ -23,4 +23,6 @@ public interface UserTreatmentInfoService {
     boolean isAccommodationFreeBetweenDates(Accommodation accommodation, Date arrivalDate, Date departureDate);
 
     UserTreatmentInfo updateTreatmentInfo(Long id, TreatmentInfoPatchDTO dto);
+
+
 }

@@ -35,7 +35,13 @@ public class AddressServiceJpa implements AddressService {
         Assert.notNull(number, "Number must be provided.");
         Assert.isTrue(number > 0, "Number must be positive.");
 
+        Assert.isTrue(addressDoesntExist(city, street, number), "Address already exists.");
+
         Address address = new Address(city, street, number);
         return addressRepo.save(address);
+    }
+
+    private boolean addressDoesntExist(String city, String street, Integer number) {
+        return addressRepo.findAddressByCityAndStreetAndNumber(city, street, number).isEmpty();
     }
 }

@@ -29,4 +29,9 @@ public class VehicleController {
                 vehicle.getColor(),
                 vehicle.getCapacity());
     }
+
+    @PatchMapping("")
+    public Vehicle updateVehicle(@RequestBody Vehicle vehicle) {
+        return vehicleService.updateVehicle(vehicle);
+    }
 }

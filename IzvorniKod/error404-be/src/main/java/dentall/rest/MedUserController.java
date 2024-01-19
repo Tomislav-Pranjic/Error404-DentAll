@@ -33,4 +33,9 @@ public class MedUserController {
                         dto.getDateOfBirth());
     }
 
+    @PatchMapping("/{id}")
+    public MedUser updateMedUser(@PathVariable("id") Long id, @RequestBody CreateMedUserDTO dto){
+        return medUserService.updateMedUser(id, dto);
+    }
+
 }

@@ -37,6 +37,8 @@ public class AccommodationTypeServiceJpa implements AccommodationTypeService {
         Assert.notNull(typeSize, "Size must be set.");
         Assert.isTrue(typeSize > 0, "Size must be positive.");
 
+        checkIfAccommodationTypeAlreadyExists(typeName, typeSize);
+
         AccommodationType accommodationType = new AccommodationType(typeName, typeSize);
         return accommodationTypeRepo.save(accommodationType);
     }
@@ -51,16 +53,27 @@ public class AccommodationTypeServiceJpa implements AccommodationTypeService {
         if(name != null) {
             Assert.hasText(name, "Name must be set.");
             Assert.isTrue(name.length() <= 32, "Name must be at most 32 characters.");
+
+            checkIfAccommodationTypeAlreadyExists(name, accommodationType.getTypeSize());
+
             accommodationType.setTypeName(name);
         }
 
         if(size != null) {
             Assert.isTrue(size > 0, "Size must be positive.");
+
+            checkIfAccommodationTypeAlreadyExists(accommodationType.getTypeName(), size);
+
             accommodationType.setTypeSize(size);
         }
 
         return accommodationTypeRepo.save(accommodationType);
     }
 
-
+    private void checkIfAccommodationTypeAlreadyExists(String name, Integer size) {
+        Optional<AccommodationType> accommodationType = accommodationTypeRepo.findByTypeNameAndTypeSize(name, size);
+        if (accommodationType.isPresent()) {
+            throw new IllegalArgumentException("Accommodation type with name '" + name + "' and size '" + size + "' already exists.");
+        }
+    }
 }

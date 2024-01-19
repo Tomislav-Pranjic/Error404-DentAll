@@ -5,6 +5,8 @@ import dentall.dao.MedUserRepository;
 import dentall.domain.AccommodationType;
 import dentall.domain.Address;
 import dentall.domain.MedUser;
+import dentall.rest.MedUserController;
+import dentall.rest.dto.CreateMedUserDTO;
 import dentall.service.AccommodationTypeService;
 import dentall.service.AddressService;
 import dentall.service.MedUserService;
@@ -54,43 +56,6 @@ public class MedUserServiceJpa implements MedUserService {
         phoneNumber = phoneNumber.replaceAll(" ", "");
         Assert.isTrue(phoneNumber.matches(Error404BeApplication.PHONE_NUMBER_FORMAT), "Phone number must be in valid format.");
 
-//        Assert.hasText(arrivalDate, "Arrival date must be provided.");
-//        DateFormat df = new SimpleDateFormat(Error404BeApplication.DATE_FORMAT);
-//
-//        Date sqlArrivalDate;
-//
-//        try {
-//            sqlArrivalDate = new Date(df.parse(arrivalDate).getTime());
-//
-//        } catch (Exception e) {
-//            throw new IllegalArgumentException("Available until must be in format '"+ Error404BeApplication.DATE_FORMAT +"'.");
-//        }
-//
-//        Assert.notNull(arrivalAddressId, "Arrival address must be provided.");
-//
-//        Optional<Address> arrivalAddress = addressService.findById(arrivalAddressId);
-//        if(arrivalAddress.isEmpty()){
-//            throw new ItemNotFoundException("Address with id '" + arrivalAddressId + "' does not exist.");
-//        }
-//
-//        Assert.hasText(departureDate, "Departure date must be provided.");
-//
-//        Date sqlDepartureDate;
-//
-//        try {
-//            sqlDepartureDate = new Date(df.parse(departureDate).getTime());
-//
-//        } catch (Exception e) {
-//            throw new IllegalArgumentException("Available until must be in format '"+ Error404BeApplication.DATE_FORMAT +"'.");
-//        }
-//
-//        Assert.notNull(departureAddressId, "Departure address must be provided.");
-//
-//        Optional<Address> departureAddress = addressService.findById(departureAddressId);
-//        if(departureAddress.isEmpty()){
-//            throw new ItemNotFoundException("Address with id '" + departureAddressId + "' does not exist.");
-//        }
-
         Assert.notNull(accTypePreferenceId, "Accommodation type preference must be provided.");
 
         Optional<AccommodationType> typePreference = accTypeService.findById(accTypePreferenceId);
@@ -110,6 +75,9 @@ public class MedUserServiceJpa implements MedUserService {
             throw new IllegalArgumentException("Date of birth must be in format '"+ Error404BeApplication.DATE_FORMAT +"'.");
         }
 
+        Assert.isTrue(userNameSurnameAndDateOfBirthAreFree(firstName, lastName, sqlDateOfBirth), "User with name '" + firstName + "' and surname '" + lastName + "' and date of birth '" + dateOfBirth + "' already exists.");
+        Assert.isTrue(emailIsFree(email), "Email is already taken.");
+        Assert.isTrue(phoneNumberIsFree(phoneNumber), "Phone number is already taken.");
 
         MedUser user = new MedUser(firstName, lastName, email, phoneNumber, typePreference.get(), sqlDateOfBirth);
         return medUserRepository.save(user);
@@ -122,7 +90,68 @@ public class MedUserServiceJpa implements MedUserService {
 
     @Override
     public MedUser createMedUser(MedUser medUser) {
+        Assert.isTrue(userNameSurnameAndDateOfBirthAreFree(medUser.getName(), medUser.getSurname(), medUser.getDateOfBirth()), "User with name '" + medUser.getName() + "' and surname '" + medUser.getSurname() + "' and date of birth '" + medUser.getDateOfBirth() + "' already exists.");
+        Assert.isTrue(emailIsFree(medUser.getEmail()), "Email is already taken.");
+        Assert.isTrue(phoneNumberIsFree(medUser.getPhoneNumber()), "Phone number is already taken.");
+
         return medUserRepository.save(medUser);
     }
 
+    @Override
+    public MedUser updateMedUser(Long id, CreateMedUserDTO dto) {
+        MedUser medUser = medUserRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Med user with id '" + id + "' does not exist."));
+
+        if(dto.getFirstName() != null){
+            Assert.hasText(dto.getFirstName(), "First name must be provided.");
+            Assert.isTrue(dto.getFirstName().length() <= 32, "First name must not be longer than 32 characters.");
+
+            Assert.isTrue(userNameSurnameAndDateOfBirthAreFree(dto.getFirstName(), medUser.getSurname(), medUser.getDateOfBirth()), "User with name '" + dto.getFirstName() + "' and surname '" + medUser.getSurname() + "' and date of birth '" + medUser.getDateOfBirth() + "' already exists.");
+            medUser.setName(dto.getFirstName());
+        }
+
+        if(dto.getLastName() != null){
+            Assert.hasText(dto.getLastName(), "Last name must be provided.");
+            Assert.isTrue(dto.getLastName().length() <= 32, "Last name must not be longer than 32 characters.");
+
+            Assert.isTrue(userNameSurnameAndDateOfBirthAreFree(medUser.getName(), dto.getLastName(), medUser.getDateOfBirth()), "User with name '" + medUser.getName() + "' and surname '" + dto.getLastName() + "' and date of birth '" + medUser.getDateOfBirth() + "' already exists.");
+            medUser.setSurname(dto.getLastName());
+        }
+
+        if(dto.getEmail() != null){
+            Assert.hasText(dto.getEmail(), "Email must be provided.");
+            Assert.isTrue(dto.getEmail().length() <= 64, "Email must not be longer than 64 characters.");
+            Assert.isTrue(dto.getEmail().matches(Error404BeApplication.EMAIL_FORMAT), "Email must be in valid format.");
+
+            Assert.isTrue(emailIsFree(dto.getEmail()), "Email is already taken.");
+            medUser.setEmail(dto.getEmail());
+        }
+
+        if(dto.getPhoneNumber() != null){
+            Assert.hasText(dto.getPhoneNumber(), "Phone number must be provided.");
+            String phoneNumber = dto.getPhoneNumber().replaceAll(" ", "");
+            Assert.isTrue(phoneNumber.matches(Error404BeApplication.PHONE_NUMBER_FORMAT), "Phone number must be in valid format.");
+
+            Assert.isTrue(phoneNumberIsFree(phoneNumber), "Phone number is already taken.");
+            medUser.setPhoneNumber(phoneNumber);
+        }
+
+        if(dto.getAccTypePrefId() != null){
+            AccommodationType accType = accTypeService.findById(dto.getAccTypePrefId()).orElseThrow(() -> new ItemNotFoundException("Accommodation type with id '" + dto.getAccTypePrefId() + "' does not exist."));
+            medUser.setAccommodationPreference(accType);
+        }
+
+        return medUserRepository.saveAndFlush(medUser);
+    }
+
+    private boolean emailIsFree(String email){
+        return medUserRepository.findMedUserByEmail(email).isEmpty();
+    }
+
+    private boolean phoneNumberIsFree(String phoneNumber) {
+        return medUserRepository.findMedUserByPhoneNumber(phoneNumber).isEmpty();
+    }
+
+    private boolean userNameSurnameAndDateOfBirthAreFree(String name, String surname, java.util.Date dateOfBirth) {
+        return medUserRepository.findByNameAndSurnameAndDateOfBirth(name, surname, dateOfBirth).isEmpty();
+    }
 }

@@ -3,6 +3,7 @@ package dentall.service;
 import dentall.domain.AccommodationType;
 import dentall.domain.Address;
 import dentall.domain.MedUser;
+import dentall.rest.dto.CreateMedUserDTO;
 
 import java.sql.Date;
 import java.util.List;
@@ -18,4 +19,5 @@ public interface MedUserService {
 
     MedUser createMedUser(MedUser medUser);
 
+    MedUser updateMedUser(Long id, CreateMedUserDTO dto);
 }
