@@ -7,15 +7,15 @@ import jakarta.validation.constraints.Size;
 import java.util.Objects;
 import java.util.Set;
 
-@Entity
+@Entity(name = "ADMIN_ULOGA")
 public class AdminRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id")
+    @Column(name = "uloga_id")
     private Long roleId;
 
-    @Column(unique = true)
-    @Size(max = 10)
+    @Column(unique = true, name = "uloga_ime")
+    @Size(max = 25)
     @NotNull
     private String roleName;
 

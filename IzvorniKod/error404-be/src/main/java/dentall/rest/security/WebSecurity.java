@@ -1,12 +1,14 @@
-package dentall.rest;
+package dentall.rest.security;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.Customizer;
@@ -25,23 +27,28 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 @EnableMethodSecurity(
         securedEnabled = true)
 public class WebSecurity {
+
+    @Autowired
+    private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests(authorize -> {
-            authorize.requestMatchers(new AntPathRequestMatcher("/actuator/**")).permitAll()
+            authorize.requestMatchers(new AntPathRequestMatcher("/actuator/**"), new AntPathRequestMatcher("/**", "OPTIONS")).permitAll()
                      .anyRequest().authenticated();
         });
-        http.formLogin(Customizer.withDefaults());
-        http.httpBasic(Customizer.withDefaults());
+        http.httpBasic(httpSecurityHttpBasicConfigurer -> {
+           httpSecurityHttpBasicConfigurer.authenticationEntryPoint(restAuthenticationEntryPoint);
+        });
         http.csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
 
     @Bean
+    @Profile("spa")
     public SecurityFilterChain spaFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers(new AntPathRequestMatcher("/login")).permitAll()
-                .anyRequest().authenticated());
+                .requestMatchers(new AntPathRequestMatcher("/login")));
         http.formLogin(configurer -> {
                     configurer.successHandler((request, response, authentication) ->
                                     response.setStatus(HttpStatus.NO_CONTENT.value())
