@@ -51,8 +51,18 @@ function Transportation(){
   };
 
   function onChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const {name, value} = event.target;
-    setDriverForm(oldForm => ({...oldForm, [name]: value}))
+    const { name, value } = event.target;
+    if (name.includes('vehicle.')) {
+      setDriverForm(oldForm => ({
+        ...oldForm,
+        vehicle: {
+          ...oldForm.vehicle,
+          [name.split('.')[1]]: value,
+        },
+      }));
+    } else {
+      setDriverForm(oldForm => ({ ...oldForm, [name]: value }));
+    }
   }
 
   const handleToggleShowMore = (driverId: number) => {
@@ -158,6 +168,8 @@ function Transportation(){
       workStartTime: driverForm.workStartTime,
       workingDays: driverForm.workingDays
     }
+    console.log(JSON.stringify(dataVehicle))
+    console.log(JSON.stringify(dataDriver))
 
     const optionsVehiclePost = {
       method: 'POST',
@@ -170,14 +182,8 @@ function Transportation(){
       }),
       body: JSON.stringify(dataVehicle)
     };
-    fetch('api/vehicle', optionsVehiclePost)
-    .then(response => {
-      if(response.ok){
-        console.log('Uspjesno dodano vozilo')
-      }
-    })
     const optionsDriver = {
-      method: 'PATCH',
+      method: 'POST',
       headers: new Headers({
           "Authorization": `Basic ${Base64.encode(`${storedUsername}:${storedPassword}`)}`,
           "Content-Type": "application/json",
@@ -187,12 +193,22 @@ function Transportation(){
       }),
       body: JSON.stringify(dataDriver)
     };
-    fetch('/api/driver',optionsDriver)
+
+    fetch('api/vehicle', optionsVehiclePost)
     .then(response => {
       if(response.ok){
-        console.log('Uspjesno dodan vozac')
+        console.log('Uspjesno dodano vozilo')
+        fetch('/api/driver',optionsDriver)
+        .then(response => {
+          if(response.ok){
+            handleAddDriverForm()
+            console.log('Uspjesno dodan vozac')
+          }
+        })
       }
     })
+
+    
   };
 
 
