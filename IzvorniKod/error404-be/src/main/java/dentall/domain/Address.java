@@ -22,19 +22,19 @@ public class Address {
     @Column(name = "broj")
     private Integer number;
 
-    public Address(){
+    public Address() {
         this.city = null;
         this.street = null;
         this.number = null;
     }
 
-    public Address(String city, String street, Integer number){
+    public Address(String city, String street, Integer number) {
         this.city = city;
         this.street = street;
         this.number = number;
     }
 
-    public Long getAddressId(){
+    public Long getAddressId() {
         return addressId;
     }
 
@@ -64,11 +64,9 @@ public class Address {
 
     @Override
     public String toString() {
-        return "Address{" +
-                "addressId=" + addressId +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", number=" + number +
-                '}';
+        return " City= " + city +
+                ", Street= " + street +
+                ", Number= " + number
+                ;
     }
 }

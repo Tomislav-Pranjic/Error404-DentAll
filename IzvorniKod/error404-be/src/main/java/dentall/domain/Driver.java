@@ -73,27 +73,27 @@ public class Driver {
         return driverId;
     }
 
-    public String getName () {
+    public String getName() {
         return name;
     }
 
-    public void setName (String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getSurname () {
+    public String getSurname() {
         return surname;
     }
 
-    public void setSurname (String surname) {
+    public void setSurname(String surname) {
         this.surname = surname;
     }
 
-    public String getPhoneNumber () {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber (String phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -131,15 +131,10 @@ public class Driver {
 
     @Override
     public String toString() {
-        return "Driver{" +
-                "driverId=" + driverId +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", vehicle=" + vehicle +
-                ", workStartTime=" + workStartTime +
-                ", workingDays='" + workingDays + '\'' +
-                '}';
+        return name + " " + surname +
+                ", E-mail: " + email +
+                ", Phone Number: " + phoneNumber +
+                " " + vehicle
+                ;
     }
 }

@@ -33,10 +33,10 @@ public class EmailServiceJpa implements EmailService {
             mailMessage.setFrom(sender);
             mailMessage.setTo(sender); // postavljeno ovako da mozemo slati na mailove koji zapravo postoje
             //mailMessage.setTo(details.getTreatmentInfo().getMedUser().getEmail()); // nepostojeci e-mail
-            mailMessage.setSubject("Details about the transport");
+            mailMessage.setSubject("Details about the ride");
 
             StringBuilder driverDetails = new StringBuilder();
-            driverDetails.append("Med User: ").append(treatmentInfo.getMedUser()).append("\n");
+            driverDetails.append("Med User (person to whom this e-mail should be sent to): ").append(treatmentInfo.getMedUser()).append("\n");
             driverDetails.append("Arrival Driver: ").append(treatmentInfo.getArrivalDriver().toString()).append("\n");
             driverDetails.append("Arrival Address: ").append(treatmentInfo.getArrivalAddress()).append("\n");
             driverDetails.append("Arrival Date: ").append(treatmentInfo.getArrivalDate()).append("\n");
@@ -47,12 +47,12 @@ public class EmailServiceJpa implements EmailService {
 
             // Sending the mail
             javaMailSender.send(mailMessage);
-            return "E-mail successfully sent";
+            return "E-mail to MedUser successfully sent";
         }
 
         // Catch block to handle the exceptions
         catch (Exception e) {
-            return "Error while sending e-mail" + e.getMessage();
+            return "Error while sending e-mail to MedUser" + e.getMessage();
         }
     }
 
@@ -70,6 +70,7 @@ public class EmailServiceJpa implements EmailService {
             mailMessageArrival.setSubject("Details about ride");
 
             StringBuilder userDetails = new StringBuilder();
+            userDetails.append("Arrival Driver(person to whom this e-mail should be sent to): ").append(treatmentInfo.getArrivalDriver().toString()).append("\n");
             userDetails.append("Med User: ").append(treatmentInfo.getMedUser()).append("\n");
             userDetails.append("Arrival Date: ").append(treatmentInfo.getArrivalDate()).append("\n");
             userDetails.append("Arrival Address: ").append(treatmentInfo.getArrivalAddress()).append("\n");
@@ -80,12 +81,12 @@ public class EmailServiceJpa implements EmailService {
             // Sending the mail
             javaMailSender.send(mailMessageArrival);
 
-            return "E-mail successfully sent";
+            return "E-mail to arrival driver successfully sent";
         }
 
         // Catch block to handle the exceptions
         catch (Exception e) {
-            return "Error while sending e-mail" + e.getMessage();
+            return "Error while sending e-mail to arrival driver" + e.getMessage();
         }
     }
 
@@ -103,6 +104,7 @@ public class EmailServiceJpa implements EmailService {
             mailMessageDeparture.setSubject("Details about ride");
 
             StringBuilder userDetails = new StringBuilder();
+            userDetails.append("Departure Driver(person to whom this e-mail should be sent to): ").append(treatmentInfo.getDepartureDriver()).append("\n");
             userDetails.append("Med User: ").append(treatmentInfo.getMedUser()).append("\n");
             userDetails.append("Departure Date: ").append(treatmentInfo.getDepartureDate()).append("\n");
             userDetails.append("Departure Address: ").append(treatmentInfo.getDepartureAddress()).append("\n");
@@ -110,12 +112,13 @@ public class EmailServiceJpa implements EmailService {
             userDetails.append("Treatment Date: ").append(treatmentInfo.getTreatmentDate()).append("\n");
             mailMessageDeparture.setText(userDetails.toString());
 
-            return "E-mail successfully sent";
+            javaMailSender.send(mailMessageDeparture);
+            return "E-mail to departure driver successfully sent";
         }
 
         // Catch block to handle the exceptions
         catch (Exception e) {
-            return "Error while sending e-mail" + e.getMessage();
+            return "Error while sending e-mail to departure driver" + e.getMessage();
         }
     }
 }

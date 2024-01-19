@@ -128,15 +128,10 @@ public class MedUser {
 
     @Override
     public String toString() {
-        return "MedUser{" +
-                "localUserId=" + localUserId +
-                ", remoteUserId=" + remoteUserId +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", accommodationPreference=" + accommodationPreference +
-                '}';
+        return  name + " " + surname +
+                ", E-mail: " + email + '\'' +
+                ", Phone number: " + phoneNumber +
+                ", Date of birth: " + dateOfBirth
+                ;
     }
 }
