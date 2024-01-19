@@ -24,7 +24,7 @@ function Users() {
           }),
           body: ''
       };
-      fetch('/users')
+      fetch('api/user')
       .then(data => data.json())
       .then(users => setUsers(users))
   }, []);

@@ -8,8 +8,9 @@ import { Base64 } from 'js-base64';
 function Transportation(){
 
   const[drivers,setDrivers] = useState<any[]>([]);
-  const[vehicles,setVehicles] = useState<any[]>([]);
   const[toggleAddDriver,setToggleAddDriver] = useState(false);
+  const [originalVehicleRegistration, setOriginalVehicleRegistration] = useState<string | null>(null);
+
 
   const [editDriver, setEditDriver] = useState<number | null>(null);
   const [driverForm, setDriverForm] = useState({ name: '', surname: '',email: '',phoneNumber: '',
@@ -26,18 +27,21 @@ function Transportation(){
 
 
   useEffect(() => {
-    // const body = `username=${storedUsername}&password=${storedPassword}`;
+
     const options = {
       method: 'GET',
-      headers: new Headers({
-          "Authorization": `Basic ${Base64.encode(`${storedUsername}:${storedPassword}`)}`,
-          "Content-Type": "application/json",
-            "Accept": "*/*",
-          "Accept-Encoding": "gzip, deflate, br",
-          "Connection": "keep-alive"
-      }),
+      mode: 'cors' as RequestMode,
+      headers: {
+          authorization: `Basic ${Base64.encode(`${storedUsername}:${storedPassword}`)}`,
+          contentType: "application/json",
+          accept: "*/*",
+          acceptEncoding: "gzip, deflate, br",
+          connection: "keep-alive",
+          credentials: 'include'
+      },
       body: ''
     };
+
     fetch('/api/driver')
       .then(data => data.json())
       .then(drivers => setDrivers(drivers))
@@ -66,45 +70,53 @@ function Transportation(){
   }
 
   const handleToggleShowMore = (driverId: number) => {
-    setEditDriver(prevId => (prevId === driverId ? null : driverId));
+
+      setEditDriver(prevId => {
+        if (prevId === driverId) {
+          setOriginalVehicleRegistration(null); 
+          return null;
+        } else {
+          const driverToEdit = drivers.find(driver => driver.driverId === driverId);
+          setOriginalVehicleRegistration(driverToEdit?.vehicle.registration || null);
+          return driverId;
+        }
+      });
   };
+
 
   const handleEdit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    // const optionsVehicleGET = {
-    //   method: 'GET',
-    //   headers: new Headers({
-    //       "Authorization": `Basic ${Base64.encode(`${storedUsername}:${storedPassword}`)}`,
-    //       "Content-Type": "application/json",
-    //         "Accept": "*/*",
-    //       "Accept-Encoding": "gzip, deflate, br",
-    //       "Connection": "keep-alive"
-    //   }),
-    //   body: ''
-    // };
-    // fetch('/api/vehicle')
-    //   .then(data => data.json())
-    //   .then(vehicles => setVehicles(vehicles))
-
-
     const dataVehicle = {
-      registration: driverForm.vehicle.registration,
-      model: driverForm.vehicle.model,
-      color: driverForm.vehicle.color,
-      capacity: driverForm.vehicle.capacity
-    }
+      registration: originalVehicleRegistration,
+      model: driverForm.vehicle.model || null,
+      color: driverForm.vehicle.color || null,
+      capacity: driverForm.vehicle.capacity || null,
+    };
+    
+    const dataDriver = {
+      firstName: driverForm.name || null,
+      lastName: driverForm.surname || null,
+      email: driverForm.email || null,
+      phoneNumber: driverForm.phoneNumber || null,
+      vehicleReg: driverForm.vehicle.registration || null,
+      workStartTime: driverForm.workStartTime || null,
+      workingDays: driverForm.workingDays || null,
+    };
 
+    console.log(JSON.stringify(dataVehicle))
+    console.log(JSON.stringify(dataDriver))
 
     const optionsVehiclePatch = {
       method: 'PATCH',
-      headers: new Headers({
+      mode: 'cors' as RequestMode,
+      headers: {
           "Authorization": `Basic ${Base64.encode(`${storedUsername}:${storedPassword}`)}`,
           "Content-Type": "application/json",
             "Accept": "*/*",
           "Accept-Encoding": "gzip, deflate, br",
           "Connection": "keep-alive"
-      }),
+      },
       body: JSON.stringify(dataVehicle)
     };
     fetch('api/vehicle', optionsVehiclePatch)
@@ -114,40 +126,60 @@ function Transportation(){
       }
     })
 
-    const dataDriver= {
-      firstName: driverForm.name, 
-      lastName: driverForm.surname,
-      email: driverForm.email,
-      phoneNumber: driverForm.phoneNumber,
-      vehicleReg: driverForm.vehicle.registration,
-      workStartTime: driverForm.workStartTime,
-      workingDays: driverForm.workingDays
-    }
     const optionsDriver = {
       method: 'PATCH',
-      headers: new Headers({
+      mode: 'cors' as RequestMode, 
+      headers: {
           "Authorization": `Basic ${Base64.encode(`${storedUsername}:${storedPassword}`)}`,
           "Content-Type": "application/json",
             "Accept": "*/*",
           "Accept-Encoding": "gzip, deflate, br",
           "Connection": "keep-alive"
-      }),
+      },
       body: JSON.stringify(dataDriver)
     };
-    fetch('/api/driver',optionsDriver)
-    .then(response => {
-      if(response.ok){
-        console.log('Uspjesno editan vozac')
-      }
+    fetch(`/api/driver/${editDriver}`,optionsDriver)
+    .then(response => response.json())
+    .then(editedDriver => {
+      setDrivers(oldDrivers => oldDrivers.map(driver => 
+        driver.driverId === editedDriver.driverId ? editedDriver : driver
+      ));
+      console.log('Uspjesno editan vozac');
     })
   }
 
 
 
-
-
   const handleDelete = (id: number) => {
     console.log(`Delete button clicked for user with ID ${id}`);
+
+    const data ={
+      driverId:  id
+    };
+    console.log(JSON.stringify(data));
+
+
+    const options ={
+      method: 'DELETE',
+      mode: 'cors' as RequestMode, 
+      headers: {
+        "Authorization": `Basic ${Base64.encode(`${storedUsername}:${storedPassword}`)}`,
+        "Content-Type": "application/json",
+          "Accept": "*/*",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Connection": "keep-alive"
+    },
+    body: ''
+    }
+    fetch(`/api/driver/${id}`,options)
+    .then(response => {
+      if(response.ok){
+        setDrivers(oldDrivers => oldDrivers.filter(driver => driver.driverId !== id));
+        console.log('Uspjesno obrisan vozac')
+      } else {
+        alert('Failed to delete driver.');
+      }
+    })
   };
 
   const handleAdd = (e: React.FormEvent<HTMLFormElement>) => {
@@ -168,18 +200,18 @@ function Transportation(){
       workStartTime: driverForm.workStartTime,
       workingDays: driverForm.workingDays
     }
-    console.log(JSON.stringify(dataVehicle))
-    console.log(JSON.stringify(dataDriver))
+    
 
     const optionsVehiclePost = {
       method: 'POST',
-      headers: new Headers({
+      mode: 'cors' as RequestMode,
+      headers: {
           "Authorization": `Basic ${Base64.encode(`${storedUsername}:${storedPassword}`)}`,
           "Content-Type": "application/json",
             "Accept": "*/*",
           "Accept-Encoding": "gzip, deflate, br",
           "Connection": "keep-alive"
-      }),
+      },
       body: JSON.stringify(dataVehicle)
     };
     const optionsDriver = {
@@ -198,11 +230,13 @@ function Transportation(){
     .then(response => {
       if(response.ok){
         console.log('Uspjesno dodano vozilo')
-        fetch('/api/driver',optionsDriver)
-        .then(response => {
-          if(response.ok){
-            handleAddDriverForm()
-            console.log('Uspjesno dodan vozac')
+        fetch('/api/driver', optionsDriver)
+        .then(response => response.json())
+        .then(newDriver => {
+          if (response.ok) {
+            
+            setDrivers(oldDrivers => [...oldDrivers, newDriver]);
+            console.log('Uspjesno dodan vozac');
           }
         })
       }
@@ -245,7 +279,9 @@ function Transportation(){
               </tr>
             </thead>
             <tbody>
+              {/* ispis svih trenutnih vozaca */}
               {drivers.map((driver) => (
+                
                 <React.Fragment key={driver.driverId}>
                   <tr>
                     <td>{driver.name}</td>
@@ -268,6 +304,7 @@ function Transportation(){
                       </>
                     </td>
                   </tr>
+                  {/* form za editanje odredenog vozaca */}
                   {editDriver === driver.driverId && (
                     <tr key={`form_${driver.driverId}`}>
                     <td colSpan={3}>
@@ -315,7 +352,7 @@ function Transportation(){
                         <br />
                         <label className='form-label'>
                           Vehicle Registration:
-                          <input className='form-control' type="text" name='vehicle.registration' defaultValue={driver.vehicle.registration} onChange={onChange}/>
+                          <input className='form-control' type="text" name='vehicle.registration' defaultValue={driver.vehicle.registration} onChange={onChange} disabled/>
                         </label>
                         <label className='form-label'>
                           Vehicle Model:
@@ -328,7 +365,7 @@ function Transportation(){
                         </label>
                         <label className='form-label'>
                           Vehicle Capacity:
-                          <input className='form-control' type="number" name='vehicle.capacity' defaultValue={driver.vehicle.capacity} onChange={onChange}/>
+                          <input className='form-control' type="number" name='vehicle.capacity' defaultValue={driver.vehicle.capacity} min="1" onChange={onChange}/>
                         </label>
                         <br />
                         <button type="submit" className="btn btn-primary">Save</button>
@@ -340,6 +377,7 @@ function Transportation(){
               ))}
             </tbody>
           </table>
+          {/* form za dodavanje novog vozaca */}
           {toggleAddDriver && (
             <form className="login-box" onSubmit={handleAdd}>
             <label className="form-label">
@@ -398,7 +436,7 @@ function Transportation(){
             </label>
             <label className='form-label'>
               Vehicle Capacity:
-              <input className='form-control' type="number" name='vehicle.capacity' placeholder='Capacity' onChange={onChange}/>
+              <input className='form-control' type="number" name='vehicle.capacity' placeholder='Capacity' min="1" onChange={onChange}/>
             </label>
             <br />
             <button type="submit" className="btn btn-primary me-5 px-3" >Save</button>

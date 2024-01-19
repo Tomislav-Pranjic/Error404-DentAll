@@ -15,8 +15,6 @@ function Accommodation() {
   const [accommodationFormOpen, setAccommodationFormOpen] = useState(false);
 
   useEffect(() => {
-    //nesto ne valja jer vraca error 401 unauthorised
-
     //Dohvat podataka za admine
     const adminOptions = {
       method: "GET",
@@ -88,7 +86,6 @@ function Accommodation() {
 
   const handleAdminSubmit = (e: any) => {
     e.preventDefault();
-    // Pretvori string s role ID-ovima u niz brojeva
     const roleIdsArray = adminData.roleIds
       .split(",")
       .map((roleId) => Number(roleId));
@@ -116,26 +113,22 @@ function Accommodation() {
     return fetch("api/admins", options);
   };
 
-  const getRoleNames = (roleIdsString: any) => {
-    const roleIds = roleIdsString.split(",").map(Number);
-    const roleNames = [];
+  //*****EDIT ADMINA */
+  const [selectedAdmin, setSelectedAdmin] = useState(null);
+  const [editingAdmin, setEditingAdmin] = useState(false);
 
-    if (roleIds.includes(1)) {
-      roleNames.push("Accommodation");
-    }
-    if (roleIds.includes(2)) {
-      roleNames.push("Transport");
-    }
-    if (roleIds.includes(3)) {
-      roleNames.push("Users");
-    }
+  const handleEditAdminSubmit = (e: any) => {
+    e.preventDefault();
 
-    return roleNames.join(" ");
-  };
-  //**Brisanje admina */
-  const handleDeleteAdmin = async (adminId: any) => {
-    const response = await fetch(`/api/admins/${adminId}`, {
-      method: "DELETE",
+    // Prikupite podatke iz forme
+    const updatedAdminData = {
+      userName: adminData.username,
+      password: adminData.password,
+      roleIds: adminData.roleIds.split(",").map((roleId) => Number(roleId)),
+    };
+
+    const options = {
+      method: "PATCH",
       headers: new Headers({
         Authorization: `Basic ${Base64.encode(
           `${storedUsername}:${storedPassword}`
@@ -145,12 +138,26 @@ function Accommodation() {
         "Accept-Encoding": "gzip, deflate, br",
         Connection: "keep-alive",
       }),
-    });
-    window.location.reload();
-  };
-  //*****EDIT ADMINA */
+      body: JSON.stringify(updatedAdminData),
+    };
 
-  const handleEditAdmin = (e: any) => {};
+    fetch(`/api/admins`, options)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Admin successfully updated:", data);
+        setEditingAdmin(false);
+        handleAdminFormClose();
+      })
+      .catch((error) => {
+        console.error("Error updating admin:", error);
+        // Ovdje možete dodati logiku za rukovanje greškom
+      });
+  };
 
   //************SMJEŠTAJ*************** */
 
@@ -247,17 +254,26 @@ function Accommodation() {
     );
   }
 
-  //dodavanje smještaja
-  const handleAccommodationSubmit = async (e: any) => {
+  const handleAccommodationSubmit = (e: any) => {
     e.preventDefault();
-
-    // Dodaj tip smještaja
+    const accData = {
+      typeId: accommodationData.typeId,
+      stars: accommodationData.stars,
+      addressId: accommodationData.addressId,
+      ownership: accommodationData.ownership,
+      availableUntil: accommodationData.availableUntil,
+      noOfBeds: accommodationData.noOfBeds,
+    };
+    const addressData = {
+      city: accommodationData.address.city,
+      street: accommodationData.address.street,
+      number: accommodationData.address.number,
+    };
     const typeData = {
       typeName: accommodationData.type.typeName,
       typeSize: accommodationData.type.typeSize,
     };
-
-    const typeOptions = {
+    const AccommodationOptions = {
       method: "POST",
       headers: new Headers({
         Authorization: `Basic ${Base64.encode(
@@ -268,17 +284,7 @@ function Accommodation() {
         "Accept-Encoding": "gzip, deflate, br",
         Connection: "keep-alive",
       }),
-      body: JSON.stringify(typeData),
-    };
-
-    const typeResponse = await fetch("api/accommodation/type", typeOptions);
-    const newType = await typeResponse.json();
-
-    // Dodaj adresu
-    const addressData = {
-      city: accommodationData.address.city,
-      street: accommodationData.address.street,
-      number: accommodationData.address.number,
+      body: JSON.stringify(accData),
     };
 
     const addressOptions = {
@@ -295,24 +301,7 @@ function Accommodation() {
       body: JSON.stringify(addressData),
     };
 
-    const addressResponse = await fetch("api/address", addressOptions);
-    const newAddress = await addressResponse.json();
-    const [typeResult, addressResult] = await Promise.all([
-      typeResponse,
-      addressResponse,
-    ]);
-
-    // Sada možete poslati podatke o smještaju
-    const accData = {
-      typeId: newType.typeId,
-      stars: accommodationData.stars,
-      addressId: newAddress.addressId,
-      ownership: accommodationData.ownership,
-      availableUntil: accommodationData.availableUntil,
-      noOfBeds: accommodationData.noOfBeds,
-    };
-
-    const AccommodationOptions = {
+    const typeOptions = {
       method: "POST",
       headers: new Headers({
         Authorization: `Basic ${Base64.encode(
@@ -323,35 +312,33 @@ function Accommodation() {
         "Accept-Encoding": "gzip, deflate, br",
         Connection: "keep-alive",
       }),
-      body: JSON.stringify(accData),
+      body: JSON.stringify(typeData),
     };
+    Promise.all([
+      fetch("api/accommodation", AccommodationOptions),
+      fetch("api/address", addressOptions),
+      fetch("api/accommodation/type", typeOptions),
+    ])
+      .then(([accommodationResponse, addressResponse, typeResponse]) => {
+        // Ovdje možete rukovati odgovorima za svaki zahtjev
+        console.log("Odgovor za smještaj:", accommodationResponse);
+        console.log("Odgovor za adresu:", addressResponse);
+        console.log("Odgovor za tip:", typeResponse);
 
-    handleAccommodationFormClose();
-  };
+        console.log("podatci za smjestaj: ", accData);
+        console.log("podatci za smjestaj: ", addressData);
+        console.log("podatci za smjestaj: ", typeData);
 
-  const handleEditAccommodation = (accommodation: any) => {
-    // Implementirajte logiku za uređivanje smještaja
-    // Možete koristiti sličan pristup kao i za admina
-  };
-
-  const handleDeleteAccommodation = async (accommodationId: any) => {
-    try {
-      const response = await fetch(`/api/accommodation/${accommodationId}`, {
-        method: "DELETE",
-        headers: new Headers({
-          Authorization: `Basic ${Base64.encode(
-            `${storedUsername}:${storedPassword}`
-          )}`,
-          "Content-Type": "application/json",
-          Accept: "*/*",
-          "Accept-Encoding": "gzip, deflate, br",
-          Connection: "keep-alive",
-        }),
+        // Nastavite s daljnjim koracima ako je potrebno
+      })
+      .catch((error) => {
+        // Ovdje možete rukovati greškama koje su se mogle pojaviti tijekom bilo kojeg od zahtjeva
+        console.error("Greška prilikom obrade podataka:", error);
+      })
+      .finally(() => {
+        // Ovo će se izvršiti bez obzira na to jesu li svi zahtjevi bili uspješni ili ne
+        handleAccommodationFormClose();
       });
-      window.location.reload();
-    } catch (error) {
-      console.error("Error deleting accommodation:", error);
-    }
   };
 
   return (
@@ -388,25 +375,16 @@ function Accommodation() {
                     <th>Role</th>
                   </tr>
                 </thead>
-
                 <tbody>
                   {admins.map((admin) => (
-                    <tr key={admin.username}>
+                    <tr key={admin.adminId}>
                       <td>{admin.username}</td>
-                      <td>{getRoleNames(admin.roleIds)}</td>
+                      <td>{admin.role.roleName}</td>
                       <td>
-                        <button
-                          className="btn btn-success"
-                          onClick={() => handleEditAdmin(admin)}
-                        >
+                        <button onClick={() => handleEditAdminSubmit(admin)}>
                           Edit
                         </button>
-                        <button
-                          className="btn btn-danger"
-                          onClick={() => handleDeleteAdmin(admin.adminId)}
-                        >
-                          Delete
-                        </button>
+                        <button>Delete</button>
                       </td>
                     </tr>
                   ))}
@@ -504,31 +482,13 @@ function Accommodation() {
               <tbody>
                 {accommodations.map((accommodation) => (
                   <tr key={accommodation.typeId}>
-                    <td>{accommodation.type.typeName}</td>
+                    <td>{accommodation.typeName}</td>
                     <td>{accommodation.stars}</td>
                     <td>{accommodation.address.city}</td>
                     <td>{accommodation.address.street}</td>
                     <td>{accommodation.address.number}</td>
                     <td>{accommodation.ownership}</td>
                     <td>{accommodation.noOfBeds}</td>
-                    <td>
-                      <button
-                        className="btn btn-success"
-                        onClick={() => handleEditAccommodation(accommodation)}
-                      >
-                        Edit
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-danger"
-                        onClick={() =>
-                          handleDeleteAccommodation(accommodation.typeId)
-                        }
-                      >
-                        Delete
-                      </button>
-                    </td>
                   </tr>
                 ))}
               </tbody>

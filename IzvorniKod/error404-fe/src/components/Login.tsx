@@ -25,13 +25,14 @@ function Login(){
     const body = `username=${loginForm.username}&password=${loginForm.password}`;
     const options = {
       method: 'POST',
-      headers: new Headers({
+      mode: 'cors' as RequestMode,
+      headers: {
           "Authorization": `Basic ${Base64.encode(`${loginForm.username}:${loginForm.password}`)}`,
           "Content-Type": "application/x-www-form-urlencoded",
             "Accept": "*/*",
           "Accept-Encoding": "gzip, deflate, br",
           "Connection": "keep-alive"
-      }),
+      },
       body: body
     };
 
