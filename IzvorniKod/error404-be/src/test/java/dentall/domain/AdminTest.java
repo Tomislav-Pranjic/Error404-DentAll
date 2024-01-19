@@ -15,7 +15,7 @@ class AdminTest {
     @DisplayName("Setting up info")
     void setUp(){
         adminDef = new Admin();
-        adminDef = new Admin("tomi", "password");
+        adminTest = new Admin("tomi", "password");
     }
 
     @Test
@@ -29,6 +29,6 @@ class AdminTest {
     @DisplayName("Testing w testing info")
     void getAdminInfoTest() {
         assertEquals("tomi", adminTest.getUserName(), "Getter should return correct username");
-        assertEquals("pass", adminTest.passwordHashForAuth(), "Getter should return correct passwordhash");
+        assertEquals("password", adminTest.passwordHashForAuth(), "Getter should return correct passwordhash");
     }
 }
