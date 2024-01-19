@@ -46,7 +46,7 @@ public class DriverController {
         return driverService.updateDriver(id, dto);
     }
 
-    @PostMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     public void deleteDriver(@PathVariable("id") Long id){
         driverService.deleteDriver(id);
     }

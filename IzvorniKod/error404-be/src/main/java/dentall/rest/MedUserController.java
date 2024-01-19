@@ -39,7 +39,7 @@ public class MedUserController {
         return medUserService.updateMedUser(id, dto);
     }
 
-    @PostMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteMedUser(@PathVariable("id") Long id){
         medUserService.deleteMedUser(id);

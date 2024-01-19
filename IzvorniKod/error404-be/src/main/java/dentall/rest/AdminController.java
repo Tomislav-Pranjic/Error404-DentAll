@@ -57,7 +57,7 @@ public class AdminController {
     }
 
 
-    @PostMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteAdmin(@PathVariable("id") Long id){
         adminService.deleteAdmin(id);
