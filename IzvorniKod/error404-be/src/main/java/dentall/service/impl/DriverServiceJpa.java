@@ -7,6 +7,7 @@ import dentall.domain.Driver;
 import dentall.domain.UserTreatmentInfo;
 import dentall.domain.Vehicle;
 import dentall.rest.dto.CreateDriverDTO;
+import dentall.rest.dto.CreateDriverWithVehicleDTO;
 import dentall.rest.dto.DriverWorkInfoDTO;
 import dentall.service.DriverService;
 import dentall.service.VehicleService;
@@ -39,7 +40,7 @@ public class DriverServiceJpa implements DriverService {
     @Autowired
     private UserTreatmentInfoRepository userTreatmentInfoRepository;
 
-    private Logger logger = LoggerFactory.getLogger(DriverServiceJpa.class);
+    private final Logger logger = LoggerFactory.getLogger(DriverServiceJpa.class);
 
     @Override
     public List<Driver> listAll() {
@@ -48,8 +49,6 @@ public class DriverServiceJpa implements DriverService {
 
     @Override
     public Driver createDriver(String name, String surname, String email, String phoneNumber, String vehicleRegistration, String workStartTime, String workingDays) {
-
-
         Assert.hasText(name, "Name must be set.");
         Assert.isTrue(name.length() <= 16, "Name must not be longer than 16 characters.");
 
@@ -64,24 +63,12 @@ public class DriverServiceJpa implements DriverService {
         phoneNumber = phoneNumber.replaceAll(" ", "");
         Assert.isTrue(phoneNumber.matches(Error404BeApplication.PHONE_NUMBER_FORMAT), "Phone number must be in valid format.");
 
-        Optional<Driver> driver = driverRepository.findDriverByNameAndSurnameAndPhoneNumber(name, surname, phoneNumber);
-        if (driver.isPresent()) {
-            throw new IllegalArgumentException("Driver with name '" + name + "' and surname '" + surname + "' and phone number '" + phoneNumber + "' already exists.");
-        }
+        if(driverCanBeCreated(name, surname, email, phoneNumber)){
+            logger.info("Creating driver with name '" + name + "' and surname '" + surname + "' and email '" + email + "' and phone number '" + phoneNumber + "'.");
 
-        driver = driverRepository.findDriverByNameAndSurnameAndEmail(name, surname, email);
-        if (driver.isPresent()) {
-            throw new IllegalArgumentException("Driver with name '" + name + "' and surname '" + surname + "' and email '" + email + "' already exists.");
-        }
-
-        driver = driverRepository.findDriverByPhoneNumber(phoneNumber);
-        if (driver.isPresent()) {
-            throw new IllegalArgumentException("Driver with phone number '" + phoneNumber + "' already exists.");
-        }
-
-        driver = driverRepository.findDriverByEmail(email);
-        if (driver.isPresent()) {
-            throw new IllegalArgumentException("Driver with email '" + email + "' already exists.");
+        }else {
+            logger.error("Driver with name '" + name + "' and surname '" + surname + "' and email '" + email + "' and phone number '" + phoneNumber + "' already exists.");
+            throw new IllegalArgumentException("Driver with name '" + name + "' and surname '" + surname + "' and email '" + email + "' and phone number '" + phoneNumber + "' already exists.");
         }
 
         Assert.isTrue(vehicleRegistration.matches(Error404BeApplication.REGISTRATION_FORMAT), "Vehicle registration must be in valid format.");
@@ -197,5 +184,44 @@ public class DriverServiceJpa implements DriverService {
         }
 
         return driverRepository.saveAndFlush(driver);
+    }
+
+    @Override
+    public Driver createDriver(CreateDriverWithVehicleDTO driver) {
+        Vehicle vehicle = driver.getVehicle();
+
+        Assert.notNull(vehicle, "Vehicle must be set.");
+        Assert.isTrue(vehicle.getRegistration().matches(Error404BeApplication.REGISTRATION_FORMAT), "Vehicle registration must be in valid format.");
+
+        Optional<Vehicle> vehicleOptional = vehicleService.findByRegistration(vehicle.getRegistration());
+
+        if (vehicleOptional.isPresent()) {
+            logger.info("Vehicle with registration '" + vehicle.getRegistration() + "' already exists, using it.");
+        }else{
+            logger.info("Vehicle with registration '" + vehicle.getRegistration() + "' does not exist, creating new one.");
+            vehicle = vehicleService.createVehicle(vehicle.getRegistration(), vehicle.getModel(), vehicle.getColor(), vehicle.getCapacity());
+        }
+
+        return createDriver(driver.getFirstName(), driver.getLastName(), driver.getEmail(), driver.getPhoneNumber(), vehicle.getRegistration(), driver.getWorkStartTime(), driver.getWorkingDays());
+    }
+
+    private boolean driverCanBeCreated(String name, String surname, String email, String phoneNumber) {
+        Optional<Driver> driver = driverRepository.findDriverByNameAndSurnameAndPhoneNumber(name, surname, phoneNumber);
+
+        Assert.isTrue(driver.isEmpty(), "Driver with name '" + name + "' and surname '" + surname + "' and phone number '" + phoneNumber + "' already exists.");
+
+        driver = driverRepository.findDriverByNameAndSurnameAndEmail(name, surname, email);
+
+        Assert.isTrue(driver.isEmpty(), "Driver with name '" + name + "' and surname '" + surname + "' and email '" + email + "' already exists.");
+
+        driver = driverRepository.findDriverByPhoneNumber(phoneNumber);
+
+        Assert.isTrue(driver.isEmpty(), "Driver with phone number '" + phoneNumber + "' already exists.");
+
+        driver = driverRepository.findDriverByEmail(email);
+
+        Assert.isTrue(driver.isEmpty(), "Driver with email '" + email + "' already exists.");
+
+        return true;
     }
 }

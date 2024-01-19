@@ -28,4 +28,6 @@ public interface UserTreatmentInfoRepository extends JpaRepository<UserTreatment
 
     @Query("SELECT uti FROM dentall.domain.UserTreatmentInfo uti WHERE uti.accommodation = ?1 AND ((uti.arrivalDate BETWEEN ?2 AND ?3) OR (uti.departureDate BETWEEN ?2 AND ?3))")
     List<UserTreatmentInfo> findAllInfoForAccommodationBetweenDates(@Param("1") Accommodation accommodation, @Param("2") Date arrivalDate, @Param("3") Date departureDate);
+
+    UserTreatmentInfo findFirstByOrderByLockDateTimeDesc();
 }

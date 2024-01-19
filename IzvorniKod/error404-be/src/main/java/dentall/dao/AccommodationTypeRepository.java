@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface AccommodationTypeRepository extends JpaRepository<AccommodationType, Long> {
 
     Optional<AccommodationType> findByTypeId(Long typeId);
+
+    Optional<AccommodationType> findByTypeNameAndTypeSize(String typeName, Integer typeSize);
 }

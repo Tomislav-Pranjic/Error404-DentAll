@@ -150,6 +150,45 @@
     }
     ```
 
+- **Create Driver and Vehicle:**
+  - Endpoint: `POST /driver/vehicle`
+  - Description: Create a new driver and vehicle.
+  - Request Body: 
+  ``` 
+    { 
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    vehicle: {
+      registration: "AZ1234AZ" or "AZ123AZ",
+      model: "",
+      color: "",
+      capacity: 1,
+    },
+    workStartTime: "HH:mm",
+    workingDays: "NPUSCEB" #Staviti inicijale onih dana kada će vozač raditi
+    }
+  ```
+  - Note: This endpoint will create a new vehicle if the registration number is not found in the database or use the existing vehicle if the registration is found.
+  - Note: If the vehicle contains only the registration it will function as the /driver endpoint.
+
+- **Update Driver by ID:**
+  - Endpoint: `PATCH /driver/{id}`
+  - Description: Update details of a specific driver by ID.
+  - Request Body: 
+  ``` 
+    { 
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    vehicleReg: "AZ1234AZ" or "AZ123AZ",
+    workStartTime: "HH:mm",
+    workingDays: "NPUSCEB" #Staviti inicijale onih dana kada će vozač raditi
+    }
+  ```
+
 # MedUserController Endpoints
 
 - **List Users:**
@@ -168,6 +207,20 @@
     phoneNumber: "",
     accTypePrefId: 1,
     dateOfBirth: "yyyy-MM-dd"
+    }
+    ```
+- **Update Medical User by id:**
+  - Endpoint: `PATCH /user/{id}`
+  - Description: Update details of the specified medical user.
+  - Request Body:
+  ``` 
+    { 
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    accTypePrefId: 1,
+    dateOfBirth: "yyyy-MM-dd" // dateOfBirth is not able to change so it is optional in PATCH
     }
     ```
 
@@ -189,5 +242,18 @@
     capacity: 1,
     }
     ```
+
+  **Update Vehicle:**
+  - Endpoint: `PATCH /vehicle`
+  - Description: Update an existing vehicle.
+  - Request Body:
+  ``` 
+  { 
+  registration: "AZ1234AZ" or "AZ123AZ",
+  model: "",
+  color: "",
+  capacity: 1,
+    }
+      ```
 
 
