@@ -1,30 +1,25 @@
 \chapter{Arhitektura i dizajn sustava}
 		
-		\textbf{\textit{dio 1. revizije}}\\
+		%\textbf{\textit{dio 1. revizije}}\\
 
-		\textit{ Potrebno je opisati stil arhitekture te identificirati: podsustave, preslikavanje na radnu platformu, spremišta podataka, mrežne protokole, globalni upravljački tok i sklopovsko-programske zahtjeve. Po točkama razraditi i popratiti odgovarajućim skicama:}
+		%\textit{ Potrebno je opisati stil arhitekture te identificirati: podsustave, preslikavanje na radnu platformu, spremišta podataka, mrežne protokole, globalni upravljački tok i sklopovsko-programske zahtjeve. Po točkama razraditi i popratiti odgovarajućim skicama:}
 	\begin{itemize}
-		\item 	\textit{izbor arhitekture temeljem principa oblikovanja pokazanih na predavanjima (objasniti zašto ste baš odabrali takvu arhitekturu)}
-		\\Za razvoj frontend-a odabrali smo programski jezik TypeScript u kojem smo koristili React i React router biblioteku. To nam omogućuje razvoj stranice uz pomoć tzv. komponenti što čini kod čitljivije i dopušta lakše ponovno korištenje komponenti. Za izgled stranice koristili smo Bootstrap kako bi stranica imala moderan izgled. 
+		\item 	%\textit{izbor arhitekture temeljem principa oblikovanja pokazanih na predavanjima (objasniti zašto ste baš odabrali takvu arhitekturu)}
+		Aplikacija se sastoji od backend-a, frontend-a i baze podataka. \newline Backend je pozadinski dio aplikacije koji se izvršava na serveru. Za razvoj backend-a odabran je programski jezik Java i okvir Spring što čini backend prenosiv i jednostavan za korištenje. Sastoji se od rest kontrolera koji primaju HTTP zahtjeve i vraćaju JSON podatke, Service komponenti koje provjeravaju točnost upita i valjanost njihovih vrijednosti te konačno Repository komponenti koji omogućuju upisivanje u bazu i čitanje iste. \newline Frontend je grafičko sučelje koje omogućuje prijavu u aplikaciju, prikaz traženih podataka te lakše korištenje aplikacije. Za razvoj frontend-a odabran je programski jezik TypeScript u kojem je korišten React te React router biblioteka. Taj odabir omogućuje razvoj stranice uz pomoć tzv. komponenti što čini kod čitljivije i dopušta lakše ponovno korištenje. Za izgled stranice korišten je Bootstrap kako bi stranica imala moderan izgled. \newline Baza podataka pisana je u programskom jeziku SQL zbog njegove široke upotrebe i visoke kompatibilnosti.
+		\item	%\textit{organizaciju sustava s najviše razine apstrakcije (npr. klijent-poslužitelj, baza podataka, datotečni sustav, grafičko sučelje)}
+		Ulaskom na aplikaciju korisnik (administrator) je preusmjeren na stranicu za prijavu. Nakon unosa svog korisničkog imena i lozinke, podatci se provjeravaju, i ako su ispravni, administratora se preusmjerava na administratorsku stranicu. Ondje su prikazani različiti podaci ovisno o tome koji administrator pristupa stranici, na primjer smještajni administrator vidi samo podatke vezane uz smještaj. \newline Sustav dodatno komunicira sa vanjskim API-em kako bi dobio podatke koje mu trebaju te ih zatim sprema u bazu podataka iz koje ih dobavlja svaki sljedeći put. 
+		\item 
+		Frontend je organiziran u jednoj mapi (\textit{IzvorniKod/error404-fe/error404}) te dvije podmape, u mapi se nalaze paketi i dodaci potrebni za pokretanje frontend-a te podmape \textit{src} i \textit{public}. Unutar podmape \textit{src} nalazi se sam kod frontend dijela aplikacije te u mapama \textit{assets} i \textit{components} se redom nalaze \textit{namespace} u .svg obliku, te dodatne komponente koje omogućavaju rad frontend-a. \newline Backend je organiziran u jednoj mapi (\textit{IzvorniKod/error404-be}), te dvije podmape, \textit{src} i \textit{docker}. U mapi \textit{src/main} nalazi se sav kod za backend, on je podjeljen u dvije podmape. Unutar mape \textit{java/dentall} nalazi se kod koji je pisan u programskom jeziku Javi, on je podjeljen na više podmapa u kojima se nalaze dijelovi MVC arhitekture, u mapi \textit{dao} nalaze se Repository komponente koji služi dohvaćanju podataka iz baze, u mapi \textit{service} nalaze se Service komponenete, u mapi \textit{rest} nalaze se kontroleri, u mapi \textit{domain} nalaze se ostale klase koje sadrže objektne reprezentacije podataka iz baze. Unutar mape \textit{resources} nalazi se mapa baza podataka \textit{db} koja se sastoji od 2 podmape \textit{sql} i \textit{changelog}, gdje se redom nalaze sam SQL kod baze podataka te datoteke pisane u XML-u (\textit{eXtensive Markup Language}) koje služe boljem povezivanju baze podataka sa backend-om. U mapi \textit{docker} nalazi se \textit{Dockerfile} koji sadrži programski kod potreban za izgradnju (\textit{build}) same aplikacije.
 		
-		\item 	\textit{organizaciju sustava s najviše razine apstrakcije (npr. klijent-poslužitelj, baza podataka, datotečni sustav, grafičko sučelje)}
-		\\Ulaskom na stranicu korisnik (administrator) je preusmjeren na stranicu za prijavu. Nakon unosa svog korisničkog imena i lozinke, podatci se provjeravaju u bazi podataka, i ako su ispravni, administratora se  preusmjerava na glavnu stranicu. Na glavnoj stranici su prikazani
-		različiti "prozori" ovisno o tome koja vrsta administratora pristupa stranici.
-		\item 	\textit{organizaciju aplikacije (npr. slojevi frontend i backend, MVC arhitektura) }		
+		
 	\end{itemize}
-
-	
-
-		
-
-				
 		\section{Baza podataka}
 			
-			\textbf{\textit{dio 1. revizije}}\\
+			%\textbf{\textit{dio 1. revizije}}\\
 			
-		\textit{Potrebno je opisati koju vrstu i implementaciju baze podataka ste odabrali, glavne komponente od kojih se sastoji i slično.}\\
+		%\textit{Potrebno je opisati koju vrstu i implementaciju baze podataka ste odabrali, glavne komponente od kojih se sastoji i slično.}\\
 		
-		{Baza podataka modelirana je tabličnim modelom u "Structured Query Language" (SQL) jeziku. Ona sadrži podatke potrebne za rad cijelog sustava, poput podatke o administratorima, korisnicima, kao i podatke o vozilima koji su na raspolaganju te koji ih vozači voze, zajedno s adresama svih lokacija i vlasništva dostupnog smještaja.}
+		{Baza podataka modelirana je tabličnim modelom u "\textit{Structured Query Language}" (SQL) jeziku. Ona se sastoji od osam entiteta. Entiteti baze podataka su tablice u kojima su zadržani podaci potrebni za rad cijelog sustava. Tablice su redom \textbf{Korisnik}, \textbf{Smještaj}, \textbf{Adresa}, \textbf{Vozilo}, \textbf{Vozač}, \textbf{Admin}, \textbf{AdminUloga} i \textbf{Uloge}. Unutar baze je moguće dodavati (\textit{insert}), mijenjati (\textit{update}) i brisati (\textit{delete}) podatke koje ona sadrži, također je moguće izvršavati \textit{select} i agregatne upite koji će prikazivati traženi sadržaj koji se nalazi unutar baze podataka.}
 		
 			\subsection{Opis tablica}
 			
@@ -167,7 +162,7 @@
 					\end{longtblr}
 
 			\subsection{Dijagram baze podataka}
-				\textit{ U ovom potpoglavlju potrebno je umetnuti dijagram baze podataka. Primarni i strani ključevi moraju biti označeni, a tablice povezane. Bazu podataka je potrebno normalizirati. Podsjetite se kolegija "Baze podataka".}
+				%\textit{ U ovom potpoglavlju potrebno je umetnuti dijagram baze podataka. Primarni i strani ključevi moraju biti označeni, a tablice povezane. Bazu podataka je potrebno normalizirati. Podsjetite se kolegija "Baze podataka".}
 			
 			
 			\begin{figure}[H]
@@ -225,31 +220,57 @@
 			\end{figure}
 			
 			{Modeli predstavljaju strukturu baze podataka u našoj aplikaciji. Tako imamo klase: \textit{Admin, MedUser, Accomomodation, Driver, Vehicle} itd. sa svojim privatnim atributima te javnim metodama. Tako na primjer \textit{Admin} ima svoj ID, nadimak, ime te pripadajuće uloge, koje mogu biti smještajni administrator(ima najveće ovlasti), korisnički administrator te prijevozni administrator, što je sadržano u \textit{AdminRole}. \textit{Accommodation} sadrži sve podatke vezane uz smještaj te vrstu smještaja, što je sadržano u \textit{AccommodationType} i adresu smještaja (zasebna klasa \textit{Address}), a \textit{Driver} sve potrebno za definiranje usluge prijevoza, odnosno osobni podaci vozača te vrstu vozila koju koristi, što možemo vidjeti unutar \textit{Vehicle} klase. \textit{MedUser} sadrži sve potrebno za definiranje korisnika medicinskih usluga, njihove osobne podatke, vrijeme dolaska i odlaska, preferencije vezane uz smještaj i slično. }\\
-			
-			
-			
+		
 			
 			\eject
 		
 		\section{Dijagram stanja}
 			
+			{Na slici 4.7 prikazan je dijagram stanja. Prvo na što admin naiđe je prijava, te nakon toga mu se prikaže web stranica za admina. Na toj stranici može odabrati opciju pregleda svih unesenih podataka te izbrisati ili promijeniti iste. Ako je admin prijavljen kao korisnički admin onda on odabirom opcije za 
+			dodavanje novog korisnika može dodati novog korisnika. Dok ako je admin prijavljen kao admin prijevoza, može dodavati nove prijevoznike. Smještajni admin može odabirom opcije za dodavanje novog administratora, dodati novog administratora, ali isto tako odabirom opcije za dodavanje novog smještaja, može dodati novi smještaj.  }
 			
-			\textbf{\textit{dio 2. revizije}}\\
+			\begin{figure}[H]
+				\includegraphics[width=\linewidth]{slike/Dijagram stanja.JPG}
+				\centering
+				\caption{Dijagram stanja}
+				\label{fig:Dijagram stanja}
+			\end{figure}
+
+			%\textbf{\textit{dio 2. revizije}}\\
 			
-			\textit{Potrebno je priložiti dijagram stanja i opisati ga. Dovoljan je jedan dijagram stanja koji prikazuje \textbf{značajan dio funkcionalnosti} sustava. Na primjer, stanja korisničkog sučelja i tijek korištenja neke ključne funkcionalnosti jesu značajan dio sustava, a registracija i prijava nisu. }
+			%\textit{Potrebno je priložiti dijagram stanja i opisati ga. Dovoljan je jedan dijagram stanja koji prikazuje \textbf{značajan dio funkcionalnosti} sustava. Na primjer, stanja korisničkog sučelja i tijek korištenja neke ključne funkcionalnosti jesu značajan dio sustava, a registracija i prijava nisu. }
 			
 			
 			\eject 
 		
 		\section{Dijagram aktivnosti}
+
+		{Na slici 4.8 prikaza je dijagram aktivnosti. Sve počinje prijavom. Uneseno korisničko ime i lozinka se provjeravaju s bazom podataka. Ako je neispravna prijava, admin se vrača na obrazac za unos podataka za prijavu, dok ako je prijava uspješna, pojavljuje se prikaz vrsta admina.
+		Ako je prijavljen korisnički admin, on može dodavati nove korisnike. Adim prijevoza može dodavati nove prijevoznike. Dok smještajni admin može dodavati novi smještaj te dodavati nove admine.}
 			
-			\textbf{\textit{dio 2. revizije}}\\
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{slike/Dijagram aktivnsti.JPG}
+			\centering
+			\caption{Dijagram aktivnosti}
+			\label{fig:Dijagram aktivnosti}
+		\end{figure}
+
+
+			%\textbf{\textit{dio 2. revizije}}\\
 			
-			 \textit{Potrebno je priložiti dijagram aktivnosti s pripadajućim opisom. Dijagram aktivnosti treba prikazivati značajan dio sustava.}
+			 %\textit{Potrebno je priložiti dijagram aktivnosti s pripadajućim opisom. Dijagram aktivnosti treba prikazivati značajan dio sustava.}
 			
 			\eject
 		\section{Dijagram komponenti}
+
+		{Na slici 4.9 prikazan je dijagram komponenti koji pokazuje međuovisnosti između frontenda, backenda i baze podataka. Frontend ima poseban server za HTML, CSS i JS datoteke koje služe za strukturu i dizajn web stranice. REST API komponenti pristupa se preko sučelja za dohvat JSON podataka te poslužuje podatke backendu. 
+		Cijeli backend je napravljen na Springu te backend komunicira s bazom podataka slanjem SQL upita.}
 		
-			\textbf{\textit{dio 2. revizije}}\\
+			\begin{figure}[H]
+				\includegraphics[width=\linewidth]{slike/dijagram komponenti.JPG}
+				\centering
+				\caption{Dijagram komponenti}
+				\label{fig:Dijagram komponenti}
+			\end{figure}			%\textbf{\textit{dio 2. revizije}}\\
 		
-			 \textit{Potrebno je priložiti dijagram komponenti s pripadajućim opisom. Dijagram komponenti treba prikazivati strukturu cijele aplikacije.}
+			 %\textit{Potrebno je priložiti dijagram komponenti s pripadajućim opisom. Dijagram komponenti treba prikazivati strukturu cijele aplikacije.}
