@@ -5,6 +5,7 @@ import dentall.rest.dto.CreateDriverDTO;
 import dentall.rest.dto.CreateDriverWithVehicleDTO;
 import dentall.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,6 +47,7 @@ public class DriverController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void deleteDriver(@PathVariable("id") Long id){
         driverService.deleteDriver(id);
     }

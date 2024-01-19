@@ -4,6 +4,7 @@ import dentall.domain.MedUser;
 import dentall.rest.dto.CreateMedUserDTO;
 import dentall.service.MedUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +40,7 @@ public class MedUserController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void deleteMedUser(@PathVariable("id") Long id){
         medUserService.deleteMedUser(id);
     }

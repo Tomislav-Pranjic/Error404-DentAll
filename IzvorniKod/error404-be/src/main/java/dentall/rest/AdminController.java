@@ -6,6 +6,7 @@ import dentall.rest.dto.CreateAdminDTO;
 import dentall.service.AdminRoleService;
 import dentall.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -55,7 +56,9 @@ public class AdminController {
         );
     }
 
+
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void deleteAdmin(@PathVariable("id") Long id){
         adminService.deleteAdmin(id);
     }
