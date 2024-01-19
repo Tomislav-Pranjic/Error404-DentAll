@@ -143,6 +143,13 @@ public class MedUserServiceJpa implements MedUserService {
         return medUserRepository.saveAndFlush(medUser);
     }
 
+    @Override
+    public void deleteMedUser(Long id) {
+        MedUser medUser = medUserRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Med user with id '" + id + "' does not exist."));
+
+        medUserRepository.delete(medUser);
+    }
+
     private boolean emailIsFree(String email){
         return medUserRepository.findMedUserByEmail(email).isEmpty();
     }

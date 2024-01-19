@@ -20,4 +20,6 @@ public interface DriverService {
     Driver updateDriver(Long id, CreateDriverDTO dto);
 
     Driver createDriver(CreateDriverWithVehicleDTO driver);
+
+    void deleteDriver(Long id);
 }

@@ -205,6 +205,13 @@ public class DriverServiceJpa implements DriverService {
         return createDriver(driver.getFirstName(), driver.getLastName(), driver.getEmail(), driver.getPhoneNumber(), vehicle.getRegistration(), driver.getWorkStartTime(), driver.getWorkingDays());
     }
 
+    @Override
+    public void deleteDriver(Long id) {
+        Driver driver = driverRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Driver with id '" + id + "' does not exist."));
+
+        driverRepository.delete(driver);
+    }
+
     private boolean driverCanBeCreated(String name, String surname, String email, String phoneNumber) {
         Optional<Driver> driver = driverRepository.findDriverByNameAndSurnameAndPhoneNumber(name, surname, phoneNumber);
 

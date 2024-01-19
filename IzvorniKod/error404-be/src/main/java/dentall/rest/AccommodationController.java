@@ -64,6 +64,11 @@ public class AccommodationController {
         );
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteAccommodation(@PathVariable Long id){
+        accommodationService.deleteAccommodation(id);
+    }
+
     @GetMapping("/type")
     public List<AccommodationType> listAccommodationTypes() {
         return accommodationTypeService.listAll();

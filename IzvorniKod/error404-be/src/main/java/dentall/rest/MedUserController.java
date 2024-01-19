@@ -38,4 +38,9 @@ public class MedUserController {
         return medUserService.updateMedUser(id, dto);
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteMedUser(@PathVariable("id") Long id){
+        medUserService.deleteMedUser(id);
+    }
+
 }

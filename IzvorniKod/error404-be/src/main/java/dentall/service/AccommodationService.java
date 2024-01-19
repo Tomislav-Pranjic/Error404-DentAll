@@ -18,4 +18,6 @@ public interface AccommodationService {
     Accommodation updateAccommodation(Long id, Long typeId, Integer stars, Long addressId, String owner, String availableUntil, Integer noOfBeds);
 
     Accommodation getAccommodationForUserBetweenDates(MedUser user, Date arrivalDate, Date departureDate);
+
+    void deleteAccommodation(Long id);
 }

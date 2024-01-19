@@ -170,6 +170,13 @@ public class AccommodationServiceJpa implements AccommodationService {
         return freeAccommodation;
     }
 
+    @Override
+    public void deleteAccommodation(Long id) {
+        Accommodation accommodation = accommodationRepo.findById(id).orElseThrow(() -> new ItemNotFoundException("Accommodation with id '" + id + "' does not exist."));
+
+        accommodationRepo.delete(accommodation);
+    }
+
     private Accommodation checkForFreeAccommodation(Date arrivalDate, Date departureDate, List<Accommodation> accommodationList) {
         for(Accommodation accommodation : accommodationList) {
             if (accommodation.getAvailableUntil() != null) {

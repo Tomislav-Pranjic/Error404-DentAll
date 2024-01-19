@@ -20,4 +20,6 @@ public interface MedUserService {
     MedUser createMedUser(MedUser medUser);
 
     MedUser updateMedUser(Long id, CreateMedUserDTO dto);
+
+    void deleteMedUser(Long id);
 }

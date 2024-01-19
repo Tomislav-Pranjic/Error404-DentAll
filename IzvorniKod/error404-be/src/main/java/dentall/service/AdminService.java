@@ -28,4 +28,6 @@ public interface AdminService {
     Optional<Admin> findById(Long id);
 
     Admin updateAdmin(Long id, String userName, String password, Set<Long> roleIds);
+
+    void deleteAdmin(Long id);
 }

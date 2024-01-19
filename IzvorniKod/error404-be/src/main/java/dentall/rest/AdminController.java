@@ -55,6 +55,11 @@ public class AdminController {
         );
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteAdmin(@PathVariable("id") Long id){
+        adminService.deleteAdmin(id);
+    }
+
     @GetMapping("/roles")
     public List<AdminRole> listRoles(){
         return roleService.listAll();

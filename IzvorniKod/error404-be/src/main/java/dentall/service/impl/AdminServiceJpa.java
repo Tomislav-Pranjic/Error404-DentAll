@@ -122,4 +122,11 @@ public class AdminServiceJpa implements AdminService {
 
         return adminRepo.save(admin);
     }
+
+    @Override
+    public void deleteAdmin(Long id) {
+        Admin admin = adminRepo.findById(id).orElseThrow(() -> new ItemNotFoundException("Admin with id '" + id + "' does not exist."));
+
+        adminRepo.delete(admin);
+    }
 }
